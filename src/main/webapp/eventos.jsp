@@ -1950,9 +1950,6 @@
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             API Bucaramanga Conectada
                         </span>
-                        <a href="${pageContext.request.contextPath}/api/eventos/bucaramanga" target="_blank" class="btn-view-api" title="Consultar el endpoint REST institucional">
-                            <span>Ver API JSON ↗</span>
-                        </a>
                     </div>
                 </div>
 
