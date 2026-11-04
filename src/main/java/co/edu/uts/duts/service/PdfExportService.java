@@ -95,7 +95,8 @@ public class PdfExportService {
         pNum.setAlignment(Element.ALIGN_CENTER);
         cFac.addElement(pNum);
 
-        Paragraph pFecha = new Paragraph("Fecha: " + sdf.format(m.getFechaHora()), new Font(Font.FontFamily.HELVETICA, 8, Font.NORMAL, COLOR_TEXTO_MUTED));
+        String strFecha = (m.getFechaHora() != null) ? sdf.format(m.getFechaHora()) : "Sin registrar";
+        Paragraph pFecha = new Paragraph("Fecha: " + strFecha, new Font(Font.FontFamily.HELVETICA, 8, Font.NORMAL, COLOR_TEXTO_MUTED));
         pFecha.setAlignment(Element.ALIGN_CENTER);
         cFac.addElement(pFecha);
 
@@ -327,7 +328,8 @@ public class PdfExportService {
             r3.setBorderColor(COLOR_BORDE);
             tMov.addCell(r3);
 
-            PdfPCell r4 = new PdfPCell(new Phrase(sdf.format(m.getFechaHora()), new Font(Font.FontFamily.HELVETICA, 7.5f, Font.NORMAL, COLOR_TEXTO_MUTED)));
+            String fechaMovStr = (m.getFechaHora() != null) ? sdf.format(m.getFechaHora()) : "Sin registrar";
+            PdfPCell r4 = new PdfPCell(new Phrase(fechaMovStr, new Font(Font.FontFamily.HELVETICA, 7.5f, Font.NORMAL, COLOR_TEXTO_MUTED)));
             r4.setBackgroundColor(fondoFila);
             r4.setPadding(6);
             r4.setBorderColor(COLOR_BORDE);

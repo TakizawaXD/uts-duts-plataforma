@@ -1,16 +1,18 @@
 package co.edu.uts.duts.dao;
 
+import co.edu.uts.duts.model.MetricasDuts;
 import co.edu.uts.duts.model.Movimiento;
 import co.edu.uts.duts.util.DatabaseConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MovimientoDAO {
+
+    private static final Logger log = LoggerFactory.getLogger(MovimientoDAO.class);
 
     public List<Movimiento> listarPorUsuario(int usuarioId, int limite) {
         List<Movimiento> lista = new ArrayList<>();
@@ -26,19 +28,11 @@ public class MovimientoDAO {
             ps.setInt(1, usuarioId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Movimiento m = new Movimiento();
-                    m.setId(rs.getInt("id"));
-                    m.setCuentaId(rs.getInt("cuenta_id"));
-                    m.setTipo(rs.getString("tipo"));
-                    m.setMonto(rs.getDouble("monto"));
-                    m.setDescripcion(rs.getString("descripcion"));
-                    m.setReferencia(rs.getString("referencia"));
-                    m.setFechaHora(rs.getTimestamp("fecha_hora"));
-                    lista.add(m);
+                    lista.add(mapearMovimiento(rs));
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Error al listar movimientos para usuario {}: {}", usuarioId, e.getMessage(), e);
         }
         return lista;
     }
@@ -53,19 +47,11 @@ public class MovimientoDAO {
             ps.setInt(2, usuarioId);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    Movimiento m = new Movimiento();
-                    m.setId(rs.getInt("id"));
-                    m.setCuentaId(rs.getInt("cuenta_id"));
-                    m.setTipo(rs.getString("tipo"));
-                    m.setMonto(rs.getDouble("monto"));
-                    m.setDescripcion(rs.getString("descripcion"));
-                    m.setReferencia(rs.getString("referencia"));
-                    m.setFechaHora(rs.getTimestamp("fecha_hora"));
-                    return m;
+                    return mapearMovimiento(rs);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Error al obtener movimiento {} para usuario {}: {}", movimientoId, usuarioId, e.getMessage(), e);
         }
         return null;
     }
@@ -99,19 +85,11 @@ public class MovimientoDAO {
             }
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Movimiento m = new Movimiento();
-                    m.setId(rs.getInt("id"));
-                    m.setCuentaId(rs.getInt("cuenta_id"));
-                    m.setTipo(rs.getString("tipo"));
-                    m.setMonto(rs.getDouble("monto"));
-                    m.setDescripcion(rs.getString("descripcion"));
-                    m.setReferencia(rs.getString("referencia"));
-                    m.setFechaHora(rs.getTimestamp("fecha_hora"));
-                    lista.add(m);
+                    lista.add(mapearMovimiento(rs));
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Error al filtrar movimientos para usuario {}: {}", usuarioId, e.getMessage(), e);
         }
         return lista;
     }
@@ -120,7 +98,7 @@ public class MovimientoDAO {
      * Calcula los totales y promedios por semana, mes, semestre y año
      * según el requerimiento 2.3 del profesor.
      */
-    public co.edu.uts.duts.model.MetricasDuts obtenerMetricasDuts(int usuarioId, double saldo, int semestre) {
+    public MetricasDuts obtenerMetricasDuts(int usuarioId, double saldo, int semestre) {
         String sql = "SELECT " +
                      "COALESCE(SUM(CASE WHEN m.tipo = 'INGRESO' THEN m.monto ELSE 0 END), 0) AS total_ingresos, " +
                      "COALESCE(SUM(CASE WHEN m.tipo = 'EGRESO' THEN m.monto ELSE 0 END), 0) AS total_egresos " +
@@ -141,9 +119,30 @@ public class MovimientoDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Error al calcular métricas DUTS para usuario {}: {}", usuarioId, e.getMessage(), e);
         }
 
-        return co.edu.uts.duts.model.MetricasDuts.calcular(saldo, totalIngresos, totalEgresos, semestre);
+        return MetricasDuts.calcular(saldo, totalIngresos, totalEgresos, semestre);
+    }
+
+    private Movimiento mapearMovimiento(ResultSet rs) throws SQLException {
+        Movimiento m = new Movimiento();
+        m.setId(rs.getInt("id"));
+        m.setCuentaId(rs.getInt("cuenta_id"));
+        m.setTipo(rs.getString("tipo"));
+        m.setMonto(rs.getDouble("monto"));
+        m.setDescripcion(rs.getString("descripcion"));
+        m.setReferencia(rs.getString("referencia"));
+        
+        Timestamp fh = null;
+        try {
+            fh = rs.getTimestamp("fecha_hora");
+        } catch (SQLException e) {
+            try {
+                fh = rs.getTimestamp("creado_en");
+            } catch (SQLException ignored) {}
+        }
+        m.setFechaHora(fh);
+        return m;
     }
 }

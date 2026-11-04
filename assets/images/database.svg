@@ -116,7 +116,7 @@
       <text x="0" y="194" class="col-name">foto_perfil</text>
       <text x="252" y="194" class="col-type">VARCHAR(255)</text>
 
-      <text x="0" y="214" class="col-name">creado_en</text>
+      <text x="0" y="214" class="col-name">fecha_registro</text>
       <text x="252" y="214" class="col-type">TIMESTAMP</text>
     </g>
   </g>
@@ -175,7 +175,7 @@
       <text x="0" y="134" class="col-name">referencia</text>
       <text x="252" y="134" class="col-type">VARCHAR(50) UQ</text>
 
-      <text x="0" y="158" class="col-name">creado_en</text>
+      <text x="0" y="158" class="col-name">fecha_hora</text>
       <text x="252" y="158" class="col-type">TIMESTAMP</text>
     </g>
   </g>
@@ -267,13 +267,10 @@
       <text x="222" y="62" class="col-type">INT</text>
 
       <text x="0" y="86" class="col-name">estado</text>
-      <text x="222" y="86" class="col-type">VARCHAR(20)</text>
+      <text x="222" y="86" class="col-type">ENUM</text>
 
-      <text x="0" y="110" class="col-name">reclamado</text>
-      <text x="222" y="110" class="col-type">TINYINT(1)</text>
-
-      <text x="0" y="134" class="col-name">fecha_inscripcion</text>
-      <text x="222" y="134" class="col-type">TIMESTAMP</text>
+      <text x="0" y="110" class="col-name">fecha_inscripcion</text>
+      <text x="222" y="110" class="col-type">TIMESTAMP</text>
     </g>
   </g>
 </svg>

@@ -2,12 +2,16 @@ package co.edu.uts.duts.dao;
 
 import co.edu.uts.duts.model.Evento;
 import co.edu.uts.duts.util.DatabaseConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EventoDAO {
+
+    private static final Logger log = LoggerFactory.getLogger(EventoDAO.class);
 
     // Listar eventos activos con el estado de inscripción del usuario
     public List<Evento> listarActivos(int usuarioId) {
@@ -30,7 +34,7 @@ public class EventoDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Error al listar eventos activos para usuario {}: {}", usuarioId, e.getMessage(), e);
         }
         return lista;
     }
@@ -48,7 +52,7 @@ public class EventoDAO {
                 lista.add(mapearEvento(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Error al listar todos los eventos: {}", e.getMessage(), e);
         }
         return lista;
     }
@@ -66,7 +70,7 @@ public class EventoDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Error al obtener evento por ID {}: {}", id, e.getMessage(), e);
         }
         return null;
     }
@@ -92,7 +96,7 @@ public class EventoDAO {
             
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Error al crear evento '{}': {}", ev.getNombre(), e.getMessage(), e);
         }
         return false;
     }
@@ -119,7 +123,7 @@ public class EventoDAO {
             
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Error al actualizar evento ID {}: {}", ev.getId(), e.getMessage(), e);
         }
         return false;
     }
@@ -150,12 +154,12 @@ public class EventoDAO {
             con.rollback();
         } catch (SQLException e) {
             if (con != null) {
-                try { con.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+                try { con.rollback(); } catch (SQLException ex) { log.error("Error en rollback: {}", ex.getMessage()); }
             }
-            e.printStackTrace();
+            log.error("Error al eliminar evento ID {}: {}", id, e.getMessage(), e);
         } finally {
             if (con != null) {
-                try { con.setAutoCommit(true); con.close(); } catch (SQLException e) { e.printStackTrace(); }
+                try { con.setAutoCommit(true); con.close(); } catch (SQLException e) { log.error("Error al cerrar conexión: {}", e.getMessage()); }
             }
         }
         return false;
@@ -163,6 +167,8 @@ public class EventoDAO {
 
     // Inscribir usuario al evento (acredita 500 DUTS de bono si es su primera inscripción)
     public boolean inscribirUsuario(int usuarioId, int eventoId) {
+        String sqlCheckCupos = "SELECT cupos, (SELECT COUNT(*) FROM inscripciones_eventos WHERE evento_id = e.id) as inscritos " +
+                               "FROM eventos e WHERE e.id = ? AND e.estado = 'ACTIVO'";
         String sqlCheckPrimera = "SELECT COUNT(*) FROM inscripciones_eventos WHERE usuario_id = ?";
         String sqlInsert = "INSERT INTO inscripciones_eventos (usuario_id, evento_id, estado) VALUES (?, ?, 'INSCRITO')";
         String sqlCuenta = "SELECT id FROM cuentas WHERE usuario_id = ?";
@@ -174,6 +180,26 @@ public class EventoDAO {
             con = DatabaseConnection.getConnection();
             con.setAutoCommit(false);
 
+            // 1. Validar cupos y estado del evento
+            try (PreparedStatement psCupos = con.prepareStatement(sqlCheckCupos)) {
+                psCupos.setInt(1, eventoId);
+                try (ResultSet rs = psCupos.executeQuery()) {
+                    if (rs.next()) {
+                        int cupos = rs.getInt("cupos");
+                        int inscritos = rs.getInt("inscritos");
+                        if (inscritos >= cupos) {
+                            log.warn("Evento {} agotado: cupos {} alcanzados.", eventoId, cupos);
+                            con.rollback();
+                            return false;
+                        }
+                    } else {
+                        con.rollback();
+                        return false;
+                    }
+                }
+            }
+
+            // 2. Verificar si es primera inscripción
             boolean esPrimeraInscripcion = false;
             try (PreparedStatement psCheck = con.prepareStatement(sqlCheckPrimera)) {
                 psCheck.setInt(1, usuarioId);
@@ -184,12 +210,14 @@ public class EventoDAO {
                 }
             }
 
+            // 3. Registrar inscripción
             try (PreparedStatement ps = con.prepareStatement(sqlInsert)) {
                 ps.setInt(1, usuarioId);
                 ps.setInt(2, eventoId);
                 ps.executeUpdate();
             }
 
+            // 4. Bono si es primera vez
             if (esPrimeraInscripcion) {
                 int cuentaId = -1;
                 try (PreparedStatement psC = con.prepareStatement(sqlCuenta)) {
@@ -212,16 +240,17 @@ public class EventoDAO {
             }
 
             con.commit();
+            log.info("INSCRIPCIÓN EXITOSA: Usuario {} en Evento {}", usuarioId, eventoId);
             return true;
         } catch (SQLException e) {
             if (con != null) {
-                try { con.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+                try { con.rollback(); } catch (SQLException ex) { log.error("Error en rollback: {}", ex.getMessage()); }
             }
-            e.printStackTrace();
+            log.error("Error al inscribir usuario {} en evento {}: {}", usuarioId, eventoId, e.getMessage(), e);
             return false;
         } finally {
             if (con != null) {
-                try { con.setAutoCommit(true); con.close(); } catch (SQLException e) { e.printStackTrace(); }
+                try { con.setAutoCommit(true); con.close(); } catch (SQLException e) { log.error("Error al cerrar conexión: {}", e.getMessage()); }
             }
         }
     }
@@ -236,12 +265,12 @@ public class EventoDAO {
             ps.setInt(2, eventoId);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Error al cancelar inscripción de usuario {} en evento {}: {}", usuarioId, eventoId, e.getMessage(), e);
         }
         return false;
     }
 
-    // Reclamar recompensa de un evento (simulación para acreditar DUTS)
+    // Reclamar recompensa de un evento: operación atómica con validación estricta anti-doble reclamo
     public boolean reclamarRecompensa(int usuarioId, int eventoId) {
         Evento ev = obtenerPorId(eventoId);
         if (ev == null) return false;
@@ -251,9 +280,24 @@ public class EventoDAO {
             con = DatabaseConnection.getConnection();
             con.setAutoCommit(false);
 
-            // 1. Obtener id de cuenta del usuario
+            // 1. Validar y actualizar inscripción atómicamente a RECOMPENSADO
+            // Si el usuario no estaba inscrito o ya reclamó, esta consulta actualiza 0 filas
+            String sqlInsc = "UPDATE inscripciones_eventos SET estado = 'RECOMPENSADO' " +
+                             "WHERE usuario_id = ? AND evento_id = ? AND estado != 'RECOMPENSADO'";
+            try (PreparedStatement psInsc = con.prepareStatement(sqlInsc)) {
+                psInsc.setInt(1, usuarioId);
+                psInsc.setInt(2, eventoId);
+                int filas = psInsc.executeUpdate();
+                if (filas == 0) {
+                    con.rollback();
+                    log.warn("Reclamo rechazado: Usuario {} no inscrito o recompensa ya reclamada para evento {}", usuarioId, eventoId);
+                    return false;
+                }
+            }
+
+            // 2. Obtener id de cuenta del usuario con bloqueo
             int cuentaId = -1;
-            String sqlCuenta = "SELECT id FROM cuentas WHERE usuario_id = ?";
+            String sqlCuenta = "SELECT id FROM cuentas WHERE usuario_id = ? FOR UPDATE";
             try (PreparedStatement ps = con.prepareStatement(sqlCuenta)) {
                 ps.setInt(1, usuarioId);
                 try (ResultSet rs = ps.executeQuery()) {
@@ -267,7 +311,7 @@ public class EventoDAO {
                 return false;
             }
 
-            // 2. Incrementar saldo en cuenta
+            // 3. Incrementar saldo en cuenta
             String sqlUpdateSaldo = "UPDATE cuentas SET saldo = saldo + ? WHERE id = ?";
             try (PreparedStatement ps = con.prepareStatement(sqlUpdateSaldo)) {
                 ps.setDouble(1, ev.getRecompensaDuts());
@@ -275,7 +319,7 @@ public class EventoDAO {
                 ps.executeUpdate();
             }
 
-            // 3. Registrar movimiento de INGRESO
+            // 4. Registrar movimiento de INGRESO
             String sqlMov = "INSERT INTO movimientos_duts (cuenta_id, tipo, monto, descripcion, referencia) " +
                             "VALUES (?, 'INGRESO', ?, ?, ?)";
             try (PreparedStatement ps = con.prepareStatement(sqlMov)) {
@@ -286,25 +330,18 @@ public class EventoDAO {
                 ps.executeUpdate();
             }
 
-            // 4. Actualizar estado de inscripción a RECOMPENSADO
-            String sqlInsc = "UPDATE inscripciones_eventos SET estado = 'RECOMPENSADO' WHERE usuario_id = ? AND evento_id = ?";
-            try (PreparedStatement ps = con.prepareStatement(sqlInsc)) {
-                ps.setInt(1, usuarioId);
-                ps.setInt(2, eventoId);
-                ps.executeUpdate();
-            }
-
             con.commit();
+            log.info("RECOMPENSA ACREDITADA: {} DUTS para usuario {} por evento {}", ev.getRecompensaDuts(), usuarioId, eventoId);
             return true;
         } catch (SQLException e) {
             if (con != null) {
-                try { con.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+                try { con.rollback(); } catch (SQLException ex) { log.error("Error en rollback: {}", ex.getMessage()); }
             }
-            e.printStackTrace();
+            log.error("Error al reclamar recompensa de evento {} para usuario {}: {}", eventoId, usuarioId, e.getMessage(), e);
             return false;
         } finally {
             if (con != null) {
-                try { con.setAutoCommit(true); con.close(); } catch (SQLException e) { e.printStackTrace(); }
+                try { con.setAutoCommit(true); con.close(); } catch (SQLException e) { log.error("Error al cerrar conexión: {}", e.getMessage()); }
             }
         }
     }

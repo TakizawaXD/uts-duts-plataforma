@@ -26,7 +26,7 @@ CREATE TABLE usuarios (
     semestre INT DEFAULT 1,
     rol_id INT NOT NULL DEFAULT 1 COMMENT '1: Estudiante, 2: Administrador',
     foto_perfil VARCHAR(255) DEFAULT 'default-avatar.svg',
-    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
 -- 2. TABLA: cuentas (Relación 1 a 1 con usuarios)
@@ -46,7 +46,7 @@ CREATE TABLE movimientos_duts (
     monto DECIMAL(10,2) NOT NULL,
     descripcion VARCHAR(255) NOT NULL,
     referencia VARCHAR(100) NOT NULL UNIQUE,
-    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_movimientos_cuenta FOREIGN KEY (cuenta_id) REFERENCES cuentas(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
@@ -86,8 +86,7 @@ CREATE TABLE inscripciones_eventos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
     evento_id INT NOT NULL,
-    estado VARCHAR(20) NOT NULL DEFAULT 'INSCRITO',
-    reclamado TINYINT(1) NOT NULL DEFAULT 0,
+    estado ENUM('INSCRITO', 'ASISTIO', 'RECOMPENSADO', 'CANCELADO') NOT NULL DEFAULT 'INSCRITO',
     fecha_inscripcion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_inscrip_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
     CONSTRAINT fk_inscrip_evento FOREIGN KEY (evento_id) REFERENCES eventos(id) ON DELETE CASCADE,
@@ -98,10 +97,10 @@ CREATE TABLE inscripciones_eventos (
 -- ÍNDICES ESTRATÉGICOS DE RENDIMIENTO PARA PRODUCCIÓN
 -- Optimizan las consultas más frecuentes de balance, historial y filtros
 -- ==========================================================
-CREATE INDEX idx_movimientos_cuenta_fecha ON movimientos_duts(cuenta_id, creado_en DESC);
+CREATE INDEX idx_movimientos_cuenta_fecha ON movimientos_duts(cuenta_id, fecha_hora DESC);
 CREATE INDEX idx_eventos_estado_fecha ON eventos(estado, fecha ASC);
 CREATE INDEX idx_eventos_categoria ON eventos(categoria);
-CREATE INDEX idx_inscripciones_user_reclamado ON inscripciones_eventos(usuario_id, reclamado);
+CREATE INDEX idx_inscripciones_user_estado ON inscripciones_eventos(usuario_id, estado);
 CREATE INDEX idx_transferencias_fecha ON transferencias(fecha DESC);
 
 -- ==========================================================
@@ -123,7 +122,7 @@ INSERT INTO cuentas (id, usuario_id, saldo) VALUES
 (3, 3, 4200.00);
 
 -- Movimientos iniciales para libro mayor y extractos
-INSERT INTO movimientos_duts (id, cuenta_id, tipo, monto, descripcion, referencia, creado_en) VALUES
+INSERT INTO movimientos_duts (id, cuenta_id, tipo, monto, descripcion, referencia, fecha_hora) VALUES
 (1, 1, 'INGRESO', 100000.00, 'Fondo Institucional de Méritos DUTS UTS', 'INIT-FND-001', NOW() - INTERVAL 10 DAY),
 (2, 2, 'INGRESO', 500.00, 'Bono de Bienvenida por Primera Inscripción DUTS', 'BONO-BIENVENIDA-1098765432', NOW() - INTERVAL 8 DAY),
 (3, 2, 'INGRESO', 4000.00, 'Recompensa por Participación en Congreso de Robótica', 'REC-EVT-001-9871', NOW() - INTERVAL 5 DAY),
@@ -140,5 +139,5 @@ INSERT INTO eventos (id, nombre, descripcion, fecha, hora_inicio, hora_fin, luga
 (5, 'Conferencia Red Santander: Ciberseguridad Bancaria', 'Encuentro con especialistas de la banca nacional y el nodo universitario ASCUN Santander sobre prevención de fraudes.', '2026-12-05 15:00:00', '03:00 PM', '07:00 PM', 'Auditorio Luis A. Calvo (UIS) / Streaming UTS', 'Ciudad Universitaria UIS Carrera 27 Calle 9, Bucaramanga', 'UIS (uis.edu.co)', 'CONFERENCIA', 2000.0, 300, 'Híbrida', 'Conexión a través del portal institucional o asistencia con carné.', 'assets/images/evento_conferencia.jpg', 'ACTIVO');
 
 -- Inscripción de prueba
-INSERT INTO inscripciones_eventos (usuario_id, evento_id, estado, reclamado) VALUES
-(2, 1, 'INSCRITO', 0);
+INSERT INTO inscripciones_eventos (usuario_id, evento_id, estado) VALUES
+(2, 1, 'INSCRITO');

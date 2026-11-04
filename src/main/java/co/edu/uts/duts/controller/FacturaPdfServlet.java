@@ -32,15 +32,14 @@ public class FacturaPdfServlet extends BaseServlet {
         }
 
         Usuario u = getUsuarioSesion(req);
-        String idStr = req.getParameter("id");
         String logoPath = getServletContext().getRealPath("/assets/images/logouts.png");
 
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
             // Factura individual de un movimiento específico
-            if (idStr != null && !idStr.trim().isEmpty()) {
-                int movId = Integer.parseInt(idStr.trim());
+            int movId = getParamInt(req, "id", -1);
+            if (movId > 0) {
                 Movimiento m = movimientoDAO.obtenerPorIdYUsuario(movId, u.getId());
                 if (m != null) {
                     pdfExportService.exportarFacturaIndividual(baos, u, m, logoPath);

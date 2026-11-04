@@ -1,6 +1,8 @@
 package co.edu.uts.duts.dao;
 
 import co.edu.uts.duts.util.DatabaseConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,9 +12,11 @@ import java.util.Map;
 
 public class TransferenciaDAO {
 
+    private static final Logger log = LoggerFactory.getLogger(TransferenciaDAO.class);
+
     public static class ResultadoTransferencia {
-        private boolean exitoso;
-        private String mensaje;
+        private final boolean exitoso;
+        private final String mensaje;
 
         public ResultadoTransferencia(boolean exitoso, String mensaje) {
             this.exitoso = exitoso;
@@ -22,7 +26,7 @@ public class TransferenciaDAO {
         public String getMensaje() { return mensaje; }
     }
 
-    // Realizar transferencia entre dos cuentas
+    // Realizar transferencia entre dos cuentas con bloqueo pesimista y actualización atómica
     public ResultadoTransferencia transferirDuts(int usuarioOrigenId, String identificadorDestino, double monto, String concepto) {
         if (monto <= 0) {
             return new ResultadoTransferencia(false, "El monto a transferir debe ser mayor a 0 DUTS.");
@@ -33,10 +37,10 @@ public class TransferenciaDAO {
             con = DatabaseConnection.getConnection();
             con.setAutoCommit(false);
 
-            // 1. Obtener usuario de origen y cuenta
+            // 1. Obtener usuario de origen y cuenta con bloqueo de fila (FOR UPDATE)
             int cuentaOrigenId = -1;
             double saldoOrigen = 0.0;
-            String sqlCuentaOrigen = "SELECT id, saldo FROM cuentas WHERE usuario_id = ?";
+            String sqlCuentaOrigen = "SELECT id, saldo FROM cuentas WHERE usuario_id = ? FOR UPDATE";
             try (PreparedStatement ps = con.prepareStatement(sqlCuentaOrigen)) {
                 ps.setInt(1, usuarioOrigenId);
                 try (ResultSet rs = ps.executeQuery()) {
@@ -82,9 +86,9 @@ public class TransferenciaDAO {
                 return new ResultadoTransferencia(false, "No puedes transferirte DUTS a ti mismo.");
             }
 
-            // 3. Buscar cuenta destino (si no existe, crearla)
+            // 3. Buscar cuenta destino (si no existe, crearla) con bloqueo
             int cuentaDestinoId = -1;
-            String sqlCuentaDestino = "SELECT id FROM cuentas WHERE usuario_id = ?";
+            String sqlCuentaDestino = "SELECT id FROM cuentas WHERE usuario_id = ? FOR UPDATE";
             try (PreparedStatement ps = con.prepareStatement(sqlCuentaDestino)) {
                 ps.setInt(1, usuarioDestinoId);
                 try (ResultSet rs = ps.executeQuery()) {
@@ -107,12 +111,17 @@ public class TransferenciaDAO {
                 }
             }
 
-            // 4. Descontar saldo al origen
-            String sqlDebitar = "UPDATE cuentas SET saldo = saldo - ? WHERE id = ?";
+            // 4. Descontar saldo al origen asegurando de forma atómica que el saldo no quede negativo
+            String sqlDebitar = "UPDATE cuentas SET saldo = saldo - ? WHERE id = ? AND saldo >= ?";
             try (PreparedStatement ps = con.prepareStatement(sqlDebitar)) {
                 ps.setDouble(1, monto);
                 ps.setInt(2, cuentaOrigenId);
-                ps.executeUpdate();
+                ps.setDouble(3, monto);
+                int filasDebito = ps.executeUpdate();
+                if (filasDebito == 0) {
+                    con.rollback();
+                    return new ResultadoTransferencia(false, "Saldo insuficiente para completar la transferencia.");
+                }
             }
 
             // 5. Abonar saldo al destino
@@ -165,17 +174,19 @@ public class TransferenciaDAO {
             }
 
             con.commit();
+            log.info("TRANSFERENCIA EXITOSA: {} DUTS enviados de usuario ID {} a ID {} ('{}')", 
+                    monto, usuarioOrigenId, usuarioDestinoId, nombreDestino);
             return new ResultadoTransferencia(true, "Transferencia de " + monto + " DUTS a " + nombreDestino + " realizada con éxito.");
 
         } catch (SQLException e) {
             if (con != null) {
-                try { con.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+                try { con.rollback(); } catch (SQLException ex) { log.error("Error en rollback: {}", ex.getMessage()); }
             }
-            e.printStackTrace();
+            log.error("Error al procesar transferencia de usuario {}: {}", usuarioOrigenId, e.getMessage(), e);
             return new ResultadoTransferencia(false, "Error interno en la base de datos al realizar la transferencia.");
         } finally {
             if (con != null) {
-                try { con.setAutoCommit(true); con.close(); } catch (SQLException e) { e.printStackTrace(); }
+                try { con.setAutoCommit(true); con.close(); } catch (SQLException e) { log.error("Error al cerrar conexión: {}", e.getMessage()); }
             }
         }
     }
@@ -190,7 +201,7 @@ public class TransferenciaDAO {
             con.setAutoCommit(false);
 
             int cuentaId = -1;
-            String sqlCuenta = "SELECT id FROM cuentas WHERE usuario_id = ?";
+            String sqlCuenta = "SELECT id FROM cuentas WHERE usuario_id = ? FOR UPDATE";
             try (PreparedStatement ps = con.prepareStatement(sqlCuenta)) {
                 ps.setInt(1, usuarioId);
                 try (ResultSet rs = ps.executeQuery()) {
@@ -226,16 +237,17 @@ public class TransferenciaDAO {
             }
 
             con.commit();
+            log.info("RECARGA SIMULADA: {} DUTS acreditados a usuario ID {}", monto, usuarioId);
             return new ResultadoTransferencia(true, "Se han acreditado " + monto + " DUTS a tu cuenta.");
         } catch (SQLException e) {
             if (con != null) {
-                try { con.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+                try { con.rollback(); } catch (SQLException ex) { log.error("Error en rollback: {}", ex.getMessage()); }
             }
-            e.printStackTrace();
+            log.error("Error al recargar saldo simulado para usuario {}: {}", usuarioId, e.getMessage(), e);
             return new ResultadoTransferencia(false, "Error al recargar saldo.");
         } finally {
             if (con != null) {
-                try { con.setAutoCommit(true); con.close(); } catch (SQLException e) { e.printStackTrace(); }
+                try { con.setAutoCommit(true); con.close(); } catch (SQLException e) { log.error("Error al cerrar conexión: {}", e.getMessage()); }
             }
         }
     }
@@ -269,7 +281,17 @@ public class TransferenciaDAO {
                     map.put("id", rs.getInt("id"));
                     map.put("concepto", rs.getString("concepto"));
                     map.put("monto", rs.getDouble("monto"));
-                    map.put("fechaHora", rs.getTimestamp("fecha_hora"));
+
+                    Timestamp fh = null;
+                    try {
+                        fh = rs.getTimestamp("fecha_hora");
+                    } catch (SQLException e) {
+                        try {
+                            fh = rs.getTimestamp("creado_en");
+                        } catch (SQLException ignored) {}
+                    }
+                    map.put("fechaHora", fh);
+
                     map.put("esRemitente", rs.getInt("usuario_origen_id") == usuarioId);
                     map.put("nombreOrigen", rs.getString("nombre_origen"));
                     map.put("codigoOrigen", rs.getString("codigo_origen"));
@@ -279,7 +301,7 @@ public class TransferenciaDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Error al listar transferencias para usuario {}: {}", usuarioId, e.getMessage(), e);
         }
         return lista;
     }

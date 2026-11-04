@@ -46,7 +46,7 @@ public class UsuarioDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Error al obtener usuario por ID {}: {}", id, e.getMessage(), e);
         }
         return null;
     }
@@ -62,7 +62,7 @@ public class UsuarioDAO {
             ps.setInt(5, id);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Error al actualizar perfil de usuario {}: {}", id, e.getMessage(), e);
         }
         return false;
     }
@@ -132,13 +132,13 @@ public class UsuarioDAO {
             return true;
         } catch (SQLException e) {
             if (con != null) {
-                try { con.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+                try { con.rollback(); } catch (SQLException ex) { log.error("Error en rollback: {}", ex.getMessage()); }
             }
-            e.printStackTrace();
+            log.error("Error al registrar estudiante '{}': {}", u.getUsername(), e.getMessage(), e);
             return false;
         } finally {
             if (con != null) {
-                try { con.setAutoCommit(true); con.close(); } catch (SQLException e) { e.printStackTrace(); }
+                try { con.setAutoCommit(true); con.close(); } catch (SQLException e) { log.error("Error al cerrar conexión: {}", e.getMessage()); }
             }
         }
     }
@@ -151,7 +151,7 @@ public class UsuarioDAO {
             ps.setInt(2, id);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Error al actualizar foto de perfil para usuario {}: {}", id, e.getMessage(), e);
         }
         return false;
     }
@@ -168,7 +168,7 @@ public class UsuarioDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Error al listar destinatarios: {}", e.getMessage(), e);
         }
         return lista;
     }
@@ -193,7 +193,7 @@ public class UsuarioDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Error al buscar destinatarios con query '{}': {}", query, e.getMessage(), e);
         }
         return lista;
     }
@@ -213,7 +213,7 @@ public class UsuarioDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Error al obtener usuario por identificador '{}': {}", identificador, e.getMessage(), e);
         }
         return null;
     }
@@ -228,7 +228,17 @@ public class UsuarioDAO {
         u.setProgramaAcademico(rs.getString("programa_academico"));
         u.setSemestre(rs.getInt("semestre"));
         u.setRolId(rs.getInt("rol_id"));
-        u.setFechaRegistro(rs.getTimestamp("fecha_registro"));
+        
+        Timestamp fechaReg = null;
+        try {
+            fechaReg = rs.getTimestamp("fecha_registro");
+        } catch (SQLException e) {
+            try {
+                fechaReg = rs.getTimestamp("creado_en");
+            } catch (SQLException ignored) {}
+        }
+        u.setFechaRegistro(fechaReg);
+
         try {
             u.setFotoPerfil(rs.getString("foto_perfil"));
         } catch (SQLException ignored) {}
