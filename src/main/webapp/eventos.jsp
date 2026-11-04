@@ -635,77 +635,128 @@
         .uni-tabs {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             flex-wrap: wrap;
         }
         .uni-tab-pill {
-            font-size: 12px;
+            font-size: 12.5px;
             font-weight: 700;
-            padding: 6px 14px;
-            border-radius: 20px;
+            padding: 5px 14px 5px 6px;
+            border-radius: 24px;
             text-decoration: none;
             color: #475569;
-            background: #f8fafc;
-            border: 1px solid var(--border-light);
-            transition: all 0.2s;
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            white-space: nowrap;
         }
         .uni-tab-pill:hover {
-            background: #f1f5f9;
-            border-color: var(--border-hover);
+            background: #f8fafc;
+            border-color: #cbd5e1;
             color: var(--text-main);
             transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+        }
+        .uni-tab-pill:active {
+            transform: translateY(0);
+        }
+        .uni-pill-logo-wrap {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            padding: 2px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s ease;
+        }
+        .uni-pill-logo-wrap.icon-wrap-all {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+        }
+        .uni-tab-pill:hover .uni-pill-logo-wrap {
+            transform: scale(1.1);
+        }
+        .uni-pill-logo-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
         }
         .uni-tab-pill.active {
             background: #0f172a;
             color: #ffffff;
             border-color: #0f172a;
-            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);
+            box-shadow: 0 3px 10px rgba(15, 23, 42, 0.28);
+        }
+        .uni-tab-pill.active .uni-pill-logo-wrap.icon-wrap-all {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.3);
         }
         .uni-tab-pill.pill-uts.active {
             background: linear-gradient(135deg, #1b3d21 0%, #2f5c35 100%);
             border-color: #8cb82b;
             color: #ffffff;
-            box-shadow: 0 2px 8px rgba(47, 92, 53, 0.35);
+            box-shadow: 0 3px 10px rgba(47, 92, 53, 0.35);
         }
         .uni-tab-pill.pill-uis.active {
             background: linear-gradient(135deg, #0c2340 0%, #1e3a8a 100%);
             border-color: #3b82f6;
             color: #ffffff;
-            box-shadow: 0 2px 8px rgba(30, 58, 138, 0.35);
+            box-shadow: 0 3px 10px rgba(30, 58, 138, 0.35);
         }
         .uni-tab-pill.pill-unab.active {
             background: linear-gradient(135deg, #881337 0%, #b91c1c 100%);
             border-color: #f43f5e;
             color: #ffffff;
-            box-shadow: 0 2px 8px rgba(185, 28, 28, 0.35);
+            box-shadow: 0 3px 10px rgba(185, 28, 28, 0.35);
         }
         .uni-tab-pill.pill-udes.active {
             background: linear-gradient(135deg, #155e75 0%, #0284c7 100%);
             border-color: #38bdf8;
             color: #ffffff;
-            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.35);
+            box-shadow: 0 3px 10px rgba(2, 132, 199, 0.35);
         }
         .uni-tab-pill.pill-ascun.active {
             background: linear-gradient(135deg, #064e3b 0%, #047857 100%);
             border-color: #10b981;
             color: #ffffff;
-            box-shadow: 0 2px 8px rgba(4, 120, 87, 0.35);
+            box-shadow: 0 3px 10px rgba(4, 120, 87, 0.35);
         }
 
         .uni-badge-card {
             font-size: 10.5px;
             font-weight: 800;
-            padding: 4px 10px;
+            padding: 3px 10px 3px 5px;
             border-radius: 20px;
             text-transform: uppercase;
             letter-spacing: 0.6px;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+        }
+        .uni-badge-img {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: #ffffff;
+            padding: 1.5px;
+            flex-shrink: 0;
+            display: inline-block;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
         .uni-badge-uts {
             background: linear-gradient(135deg, #17361a 0%, #2f5c35 100%);
@@ -1708,15 +1759,16 @@
                 align-items: stretch !important;
                 gap: 10px !important;
             }
-            .uni-filters-row {
+            .uni-filters-row,
+            .uni-tabs {
                 overflow-x: auto !important;
-                padding-bottom: 6px !important;
+                padding-bottom: 8px !important;
                 flex-wrap: nowrap !important;
+                -webkit-overflow-scrolling: touch !important;
             }
-            .uni-filter-btn {
+            .uni-filter-btn,
+            .uni-tab-pill {
                 flex-shrink: 0 !important;
-                padding: 6px 12px !important;
-                border-radius: 20px !important;
             }
             .admin-crud-card {
                 border-radius: 18px !important;
@@ -1995,21 +2047,41 @@
                         Universidad:
                     </span>
                     <div class="uni-tabs">
-                        <a href="${pageContext.request.contextPath}/eventos?universidad=TODAS&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill ${filtroUniversidad == 'TODAS' ? 'active' : ''}">Todas</a>
-                        <a href="${pageContext.request.contextPath}/eventos?universidad=UTS&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-uts ${filtroUniversidad == 'UTS' ? 'active' : ''}">
-                            <strong>UTS</strong> Unidades Tecnológicas
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=TODAS&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill ${filtroUniversidad == 'TODAS' ? 'active' : ''}" title="Ver eventos de todas las universidades">
+                            <span class="uni-pill-logo-wrap icon-wrap-all">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            </span>
+                            <span>Todas</span>
                         </a>
-                        <a href="${pageContext.request.contextPath}/eventos?universidad=UIS&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-uis ${filtroUniversidad == 'UIS' ? 'active' : ''}">
-                            <strong>UIS</strong> Industrial Santander
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=UTS&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-uts ${filtroUniversidad == 'UTS' ? 'active' : ''}" title="Unidades Tecnológicas de Santander">
+                            <span class="uni-pill-logo-wrap">
+                                <img src="${pageContext.request.contextPath}/assets/images/logouts.png" alt="Logo UTS" loading="lazy">
+                            </span>
+                            <span><strong>UTS</strong> Unidades Tecnológicas</span>
                         </a>
-                        <a href="${pageContext.request.contextPath}/eventos?universidad=UNAB&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-unab ${filtroUniversidad == 'UNAB' ? 'active' : ''}">
-                            <strong>UNAB</strong> Autónoma
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=UIS&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-uis ${filtroUniversidad == 'UIS' ? 'active' : ''}" title="Universidad Industrial de Santander">
+                            <span class="uni-pill-logo-wrap">
+                                <img src="${pageContext.request.contextPath}/assets/images/logo-uis.svg" alt="Logo UIS" loading="lazy">
+                            </span>
+                            <span><strong>UIS</strong> Industrial Santander</span>
                         </a>
-                        <a href="${pageContext.request.contextPath}/eventos?universidad=UDES&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-udes ${filtroUniversidad == 'UDES' ? 'active' : ''}">
-                            <strong>UDES</strong> Santander
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=UNAB&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-unab ${filtroUniversidad == 'UNAB' ? 'active' : ''}" title="Universidad Autónoma de Bucaramanga">
+                            <span class="uni-pill-logo-wrap">
+                                <img src="${pageContext.request.contextPath}/assets/images/logo-unab.png" alt="Logo UNAB" loading="lazy">
+                            </span>
+                            <span><strong>UNAB</strong> Autónoma</span>
                         </a>
-                        <a href="${pageContext.request.contextPath}/eventos?universidad=ASCUN&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-ascun ${filtroUniversidad == 'ASCUN' ? 'active' : ''}">
-                            <strong>ASCUN</strong> Deportes
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=UDES&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-udes ${filtroUniversidad == 'UDES' ? 'active' : ''}" title="Universidad de Santander">
+                            <span class="uni-pill-logo-wrap">
+                                <img src="${pageContext.request.contextPath}/assets/images/logo-udes.svg" alt="Logo UDES" loading="lazy">
+                            </span>
+                            <span><strong>UDES</strong> Santander</span>
+                        </a>
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=ASCUN&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-ascun ${filtroUniversidad == 'ASCUN' ? 'active' : ''}" title="Asociación Colombiana de Universidades - Nodo Santander">
+                            <span class="uni-pill-logo-wrap">
+                                <img src="${pageContext.request.contextPath}/assets/images/logo-ascun.png" alt="Logo ASCUN" loading="lazy">
+                            </span>
+                            <span><strong>ASCUN</strong> Deportes</span>
                         </a>
                     </div>
                 </div>
@@ -2077,7 +2149,17 @@
                                     <div class="event-hero-banner" style="background-image: url('${cardImgUrl}'), url('${pageContext.request.contextPath}/assets/images/evento-rally.jpg');">
                                         <div class="banner-top-row">
                                             <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
-                                                <span class="uni-badge-card uni-badge-${ev.universidad.toLowerCase()}"><c:out value="${ev.universidad}"/></span>
+                                                <span class="uni-badge-card uni-badge-${ev.universidad.toLowerCase()}">
+                                                    <c:choose>
+                                                        <c:when test="${ev.universidad == 'UTS'}"><img src="${pageContext.request.contextPath}/assets/images/logouts.png" class="uni-badge-img" alt="UTS"></c:when>
+                                                        <c:when test="${ev.universidad == 'UIS'}"><img src="${pageContext.request.contextPath}/assets/images/logo-uis.svg" class="uni-badge-img" alt="UIS"></c:when>
+                                                        <c:when test="${ev.universidad == 'UNAB'}"><img src="${pageContext.request.contextPath}/assets/images/logo-unab.png" class="uni-badge-img" alt="UNAB"></c:when>
+                                                        <c:when test="${ev.universidad == 'UDES'}"><img src="${pageContext.request.contextPath}/assets/images/logo-udes.svg" class="uni-badge-img" alt="UDES"></c:when>
+                                                        <c:when test="${ev.universidad == 'ASCUN'}"><img src="${pageContext.request.contextPath}/assets/images/logo-ascun.png" class="uni-badge-img" alt="ASCUN"></c:when>
+                                                        <c:otherwise><img src="${pageContext.request.contextPath}/assets/images/logouts.png" class="uni-badge-img" alt="UTS"></c:otherwise>
+                                                    </c:choose>
+                                                    <c:out value="${ev.universidad}"/>
+                                                </span>
                                                 <span class="event-category-pill"><c:out value="${ev.categoria}"/></span>
                                             </div>
                                             <div style="display: flex; gap: 6px; align-items: center;">
@@ -2503,9 +2585,16 @@
             const d = card.dataset;
             modalEventTitle.textContent = d.nombre || 'Evento Institucional';
             modalEventDesc.textContent = d.descripcion || 'Sin descripción adicional.';
-            modalUniBadge.textContent = d.universidad || 'UTS';
-            const uniSlug = (d.universidad || 'uts').toLowerCase().replace(/[^a-z0-9]/g, '');
+            const uniName = d.universidad || 'UTS';
+            const uniSlug = uniName.toLowerCase().replace(/[^a-z0-9]/g, '');
+            let logoSrc = '${pageContext.request.contextPath}/assets/images/logouts.png';
+            if (uniName === 'UIS') logoSrc = '${pageContext.request.contextPath}/assets/images/logo-uis.svg';
+            else if (uniName === 'UNAB') logoSrc = '${pageContext.request.contextPath}/assets/images/logo-unab.png';
+            else if (uniName === 'UDES') logoSrc = '${pageContext.request.contextPath}/assets/images/logo-udes.svg';
+            else if (uniName === 'ASCUN') logoSrc = '${pageContext.request.contextPath}/assets/images/logo-ascun.png';
+
             modalUniBadge.className = 'uni-badge-card uni-badge-' + uniSlug;
+            modalUniBadge.innerHTML = '<img src="' + logoSrc + '" class="uni-badge-img" alt="' + uniName + '"> ' + uniName;
             modalCatBadge.textContent = d.categoria || 'GENERAL';
             modalModeBadge.textContent = d.modalidad || 'Presencial';
             modalSpotsBadge.textContent = (d.cupos || '0') + ' cupos disponibles';
