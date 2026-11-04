@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <linearGradient id="utsAvatarBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14321d" />
+      <stop offset="50%" stop-color="#1e4526" />
+      <stop offset="100%" stop-color="#2a5f35" />
+    </linearGradient>
+    <linearGradient id="utsAvatarFill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e4f4be" />
+      <stop offset="100%" stop-color="#99c836" />
+    </linearGradient>
+    <filter id="avatarShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  <!-- Background Circle with institutional UTS border -->
+  <circle cx="60" cy="60" r="58" fill="url(#utsAvatarBg)" stroke="#8cb82b" stroke-width="2.5" />
+  <!-- Inner circular boundary -->
+  <g filter="url(#avatarShadow)">
+    <!-- User Head Silhouette -->
+    <circle cx="60" cy="45" r="18" fill="url(#utsAvatarFill)" />
+    <!-- User Shoulders / Torso Silhouette -->
+    <path d="M 27 100 C 27 75, 42 68, 60 68 C 78 68, 93 75, 93 100 Z" fill="url(#utsAvatarFill)" />
+  </g>
+</svg>

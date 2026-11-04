@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGradI" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <linearGradient id="stepGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+
+    <linearGradient id="stepGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#16a34a"/>
+      <stop offset="100%" stop-color="#15803d"/>
+    </linearGradient>
+
+    <linearGradient id="stepGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+
+    <linearGradient id="stepGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+
+    <filter id="shadowI" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <style>
+    .i-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 24px; font-weight: 800; fill: #ffffff; }
+    .i-sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .step-badge-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 18px; font-weight: 900; fill: #ffffff; }
+    .step-card-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14.5px; font-weight: 800; fill: #f8fafc; }
+    .step-card-desc { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11.5px; fill: #cbd5e1; line-height: 1.5; }
+    .cmd-box { font-family: "JetBrains Mono", Consolas, monospace; font-size: 11px; fill: #4ade80; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1100" height="500" rx="16" fill="url(#bgGradI)"/>
+
+  <!-- Header -->
+  <g transform="translate(50, 40)">
+    <text x="0" y="20" class="i-title">Guía de Instalación y Puesta en Marcha Local</text>
+    <text x="0" y="40" class="i-sub">4 pasos sencillos para configurar el entorno y desplegar la plataforma UTS DUTS</text>
+  </g>
+
+  <!-- ================= PASO 1: PRERREQUISITOS ================= -->
+  <g transform="translate(50, 105)" filter="url(#shadowI)">
+    <rect width="230" height="340" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect width="230" height="50" rx="12" fill="url(#stepGrad1)"/>
+    <rect y="38" width="230" height="12" fill="url(#stepGrad1)"/>
+    <circle cx="28" cy="25" r="14" fill="rgba(255,255,255,0.2)"/>
+    <text x="28" y="31" class="step-badge-text" text-anchor="middle">1</text>
+    <text x="52" y="30" class="step-card-title">Prerrequisitos</text>
+
+    <g transform="translate(16, 68)">
+      <text x="0" y="14" class="step-card-desc">Verifica tener instalado en tu sistema operativo:</text>
+      <text x="0" y="40" class="step-card-desc">• <tspan font-weight="700" fill="#38bdf8">Java JDK 21+</tspan> (LTS)</text>
+      <text x="0" y="60" class="step-card-desc">• <tspan font-weight="700" fill="#38bdf8">Apache Maven 3.8+</tspan></text>
+      <text x="0" y="80" class="step-card-desc">• <tspan font-weight="700" fill="#38bdf8">MySQL 8.0</tspan> (XAMPP)</text>
+      <text x="0" y="100" class="step-card-desc">• Navegador web moderno</text>
+
+      <rect y="130" width="198" height="60" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+      <text x="10" y="152" font-family="monospace" font-size="10.5" fill="#94a3b8"># Verificar Java:</text>
+      <text x="10" y="172" class="cmd-box">java -version</text>
+    </g>
+  </g>
+
+  <!-- ================= PASO 2: BASE DE DATOS ================= -->
+  <g transform="translate(305, 105)" filter="url(#shadowI)">
+    <rect width="230" height="340" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect width="230" height="50" rx="12" fill="url(#stepGrad2)"/>
+    <rect y="38" width="230" height="12" fill="url(#stepGrad2)"/>
+    <circle cx="28" cy="25" r="14" fill="rgba(255,255,255,0.2)"/>
+    <text x="28" y="31" class="step-badge-text" text-anchor="middle">2</text>
+    <text x="52" y="30" class="step-card-title">Base de Datos</text>
+
+    <g transform="translate(16, 68)">
+      <text x="0" y="14" class="step-card-desc">Asegúrate de tener el servicio MySQL corriendo en el puerto 3306.</text>
+      <text x="0" y="48" class="step-card-desc">Crea la base de datos <tspan font-weight="700" fill="#4ade80">duts</tspan> en phpMyAdmin o MySQL CLI.</text>
+
+      <rect y="80" width="198" height="110" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+      <text x="10" y="102" font-family="monospace" font-size="10" fill="#94a3b8">-- SQL CLI:</text>
+      <text x="10" y="122" class="cmd-box">CREATE DATABASE duts;</text>
+      <text x="10" y="142" font-family="monospace" font-size="10" fill="#94a3b8">-- Credenciales en:</text>
+      <text x="10" y="162" font-family="monospace" font-size="9" fill="#38bdf8">DatabaseConnection.java</text>
+    </g>
+  </g>
+
+  <!-- ================= PASO 3: COMPILACIÓN ================= -->
+  <g transform="translate(560, 105)" filter="url(#shadowI)">
+    <rect width="230" height="340" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect width="230" height="50" rx="12" fill="url(#stepGrad3)"/>
+    <rect y="38" width="230" height="12" fill="url(#stepGrad3)"/>
+    <circle cx="28" cy="25" r="14" fill="rgba(255,255,255,0.2)"/>
+    <text x="28" y="31" class="step-badge-text" text-anchor="middle">3</text>
+    <text x="52" y="30" class="step-card-title">Compilar</text>
+
+    <g transform="translate(16, 68)">
+      <text x="0" y="14" class="step-card-desc">Abre una terminal en la raíz del repositorio y ejecuta Maven:</text>
+
+      <rect y="45" width="198" height="85" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+      <text x="10" y="68" font-family="monospace" font-size="10" fill="#94a3b8"># Compilar clases:</text>
+      <text x="10" y="88" class="cmd-box">mvn compile</text>
+      <text x="10" y="108" font-family="monospace" font-size="10" fill="#64748b"># Empaqueta en target/</text>
+
+      <text x="0" y="155" class="step-card-desc">Maven descargará las dependencias (MySQL, iText, BCrypt, JSTL) y compilará con release 21.</text>
+    </g>
+  </g>
+
+  <!-- ================= PASO 4: EJECUCIÓN & ACCESO ================= -->
+  <g transform="translate(815, 105)" filter="url(#shadowI)">
+    <rect width="235" height="340" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect width="235" height="50" rx="12" fill="url(#stepGrad4)"/>
+    <rect y="38" width="235" height="12" fill="url(#stepGrad4)"/>
+    <circle cx="28" cy="25" r="14" fill="rgba(255,255,255,0.2)"/>
+    <text x="28" y="31" class="step-badge-text" text-anchor="middle">4</text>
+    <text x="52" y="30" class="step-card-title">Desplegar y Usar</text>
+
+    <g transform="translate(16, 68)">
+      <text x="0" y="14" class="step-card-desc">Inicia el servidor Tomcat embebido con el plugin configurado:</text>
+
+      <rect y="45" width="202" height="60" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+      <text x="10" y="68" font-family="monospace" font-size="10" fill="#94a3b8"># Iniciar Tomcat:</text>
+      <text x="10" y="88" class="cmd-box">mvn tomcat7:run</text>
+
+      <rect y="120" width="202" height="70" rx="6" fill="#052e16" stroke="#15803d" stroke-width="1"/>
+      <text x="10" y="140" font-family="sans-serif" font-size="11" font-weight="700" fill="#4ade80">Acceso en tu Navegador:</text>
+      <text x="10" y="160" font-family="monospace" font-size="11" font-weight="800" fill="#ffffff">http://localhost:8081/</text>
+      <text x="10" y="176" font-family="sans-serif" font-size="10" fill="#86efac">Redirección a /login</text>
+    </g>
+  </g>
+</svg>

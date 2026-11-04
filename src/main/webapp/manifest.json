@@ -1,0 +1,24 @@
+{
+  "name": "DUTS UTS - Billetera Digital Institucional",
+  "short_name": "DUTS UTS",
+  "description": "Plataforma Financiera Institucional y Billetera Digital DUTS de las Unidades Tecnológicas de Santander",
+  "start_url": "./dashboard",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f2e1b",
+  "theme_color": "#1b3d21",
+  "icons": [
+    {
+      "src": "./assets/images/favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./assets/images/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

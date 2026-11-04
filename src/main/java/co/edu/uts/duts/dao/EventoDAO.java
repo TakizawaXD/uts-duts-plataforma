@@ -73,8 +73,8 @@ public class EventoDAO {
 
     // Crear nuevo evento (CRUD Create)
     public boolean crear(Evento ev) {
-        String sql = "INSERT INTO eventos (nombre, descripcion, fecha, lugar, categoria, recompensa_duts, cupos, estado, imagen_url, direccion) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO eventos (nombre, descripcion, fecha, lugar, categoria, recompensa_duts, cupos, estado, imagen_url, direccion, universidad) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             
@@ -88,6 +88,7 @@ public class EventoDAO {
             ps.setString(8, ev.getEstado());
             ps.setString(9, ev.getImagenUrl());
             ps.setString(10, ev.getDireccion());
+            ps.setString(11, ev.getUniversidad());
             
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -99,7 +100,7 @@ public class EventoDAO {
     // Actualizar evento existente (CRUD Update)
     public boolean actualizar(Evento ev) {
         String sql = "UPDATE eventos SET nombre = ?, descripcion = ?, fecha = ?, lugar = ?, " +
-                     "categoria = ?, recompensa_duts = ?, cupos = ?, estado = ?, imagen_url = ?, direccion = ? WHERE id = ?";
+                     "categoria = ?, recompensa_duts = ?, cupos = ?, estado = ?, imagen_url = ?, direccion = ?, universidad = ? WHERE id = ?";
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             
@@ -113,7 +114,8 @@ public class EventoDAO {
             ps.setString(8, ev.getEstado());
             ps.setString(9, ev.getImagenUrl());
             ps.setString(10, ev.getDireccion());
-            ps.setInt(11, ev.getId());
+            ps.setString(11, ev.getUniversidad());
+            ps.setInt(12, ev.getId());
             
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -323,6 +325,21 @@ public class EventoDAO {
         } catch (SQLException ignored) {}
         try {
             ev.setDireccion(rs.getString("direccion"));
+        } catch (SQLException ignored) {}
+        try {
+            ev.setUniversidad(rs.getString("universidad"));
+        } catch (SQLException ignored) {}
+        try {
+            ev.setHoraInicio(rs.getString("hora_inicio"));
+        } catch (SQLException ignored) {}
+        try {
+            ev.setHoraFin(rs.getString("hora_fin"));
+        } catch (SQLException ignored) {}
+        try {
+            ev.setModalidad(rs.getString("modalidad"));
+        } catch (SQLException ignored) {}
+        try {
+            ev.setRequisitos(rs.getString("requisitos"));
         } catch (SQLException ignored) {}
         return ev;
     }

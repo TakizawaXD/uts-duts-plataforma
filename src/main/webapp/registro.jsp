@@ -6,6 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro - DUTS UTS</title>
+    <link rel="icon" type="image/svg+xml" href="${pageContext.request.contextPath}/assets/images/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/images/favicon.ico">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico">
+    <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/assets/images/favicon.svg">
     <style>
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body, html { margin: 0; padding: 0; height: 100%; }
@@ -28,7 +32,6 @@
             gap: 50px;
         }
         
-        /* CONTENIDO IZQUIERDO */
         .left-content { color: white; flex: 1; max-width: 550px; }
         .left-content img.logo { max-width: 250px; margin-bottom: 10px; }
         .left-content h2 { font-size: 22px; font-weight: normal; margin: 0 0 10px 0; color: #d0d0d0; }
@@ -45,7 +48,6 @@
             padding: 8px 12px; border-radius: 6px; font-size: 13px; display: flex; align-items: center; gap: 8px;
         }
 
-        /* TARJETA DE REGISTRO (DERECHA) */
         .login-card {
             background-color: white; border-radius: 12px; padding: 40px;
             width: 100%; max-width: 480px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); color: #333;
@@ -87,7 +89,6 @@
     <div class="bg-container">
         <div class="main-wrapper">
             
-            <!-- CONTENIDO IZQUIERDO -->
                 <a href="${pageContext.request.contextPath}/login" title="Ir a Inicio" style="display: inline-block;">
                     <img src="${pageContext.request.contextPath}/assets/images/logouts.png" alt="Logo UTS" class="logo">
                 </a>
@@ -105,7 +106,6 @@
                 </div>
             </div>
 
-            <!-- TARJETA DE REGISTRO (DERECHA) -->
             <div class="login-card">
                 <h3>Crea tu cuenta</h3>
                 <p class="subtitle">Estudiantes y docentes de las UTS</p>

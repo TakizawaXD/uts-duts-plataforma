@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGradW" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <linearGradient id="gradStep1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+
+    <linearGradient id="gradStep2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+
+    <linearGradient id="gradStep3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+
+    <linearGradient id="gradStep4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+
+    <linearGradient id="gradStep5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ec4899"/>
+      <stop offset="100%" stop-color="#be185d"/>
+    </linearGradient>
+
+    <filter id="shadowW" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <style>
+    .w-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 24px; font-weight: 800; fill: #ffffff; }
+    .w-sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .step-num { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 18px; font-weight: 900; fill: #ffffff; }
+    .card-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: 800; fill: #f8fafc; }
+    .card-tag { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .card-desc { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11.5px; fill: #cbd5e1; line-height: 1.5; }
+    .card-tech { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace; font-size: 10px; fill: #94a3b8; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1100" height="520" rx="16" fill="url(#bgGradW)"/>
+
+  <!-- Header -->
+  <g transform="translate(50, 45)">
+    <text x="0" y="22" class="w-title">Flujo de Operación y Ciclo Transaccional DUTS</text>
+    <text x="0" y="42" class="w-sub">Cómo interactúa el estudiante con la plataforma financiera institucional desde el registro hasta el extracto</text>
+  </g>
+
+  <!-- Process Connecting Track -->
+  <path d="M 145 220 L 955 220" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 145 220 L 760 220" stroke="#8cb82b" stroke-width="4" stroke-linecap="round" stroke-dasharray="8 8"/>
+
+  <!-- ================= PASO 1 ================= -->
+  <g transform="translate(50, 115)" filter="url(#shadowW)">
+    <rect width="190" height="350" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <!-- Step Header -->
+    <rect width="190" height="52" rx="12" fill="url(#gradStep1)"/>
+    <rect y="40" width="190" height="12" fill="url(#gradStep1)"/>
+    <circle cx="32" cy="26" r="16" fill="rgba(255,255,255,0.2)"/>
+    <text x="32" y="32" class="step-num" text-anchor="middle">1</text>
+    <text x="56" y="31" class="card-title">Registro &amp; Bono</text>
+
+    <!-- Body -->
+    <g transform="translate(16, 68)">
+      <text x="0" y="16" class="card-tag" fill="#60a5fa">Punto de Partida</text>
+      <text x="0" y="38" class="card-desc">El estudiante se registra con código institucional y correo UTS.</text>
+      <text x="0" y="74" class="card-desc">Se valida la contraseña con <tspan font-weight="700" fill="#93c5fd">BCrypt</tspan> y se apertura su cuenta.</text>
+      
+      <rect y="125" width="158" height="54" rx="6" fill="#0f172a" stroke="#1e3a8a" stroke-width="1"/>
+      <text x="10" y="146" font-family="sans-serif" font-size="11" font-weight="700" fill="#60a5fa">Bono de Bienvenida</text>
+      <text x="10" y="164" font-family="monospace" font-size="13" font-weight="800" fill="#22c55e">+500.00 DUTS</text>
+      
+      <text x="0" y="210" class="card-tech">• RegistroServlet</text>
+      <text x="0" y="226" class="card-tech">• UsuarioDAO / CuentaDAO</text>
+    </g>
+  </g>
+
+  <!-- ================= PASO 2 ================= -->
+  <g transform="translate(255, 115)" filter="url(#shadowW)">
+    <rect width="190" height="350" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <!-- Step Header -->
+    <rect width="190" height="52" rx="12" fill="url(#gradStep2)"/>
+    <rect y="40" width="190" height="12" fill="url(#gradStep2)"/>
+    <circle cx="32" cy="26" r="16" fill="rgba(255,255,255,0.2)"/>
+    <text x="32" y="32" class="step-num" text-anchor="middle">2</text>
+    <text x="56" y="31" class="card-title">Eventos &amp; Cupos</text>
+
+    <!-- Body -->
+    <g transform="translate(16, 68)">
+      <text x="0" y="16" class="card-tag" fill="#c084fc">Participación</text>
+      <text x="0" y="38" class="card-desc">Exploración de congresos, semilleros y actividades institucionales.</text>
+      <text x="0" y="74" class="card-desc">El estudiante se inscribe y el sistema reserva su cupo en tiempo real.</text>
+      
+      <rect y="125" width="158" height="54" rx="6" fill="#0f172a" stroke="#581c87" stroke-width="1"/>
+      <text x="10" y="146" font-family="sans-serif" font-size="11" font-weight="700" fill="#c084fc">Filtros Dinámicos</text>
+      <text x="10" y="164" font-family="sans-serif" font-size="11" fill="#cbd5e1">Bucaramanga &amp; Categorías</text>
+      
+      <text x="0" y="210" class="card-tech">• EventosServlet</text>
+      <text x="0" y="226" class="card-tech">• EventoDAO (Cupos check)</text>
+    </g>
+  </g>
+
+  <!-- ================= PASO 3 ================= -->
+  <g transform="translate(460, 115)" filter="url(#shadowW)">
+    <rect width="190" height="350" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <!-- Step Header -->
+    <rect width="190" height="52" rx="12" fill="url(#gradStep3)"/>
+    <rect y="40" width="190" height="12" fill="url(#gradStep3)"/>
+    <circle cx="32" cy="26" r="16" fill="rgba(255,255,255,0.2)"/>
+    <text x="32" y="32" class="step-num" text-anchor="middle">3</text>
+    <text x="56" y="31" class="card-title">Recompensas</text>
+
+    <!-- Body -->
+    <g transform="translate(16, 68)">
+      <text x="0" y="16" class="card-tag" fill="#4ade80">Méritos Ganados</text>
+      <text x="0" y="38" class="card-desc">Al validar asistencia al evento, el estudiante reclama sus puntos DUTS.</text>
+      <text x="0" y="74" class="card-desc">El saldo se actualiza y se registra la entrada en el libro mayor.</text>
+      
+      <rect y="125" width="158" height="54" rx="6" fill="#0f172a" stroke="#065f46" stroke-width="1"/>
+      <text x="10" y="146" font-family="sans-serif" font-size="11" font-weight="700" fill="#4ade80">Meta de Grado UTS</text>
+      <text x="10" y="164" font-family="monospace" font-size="12" font-weight="800" fill="#8cb82b">Hacia los 70.000 pts</text>
+      
+      <text x="0" y="210" class="card-tech">• EventosServlet / Reclamar</text>
+      <text x="0" y="226" class="card-tech">• MovimientoDAO (INGRESO)</text>
+    </g>
+  </g>
+
+  <!-- ================= PASO 4 ================= -->
+  <g transform="translate(665, 115)" filter="url(#shadowW)">
+    <rect width="190" height="350" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <!-- Step Header -->
+    <rect width="190" height="52" rx="12" fill="url(#gradStep4)"/>
+    <rect y="40" width="190" height="12" fill="url(#gradStep4)"/>
+    <circle cx="32" cy="26" r="16" fill="rgba(255,255,255,0.2)"/>
+    <text x="32" y="32" class="step-num" text-anchor="middle">4</text>
+    <text x="56" y="31" class="card-title">Transferencias</text>
+
+    <!-- Body -->
+    <g transform="translate(16, 68)">
+      <text x="0" y="16" class="card-tag" fill="#fbbf24">Ecosistema P2P</text>
+      <text x="0" y="38" class="card-desc">Transferencias directas entre estudiantes mediante username o código.</text>
+      <text x="0" y="74" class="card-desc">Transacciones atómicas protegidas contra fallos de red.</text>
+      
+      <rect y="125" width="158" height="54" rx="6" fill="#0f172a" stroke="#78350f" stroke-width="1"/>
+      <text x="10" y="146" font-family="sans-serif" font-size="11" font-weight="700" fill="#fbbf24">Garantía ACID</text>
+      <text x="10" y="164" font-family="sans-serif" font-size="11" fill="#cbd5e1">Rollback automático</text>
+      
+      <text x="0" y="210" class="card-tech">• TransferenciasServlet</text>
+      <text x="0" y="226" class="card-tech">• TransferenciaDAO (Trx)</text>
+    </g>
+  </g>
+
+  <!-- ================= PASO 5 ================= -->
+  <g transform="translate(870, 115)" filter="url(#shadowW)">
+    <rect width="180" height="350" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <!-- Step Header -->
+    <rect width="180" height="52" rx="12" fill="url(#gradStep5)"/>
+    <rect y="40" width="180" height="12" fill="url(#gradStep5)"/>
+    <circle cx="32" cy="26" r="16" fill="rgba(255,255,255,0.2)"/>
+    <text x="32" y="32" class="step-num" text-anchor="middle">5</text>
+    <text x="56" y="31" class="card-title">Extractos PDF</text>
+
+    <!-- Body -->
+    <g transform="translate(16, 68)">
+      <text x="0" y="16" class="card-tag" fill="#f472b6">Comprobante</text>
+      <text x="0" y="38" class="card-desc">Generación instantánea de facturas electrónicas individuales o extracto.</text>
+      <text x="0" y="74" class="card-desc">Descarga segura con folio institucional y respaldo oficial UTS.</text>
+      
+      <rect y="125" width="148" height="54" rx="6" fill="#0f172a" stroke="#831843" stroke-width="1"/>
+      <text x="10" y="146" font-family="sans-serif" font-size="11" font-weight="700" fill="#f472b6">iTextPDF 5</text>
+      <text x="10" y="164" font-family="sans-serif" font-size="11" fill="#cbd5e1">Documento Oficial</text>
+      
+      <text x="0" y="210" class="card-tech">• FacturaPdfServlet</text>
+      <text x="0" y="226" class="card-tech">• Streaming binario PDF</text>
+    </g>
+  </g>
+</svg>

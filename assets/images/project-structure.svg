@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 580" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGradP" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <linearGradient id="cardGradP" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <filter id="shadowP" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <style>
+    .p-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 24px; font-weight: 800; fill: #ffffff; }
+    .p-sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .module-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14.5px; font-weight: 800; fill: #f8fafc; }
+    .module-badge { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+    .tree-text { font-family: "JetBrains Mono", Consolas, "Fira Code", monospace; font-size: 11px; fill: #cbd5e1; }
+    .tree-comment { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 10.5px; fill: #64748b; font-style: italic; }
+    .folder-icon { font-family: sans-serif; font-size: 12px; fill: #fbbf24; }
+    .file-icon { font-family: sans-serif; font-size: 12px; fill: #38bdf8; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1100" height="580" rx="16" fill="url(#bgGradP)"/>
+
+  <!-- Header -->
+  <g transform="translate(50, 40)">
+    <text x="0" y="20" class="p-title">Estructura Modular del Código Fuente</text>
+    <text x="0" y="40" class="p-sub">Organización limpia por capas según el estándar Maven Standard Directory Layout</text>
+  </g>
+
+  <!-- ================= COLUMNA 1: BACKEND (co.edu.uts.duts) ================= -->
+  <g transform="translate(50, 95)" filter="url(#shadowP)">
+    <rect width="490" height="445" rx="12" fill="url(#cardGradP)" stroke="#334155" stroke-width="1.5"/>
+    <rect width="490" height="4" rx="2" fill="#22c55e"/>
+    
+    <g transform="translate(20, 22)">
+      <text x="0" y="14" class="module-title">Backend Java (src/main/java/co/edu/uts/duts/)</text>
+      <rect x="360" y="0" width="95" height="18" rx="4" fill="#14532d"/>
+      <text x="407.5" y="13" class="module-badge" fill="#4ade80" text-anchor="middle">Java 21 • MVC</text>
+
+      <!-- Packages -->
+      <g transform="translate(0, 36)">
+        <!-- api -->
+        <text x="0" y="16" class="tree-text"><tspan fill="#fbbf24">📁 api/</tspan> .......... Endpoints de la red universitaria</text>
+        <text x="24" y="32" class="tree-text"><tspan fill="#38bdf8">📄</tspan> ApiEventosServlet.java <tspan class="tree-comment">// JSON /api/eventos</tspan></text>
+
+        <!-- controller -->
+        <text x="0" y="60" class="tree-text"><tspan fill="#fbbf24">📁 controller/</tspan> ... Controladores Servlets (Action Handlers)</text>
+        <text x="24" y="76" class="tree-text"><tspan fill="#38bdf8">📄</tspan> DashboardServlet.java <tspan class="tree-comment">// /dashboard, /inicio</tspan></text>
+        <text x="24" y="92" class="tree-text"><tspan fill="#38bdf8">📄</tspan> EventosServlet.java <tspan class="tree-comment">// /eventos (Inscripciones &amp; CRUD)</tspan></text>
+        <text x="24" y="108" class="tree-text"><tspan fill="#38bdf8">📄</tspan> TransferenciasServlet.java <tspan class="tree-comment">// /transferencias P2P</tspan></text>
+        <text x="24" y="124" class="tree-text"><tspan fill="#38bdf8">📄</tspan> FacturaPdfServlet.java <tspan class="tree-comment">// iTextPDF Streaming</tspan></text>
+        <text x="24" y="140" class="tree-text"><tspan fill="#38bdf8">📄</tspan> PerfilServlet.java, LoginServlet, RegistroServlet, Logout</text>
+
+        <!-- dao -->
+        <text x="0" y="168" class="tree-text"><tspan fill="#fbbf24">📁 dao/</tspan> .......... Acceso a Datos &amp; Transacciones ACID</text>
+        <text x="24" y="184" class="tree-text"><tspan fill="#38bdf8">📄</tspan> TransferenciaDAO.java <tspan class="tree-comment">// Atomic rollback debit/credit</tspan></text>
+        <text x="24" y="200" class="tree-text"><tspan fill="#38bdf8">📄</tspan> UsuarioDAO.java <tspan class="tree-comment">// BCrypt hash &amp; bono 500 DUTS</tspan></text>
+        <text x="24" y="216" class="tree-text"><tspan fill="#38bdf8">📄</tspan> EventoDAO.java, MovimientoDAO.java, CuentaDAO.java</text>
+
+        <!-- filter -->
+        <text x="0" y="244" class="tree-text"><tspan fill="#fbbf24">📁 filter/</tspan> ....... Interceptores de Petición HTTP</text>
+        <text x="24" y="260" class="tree-text"><tspan fill="#38bdf8">📄</tspan> CharacterEncodingFilter.java <tspan class="tree-comment">// UTF-8 Enforcing</tspan></text>
+        <text x="24" y="276" class="tree-text"><tspan fill="#38bdf8">📄</tspan> AuthFilter.java <tspan class="tree-comment">// Control de Acceso &amp; Whitelist</tspan></text>
+
+        <!-- model -->
+        <text x="0" y="304" class="tree-text"><tspan fill="#fbbf24">📁 model/</tspan> ........ Entidades del Negocio (POJOs)</text>
+        <text x="24" y="320" class="tree-text"><tspan fill="#38bdf8">📄</tspan> Usuario, Evento, Movimiento, MetricasDuts, EntidadBase</text>
+
+        <!-- util -->
+        <text x="0" y="348" class="tree-text"><tspan fill="#fbbf24">📁 util/</tspan> ......... Conectores y Utilidades</text>
+        <text x="24" y="364" class="tree-text"><tspan fill="#38bdf8">📄</tspan> DatabaseConnection.java <tspan class="tree-comment">// JDBC Pool &amp; Driver MySQL</tspan></text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ================= COLUMNA 2: WEBAPP (VISTAS & ASSETS) ================= -->
+  <g transform="translate(560, 95)" filter="url(#shadowP)">
+    <rect width="490" height="445" rx="12" fill="url(#cardGradP)" stroke="#334155" stroke-width="1.5"/>
+    <rect width="490" height="4" rx="2" fill="#38bdf8"/>
+    
+    <g transform="translate(20, 22)">
+      <text x="0" y="14" class="module-title">Frontend &amp; Despliegue (src/main/webapp/)</text>
+      <rect x="350" y="0" width="105" height="18" rx="4" fill="#082f49"/>
+      <text x="402.5" y="13" class="module-badge" fill="#38bdf8" text-anchor="middle">JSP • PWA • XML</text>
+
+      <!-- Webapp tree -->
+      <g transform="translate(0, 36)">
+        <!-- WEB-INF -->
+        <text x="0" y="16" class="tree-text"><tspan fill="#fbbf24">📁 WEB-INF/</tspan></text>
+        <text x="24" y="32" class="tree-text"><tspan fill="#f59e0b">⚙️</tspan> web.xml <tspan class="tree-comment">// Mapeo Filtros, Error Pages (400, 403, 404, 500)</tspan></text>
+
+        <!-- error -->
+        <text x="0" y="60" class="tree-text"><tspan fill="#fbbf24">📁 error/</tspan> ........ Páginas de Error Institucionales UTS</text>
+        <text x="24" y="76" class="tree-text"><tspan fill="#f87171">🛡️</tspan> 404.jsp <tspan class="tree-comment">// No encontrado con navegación condicional</tspan></text>
+        <text x="24" y="92" class="tree-text"><tspan fill="#f87171">🛡️</tspan> 403.jsp <tspan class="tree-comment">// Control acceso institucional</tspan></text>
+        <text x="24" y="108" class="tree-text"><tspan fill="#f87171">🛡️</tspan> 500.jsp <tspan class="tree-comment">// Eventualidad del servidor + Folio auditoría</tspan></text>
+        <text x="24" y="124" class="tree-text"><tspan fill="#f87171">🛡️</tspan> error.jsp <tspan class="tree-comment">// Catch-all general</tspan></text>
+
+        <!-- assets -->
+        <text x="0" y="152" class="tree-text"><tspan fill="#fbbf24">📁 assets/</tspan> ....... Recursos Estáticos del Sistema</text>
+        <text x="24" y="168" class="tree-text"><tspan fill="#fbbf24">📁 css/</tspan> ........ Estilos Vanilla CSS y variables institucionales</text>
+        <text x="24" y="184" class="tree-text"><tspan fill="#fbbf24">📁 images/</tspan> ..... Logotipos oficiales UTS, sellos y banners</text>
+
+        <!-- Vistas JSP -->
+        <text x="0" y="212" class="tree-text"><tspan fill="#38bdf8">📄</tspan> dashboard.jsp ..... Vista principal métricas (70k DUTS) y saldo</text>
+        <text x="0" y="228" class="tree-text"><tspan fill="#38bdf8">📄</tspan> eventos.jsp ....... Catálogo, inscripción y CRUD administrativo</text>
+        <text x="0" y="244" class="tree-text"><tspan fill="#38bdf8">📄</tspan> transferencias.jsp . Envío de fondos P2P y comprobantes</text>
+        <text x="0" y="260" class="tree-text"><tspan fill="#38bdf8">📄</tspan> movimientos.jsp .... Historial completo de transacciones</text>
+        <text x="0" y="276" class="tree-text"><tspan fill="#38bdf8">📄</tspan> perfil.jsp ......... Datos de usuario y avatar multipart</text>
+        <text x="0" y="292" class="tree-text"><tspan fill="#38bdf8">📄</tspan> login.jsp / registro.jsp . Portal de acceso uteísta</text>
+
+        <!-- PWA files -->
+        <text x="0" y="320" class="tree-text"><tspan fill="#10b981">📱</tspan> manifest.json, sw.js . Capacidades móviles PWA &amp; Service Worker</text>
+
+        <!-- Root build files -->
+        <text x="0" y="348" class="tree-text"><tspan fill="#eab308">📦</tspan> pom.xml .......... Configuración Maven 3.8/3.9, Plugins &amp; Deps</text>
+        <text x="0" y="364" class="tree-text"><tspan fill="#60a5fa">📘</tspan> README.md ........ Documentación técnica visual completa</text>
+      </g>
+    </g>
+  </g>
+</svg>

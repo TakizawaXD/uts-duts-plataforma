@@ -5,3 +5,6 @@ target/
 .settings/
 *.war
 .vscode/
+maven.zip
+apache-maven-3.9.6/
+

@@ -6,6 +6,7 @@
     
     <display-name>DUTS Plataforma</display-name>
     
+    <!-- 1. FILTRO DE CODIFICACIÓN UTF-8 (Primer filtro en ejecutarse) -->
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
         <filter-class>co.edu.uts.duts.filter.CharacterEncodingFilter</filter-class>
@@ -15,8 +16,66 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!-- 2. FILTRO DE AUTENTICACIÓN Y SEGURIDAD (Segundo filtro en ejecutarse) -->
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>co.edu.uts.duts.filter.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+
+    <!-- PÁGINAS DE GESTIÓN Y PREVENCIÓN DE ERRORES INSTITUCIONALES UTS -->
+    <!-- 400 - Solicitud Incorrecta -->
+    <error-page>
+        <error-code>400</error-code>
+        <location>/error/error.jsp</location>
+    </error-page>
+
+    <!-- 401 - No Autorizado / Sesión Expirada -->
+    <error-page>
+        <error-code>401</error-code>
+        <location>/error/403.jsp</location>
+    </error-page>
+
+    <!-- 403 - Acceso Prohibido / Restringido -->
+    <error-page>
+        <error-code>403</error-code>
+        <location>/error/403.jsp</location>
+    </error-page>
+
+    <!-- 404 - Recurso No Encontrado -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/404.jsp</location>
+    </error-page>
+
+    <!-- 405 - Método HTTP No Permitido -->
+    <error-page>
+        <error-code>405</error-code>
+        <location>/error/error.jsp</location>
+    </error-page>
+
+    <!-- 500 - Error Interno del Servidor -->
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error/500.jsp</location>
+    </error-page>
+
+    <!-- Excepciones Java no capturadas -->
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/error/500.jsp</location>
+    </error-page>
+
+    <!-- Captura global / Catch-All para cualquier otro error HTTP -->
+    <error-page>
+        <location>/error/error.jsp</location>
+    </error-page>
 
 </web-app>

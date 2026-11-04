@@ -54,18 +54,21 @@ public class EventosServlet extends HttpServlet {
             }
         }
 
-        // Filtros opcionales por categoría y texto
+        // Filtros opcionales por categoría, universidad y texto
         String categoriaFiltro = req.getParameter("categoria");
+        String universidadFiltro = req.getParameter("universidad");
         String buscarFiltro = req.getParameter("buscar");
 
         List<Evento> eventosFiltrados = new ArrayList<>();
         for (Evento e : baseEventos) {
             boolean coincideCat = (categoriaFiltro == null || categoriaFiltro.trim().isEmpty() || "TODOS".equalsIgnoreCase(categoriaFiltro) || (e.getCategoria() != null && e.getCategoria().equalsIgnoreCase(categoriaFiltro.trim())));
+            boolean coincideUni = (universidadFiltro == null || universidadFiltro.trim().isEmpty() || "TODAS".equalsIgnoreCase(universidadFiltro) || (e.getUniversidad() != null && e.getUniversidad().equalsIgnoreCase(universidadFiltro.trim())));
             boolean coincideBus = (buscarFiltro == null || buscarFiltro.trim().isEmpty() || 
                 (e.getNombre() != null && e.getNombre().toLowerCase().contains(buscarFiltro.toLowerCase().trim())) || 
                 (e.getLugar() != null && e.getLugar().toLowerCase().contains(buscarFiltro.toLowerCase().trim())) ||
+                (e.getUniversidad() != null && e.getUniversidad().toLowerCase().contains(buscarFiltro.toLowerCase().trim())) ||
                 (e.getDireccion() != null && e.getDireccion().toLowerCase().contains(buscarFiltro.toLowerCase().trim())));
-            if (coincideCat && coincideBus) {
+            if (coincideCat && coincideUni && coincideBus) {
                 eventosFiltrados.add(e);
             }
         }
@@ -76,6 +79,7 @@ public class EventosServlet extends HttpServlet {
         req.setAttribute("totalRecompensas", totalRecompensas);
         req.setAttribute("misInscritosCount", misInscritosCount);
         req.setAttribute("filtroCategoria", categoriaFiltro != null ? categoriaFiltro : "TODOS");
+        req.setAttribute("filtroUniversidad", universidadFiltro != null ? universidadFiltro : "TODAS");
         req.setAttribute("filtroBuscar", buscarFiltro != null ? buscarFiltro : "");
 
         // Si el admin solicitó editar un evento en particular
@@ -169,6 +173,10 @@ public class EventosServlet extends HttpServlet {
                     if (direccion != null && !direccion.trim().isEmpty()) {
                         nuevo.setDireccion(direccion.trim());
                     }
+                    String universidad = req.getParameter("universidad");
+                    if (universidad != null && !universidad.trim().isEmpty()) {
+                        nuevo.setUniversidad(universidad.trim());
+                    }
                     String imagenUrl = req.getParameter("imagenUrl");
                     if (imagenUrl != null && !imagenUrl.trim().isEmpty()) {
                         nuevo.setImagenUrl(imagenUrl.trim());
@@ -208,6 +216,10 @@ public class EventosServlet extends HttpServlet {
                         String direccion = req.getParameter("direccion");
                         if (direccion != null && !direccion.trim().isEmpty()) {
                             mod.setDireccion(direccion.trim());
+                        }
+                        String universidad = req.getParameter("universidad");
+                        if (universidad != null && !universidad.trim().isEmpty()) {
+                            mod.setUniversidad(universidad.trim());
                         }
                         String imagenUrl = req.getParameter("imagenUrl");
                         if (imagenUrl != null && !imagenUrl.trim().isEmpty()) {

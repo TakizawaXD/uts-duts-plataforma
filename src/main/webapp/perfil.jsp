@@ -5,8 +5,19 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil de Usuario - DUTS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>Perfil de Usuario - DUTS UTS</title>
+    
+    <meta name="theme-color" content="#1b3d21">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="manifest" href="${pageContext.request.contextPath}/manifest.json">
+    <link rel="icon" type="image/svg+xml" href="${pageContext.request.contextPath}/assets/images/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/images/favicon.ico">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico">
+    <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/assets/images/favicon.svg">
     <style>
         :root {
             --uts-green: #2f5c35;
@@ -28,7 +39,6 @@
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
         body { background-color: var(--bg-body); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
 
-        /* TOP NAVBAR */
         .top-navbar {
             background-color: var(--white);
             height: 62px;
@@ -51,10 +61,8 @@
         .user-menu { display: flex; align-items: center; gap: 12px; font-weight: 600; color: var(--uts-green); text-decoration: none; padding: 4px 10px; border-radius: 6px; }
         .user-menu img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 2px solid var(--uts-green-light); }
 
-        /* MAIN WRAPPER */
         .main-wrapper { display: flex; flex: 1; }
 
-        /* MAIN WRAPPER & SIDEBAR REDISEÑADO */
         .sidebar {
             width: 270px;
             background: linear-gradient(180deg, #102613 0%, #17361a 35%, #1e4522 100%);
@@ -67,7 +75,6 @@
             position: relative;
         }
 
-        /* PERFIL DE USUARIO EN CABECERA DEL SIDEBAR */
         .sidebar-brand-box {
             padding: 20px 18px 16px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -139,7 +146,6 @@
             border: 1px solid rgba(234, 179, 8, 0.4);
         }
 
-        /* NAVEGACIÓN INSTITUCIONAL */
         .sidebar-nav-container {
             flex: 1;
             padding: 14px 0;
@@ -215,7 +221,6 @@
             box-shadow: 0 0 6px var(--uts-green-light);
         }
 
-        /* WIDGET BILLETERA CIRCULAR EN SIDEBAR */
         .sidebar-wallet-card {
             margin: auto 12px 14px;
             background: rgba(0, 0, 0, 0.25);
@@ -291,7 +296,6 @@
             display: inline-block;
         }
 
-        /* PIE DE PÁGINA Y CERRAR SESIÓN */
         .sidebar-footer {
             padding: 14px 14px 18px;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -327,11 +331,9 @@
             letter-spacing: 0.3px;
         }
 
-        /* CONTENT */
         .content-area { flex: 1; padding: 30px; overflow-y: auto; }
         .container { max-width: 1200px; margin: 0 auto; }
 
-        /* PAGE HEADER */
         .page-header-row {
             display: flex;
             justify-content: space-between;
@@ -341,12 +343,10 @@
         .page-title-box h1 { font-size: 24px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
         .page-title-box p { font-size: 13px; color: var(--text-muted); }
 
-        /* ALERTS */
         .alert { padding: 14px 18px; border-radius: 8px; margin-bottom: 22px; font-size: 14px; }
         .alert-success { background-color: var(--success-bg); color: var(--success); border: 1px solid #bbf7d0; }
         .alert-error { background-color: var(--danger-bg); color: var(--danger); border: 1px solid #fecaca; }
 
-        /* GRID PERFIL */
         .profile-grid {
             display: grid;
             grid-template-columns: 280px 1fr 320px;
@@ -362,7 +362,6 @@
             .col-wallet { grid-column: span 1; }
         }
 
-        /* CARD GENERAL */
         .profile-card {
             background: var(--white);
             border: 1px solid var(--border-light);
@@ -386,7 +385,6 @@
         }
         .profile-card-body { padding: 22px; }
 
-        /* TARJETA DE AVATAR (IZQUIERDA) */
         .avatar-card {
             background: var(--white);
             border: 1px solid var(--border-light);
@@ -448,7 +446,6 @@
         .role-badge-student { background: #e0f2fe; color: #0369a1; }
         .role-badge-admin { background: #fef3c7; color: #b45309; }
 
-        /* CAMBIO DE FOTO */
         .avatar-change-box {
             margin: 0 16px 14px 16px;
             background: #f8fafc;
@@ -513,7 +510,6 @@
         }
         .btn-restore-avatar:hover { color: var(--danger); }
 
-        /* DETALLES DE USUARIO (CAMPOS) */
         .info-group { margin-bottom: 18px; }
         .info-group:last-child { margin-bottom: 0; }
         .info-label { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
@@ -521,7 +517,6 @@
         .info-value a { color: var(--uts-green); text-decoration: none; }
         .info-value a:hover { text-decoration: underline; }
 
-        /* BOTONES */
         .btn-uts {
             background-color: var(--uts-green);
             color: white;
@@ -551,7 +546,6 @@
         }
         .btn-secondary:hover { background-color: #e2e8f0; }
 
-        /* FORMULARIO EDITAR */
         .edit-form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 16px; }
         .edit-form-group label { font-size: 13px; font-weight: 700; color: var(--text-main); }
         .edit-form-group input, .edit-form-group select {
@@ -567,7 +561,6 @@
             outline: none;
         }
 
-        /* COLUMNA DERECHA: BILLETERA DUTS & ESTADO */
         .wallet-preview-box {
             background: linear-gradient(135deg, var(--uts-green-dark) 0%, var(--uts-green) 100%);
             border-radius: 10px;
@@ -595,13 +588,348 @@
         .action-link-primary:hover { background: var(--uts-green-dark); }
         .action-link-outline { background: #f8fafc; color: var(--text-main); border: 1px solid var(--border-light); }
         .action-link-outline:hover { background: #e2e8f0; }
+
+        .app-download-card {
+            border: 2px solid rgba(140, 184, 43, 0.35) !important;
+            background: linear-gradient(180deg, #ffffff 0%, #f7fdf8 100%);
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(47, 92, 53, 0.08);
+            margin-top: 20px;
+        }
+        .app-badge-pill {
+            font-size: 10px;
+            font-weight: 800;
+            background: rgba(140, 184, 43, 0.2);
+            color: #1e4522;
+            border: 1px solid rgba(140, 184, 43, 0.45);
+            padding: 3px 8px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+        .app-download-box {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+        .app-icon-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: #1b3d21;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(27, 61, 33, 0.25);
+            flex-shrink: 0;
+        }
+        .app-icon-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .app-title-name {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--uts-green-dark);
+            line-height: 1.2;
+        }
+        .app-version-sub {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .app-download-desc {
+            font-size: 12.5px;
+            color: #475569;
+            line-height: 1.45;
+            margin-bottom: 16px;
+        }
+        .btn-download-app-primary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: linear-gradient(135deg, #1b3d21 0%, #2f5c35 55%, #8cb82b 100%);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 800;
+            padding: 13px 18px;
+            border-radius: 10px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(47, 92, 53, 0.3);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 8px;
+        }
+        .btn-download-app-primary:hover {
+            transform: translateY(-1.5px);
+            box-shadow: 0 6px 20px rgba(47, 92, 53, 0.4);
+            filter: brightness(1.05);
+        }
+        .btn-download-app-primary:active {
+            transform: scale(0.98);
+        }
+        .btn-install-pwa-secondary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background: #ffffff;
+            color: var(--uts-green);
+            border: 1.5px solid var(--border-light);
+            font-size: 12.5px;
+            font-weight: 700;
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-install-pwa-secondary:hover {
+            background: #f8fafc;
+            border-color: var(--uts-green-light);
+        }
+        .sidebar-badge-new {
+            background: #8cb82b;
+            color: #0d2813;
+            font-size: 9px;
+            font-weight: 900;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: auto;
+            letter-spacing: 0.5px;
+        }
+
+        .mobile-bottom-nav,
+        .btn-close-sidebar,
+        .mobile-drawer-overlay {
+            display: none;
+        }
+
+        @media (max-width: 992px) {
+            body {
+                height: auto !important;
+                min-height: 100vh !important;
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .main-wrapper {
+                display: block !important;
+                overflow: visible !important;
+                position: relative !important;
+            }
+
+            .sidebar {
+                position: fixed !important;
+                top: 0 !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                width: 290px !important;
+                max-width: 85vw !important;
+                height: 100vh !important;
+                z-index: 10001 !important;
+                transform: translateX(-100%) !important;
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                box-shadow: 4px 0 30px rgba(0, 0, 0, 0.6) !important;
+                display: flex !important;
+            }
+            .sidebar.mobile-open {
+                transform: translateX(0) !important;
+            }
+
+            .btn-close-sidebar {
+                display: flex !important;
+                position: absolute !important;
+                top: 14px !important;
+                right: 14px !important;
+                background: rgba(255, 255, 255, 0.12) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                color: #ffffff !important;
+                width: 32px !important;
+                height: 32px !important;
+                border-radius: 50% !important;
+                align-items: center !important;
+                justify-content: center !important;
+                font-size: 20px !important;
+                line-height: 1 !important;
+                cursor: pointer !important;
+                z-index: 10;
+            }
+
+            .mobile-drawer-overlay {
+                display: none;
+                position: fixed !important;
+                inset: 0 !important;
+                background: rgba(0, 0, 0, 0.65) !important;
+                backdrop-filter: blur(4px) !important;
+                -webkit-backdrop-filter: blur(4px) !important;
+                z-index: 10000 !important;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            .mobile-drawer-overlay.active {
+                display: block !important;
+                opacity: 1 !important;
+            }
+
+            .content-area {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 16px 14px calc(85px + env(safe-area-inset-bottom, 0px)) 14px !important;
+                overflow-y: visible !important;
+            }
+
+            .top-navbar {
+                height: 54px !important;
+                padding: 0 14px !important;
+            }
+            .nav-icon-menu {
+                display: flex !important;
+                width: 36px !important;
+                height: 36px !important;
+                align-items: center !important;
+                justify-content: center !important;
+                border-radius: 8px !important;
+                background: #f1f5f9 !important;
+                color: #1b3d21 !important;
+                font-size: 19px !important;
+                cursor: pointer !important;
+                border: none !important;
+            }
+            .logo-subtext,
+            .top-navbar-right > span {
+                display: none !important;
+            }
+            .logo-container img {
+                height: 32px !important;
+            }
+            .logo-text {
+                font-size: 19px !important;
+            }
+            .user-menu span {
+                font-size: 12px;
+                max-width: 90px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .user-menu img {
+                width: 32px !important;
+                height: 32px !important;
+            }
+
+            .mobile-bottom-nav {
+                display: flex !important;
+                position: fixed !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                height: calc(62px + env(safe-area-inset-bottom, 0px)) !important;
+                padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+                background: rgba(255, 255, 255, 0.96) !important;
+                backdrop-filter: blur(20px) !important;
+                -webkit-backdrop-filter: blur(20px) !important;
+                border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+                box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.07) !important;
+                z-index: 9999 !important;
+                justify-content: space-around !important;
+                align-items: center !important;
+            }
+
+            .mobile-nav-item {
+                flex: 1 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                height: 100% !important;
+                text-decoration: none !important;
+                color: #64748b !important;
+                transition: all 0.15s ease !important;
+                position: relative !important;
+                -webkit-tap-highlight-color: transparent !important;
+            }
+
+            .mobile-nav-item:active {
+                transform: scale(0.92) !important;
+            }
+
+            .mobile-nav-icon-wrap {
+                width: 32px !important;
+                height: 26px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+            }
+
+            .mobile-nav-label {
+                font-size: 10.5px !important;
+                font-weight: 600 !important;
+                margin-top: 2px !important;
+                letter-spacing: -0.2px !important;
+            }
+
+            .mobile-nav-item.active {
+                color: #27522d !important;
+            }
+
+            .mobile-nav-item.active .mobile-nav-icon-wrap {
+                color: #27522d !important;
+                transform: translateY(-2px) !important;
+            }
+
+            .mobile-nav-item.active .mobile-nav-label {
+                font-weight: 800 !important;
+                color: #1e4522 !important;
+            }
+
+            .mobile-nav-item.active::after {
+                content: '' !important;
+                position: absolute !important;
+                top: 4px !important;
+                width: 24px !important;
+                height: 3px !important;
+                background: #8cb82b !important;
+                border-radius: 99px !important;
+                box-shadow: 0 0 8px rgba(140, 184, 43, 0.7) !important;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr !important;
+                gap: 16px !important;
+            }
+            .profile-card {
+                border-radius: 18px !important;
+            }
+            .edit-form-group input,
+            .edit-form-group select {
+                font-size: 15px !important;
+                min-height: 48px !important;
+                border-radius: 10px !important;
+            }
+            .btn-uts {
+                min-height: 46px !important;
+                border-radius: 10px !important;
+                font-size: 14px !important;
+            }
+            .wallet-preview-box {
+                border-radius: 18px !important;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- TOP NAVBAR -->
     <header class="top-navbar">
         <div class="top-navbar-left">
+            <button type="button" class="nav-icon-menu" id="btnToggleSidebar" aria-label="Abrir Menú Lateral">☰</button>
             <a href="${pageContext.request.contextPath}/dashboard" class="logo-container">
                 <img src="${pageContext.request.contextPath}/assets/images/logouts.png" alt="DUTS UTS">
                 <span class="logo-text">DUTS</span>
@@ -612,20 +940,20 @@
             <span>Saldo: <strong><fmt:formatNumber value="${saldo}" minFractionDigits="2"/> DUTS</strong></span>
             <a href="${pageContext.request.contextPath}/perfil" class="user-menu">
                 <span><c:out value="${sessionScope.usuario.nombreCompleto}"/></span>
-                <img src="${pageContext.request.contextPath}/assets/images/${sessionScope.usuario.fotoPerfil}" alt="Avatar">
+                <img src="${pageContext.request.contextPath}/assets/images/${not empty sessionScope.usuario.fotoPerfil && sessionScope.usuario.fotoPerfil != 'avatar.jpg' ? sessionScope.usuario.fotoPerfil : 'default-avatar.svg'}" alt="Avatar">
             </a>
         </div>
     </header>
 
     <div class="main-wrapper">
+        <div class="mobile-drawer-overlay" id="mobileDrawerOverlay"></div>
         
-        <!-- SIDEBAR INSTITUCIONAL REDISEÑADO -->
         <aside class="sidebar">
-            <!-- CABECERA: PERFIL DE USUARIO -->
             <div class="sidebar-brand-box">
+                <button type="button" class="btn-close-sidebar" id="btnCloseSidebar" aria-label="Cerrar Menú">&times;</button>
                 <div class="sidebar-user-pill">
                     <div class="sidebar-user-avatar-wrap">
-                        <img src="${pageContext.request.contextPath}/assets/images/${not empty sessionScope.usuario.fotoPerfil ? sessionScope.usuario.fotoPerfil : 'avatar.jpg'}" alt="Avatar">
+                        <img src="${pageContext.request.contextPath}/assets/images/${not empty sessionScope.usuario.fotoPerfil && sessionScope.usuario.fotoPerfil != 'avatar.jpg' ? sessionScope.usuario.fotoPerfil : 'default-avatar.svg'}" alt="Avatar">
                         <span class="user-live-indicator" title="Sesión activa"></span>
                     </div>
                     <div class="sidebar-user-meta">
@@ -646,7 +974,6 @@
                 </div>
             </div>
 
-            <!-- NAVEGACIÓN PRINCIPAL -->
             <div class="sidebar-nav-container">
                 <div class="sidebar-nav-section-title">Menú Principal</div>
                 <ul class="sidebar-menu">
@@ -663,7 +990,7 @@
                             <span class="nav-icon">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                             </span>
-                            <span>Mi Perfil</span>
+                            <span>Mi Perfil y Ajustes</span>
                             <span class="active-pip"></span>
                         </a>
                     </li>
@@ -691,9 +1018,17 @@
                             <span>Historial y Facturas</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/descargar-app?tipo=apk" download="DUTS-UTS-Movil.apk" style="color: #c4e477; font-weight: 700; background: rgba(140, 184, 43, 0.12); border-radius: 8px;">
+                            <span class="nav-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8cb82b" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            </span>
+                            <span>Descargar App Móvil</span>
+                            <span class="sidebar-badge-new">APK</span>
+                        </a>
+                    </li>
                 </ul>
 
-                <!-- WIDGET BILLETERA CIRCULAR EN SIDEBAR -->
                 <div class="sidebar-wallet-card">
                     <div class="sidebar-wallet-top">
                         <span class="wallet-badge-pill">ECONOMÍA CIRCULAR</span>
@@ -717,7 +1052,6 @@
                 </div>
             </div>
 
-            <!-- PIE DE PÁGINA DEL SIDEBAR -->
             <div class="sidebar-footer">
                 <a href="${pageContext.request.contextPath}/logout" class="sidebar-logout-btn">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
@@ -727,14 +1061,13 @@
             </div>
         </aside>
 
-        <!-- CONTENIDO PRINCIPAL -->
         <main class="content-area">
             <div class="container">
 
                 <div class="page-header-row">
                     <div class="page-title-box">
-                        <h1>Perfil de Usuario</h1>
-                        <p>Información institucional y estado de tu cuenta en las Unidades Tecnológicas de Santander</p>
+                        <h1>Perfil y Ajustes</h1>
+                        <p>Información institucional, configuración de cuenta y descarga de la aplicación móvil oficial UTS</p>
                     </div>
                 </div>
 
@@ -751,17 +1084,15 @@
 
                 <div class="profile-grid">
                     
-                    <!-- COLUMNA IZQUIERDA: TARJETA DE AVATAR -->
                     <div>
                         <div class="avatar-card">
                             <div class="avatar-card-top">
                                 <a href="${pageContext.request.contextPath}/perfil?edit=true" class="gear-btn" title="Editar perfil">⚙ &#9662;</a>
                             </div>
                             <div class="avatar-img-circle">
-                                <img src="${pageContext.request.contextPath}/assets/images/${usuarioPerfil.fotoPerfil}" alt="Foto de perfil">
+                                <img src="${pageContext.request.contextPath}/assets/images/${not empty usuarioPerfil.fotoPerfil && usuarioPerfil.fotoPerfil != 'avatar.jpg' ? usuarioPerfil.fotoPerfil : 'default-avatar.svg'}" alt="Foto de perfil">
                             </div>
 
-                            <!-- SECCIÓN PARA CAMBIAR FOTO -->
                             <details class="avatar-change-box">
                                 <summary class="avatar-change-toggle">Cambiar foto de perfil &#9662;</summary>
                                 <form action="${pageContext.request.contextPath}/perfil" method="POST" enctype="multipart/form-data" class="avatar-upload-form">
@@ -769,7 +1100,7 @@
                                     <input type="file" name="foto" id="fotoFile" accept="image/jpeg,image/png,image/webp,image/jpg" required class="file-upload-input">
                                     <button type="submit" class="btn-upload-submit">Subir y Guardar</button>
                                 </form>
-                                <c:if test="${usuarioPerfil.fotoPerfil != 'avatar.jpg'}">
+                                <c:if test="${not empty usuarioPerfil.fotoPerfil && usuarioPerfil.fotoPerfil != 'default-avatar.svg' && usuarioPerfil.fotoPerfil != 'avatar.jpg'}">
                                     <form action="${pageContext.request.contextPath}/perfil" method="POST" style="margin-top: 6px;">
                                         <input type="hidden" name="action" value="restablecer_foto">
                                         <button type="submit" class="btn-restore-avatar">Restablecer foto predeterminada</button>
@@ -795,7 +1126,6 @@
                         </div>
                     </div>
 
-                    <!-- COLUMNA CENTRAL: DETALLES DE USUARIO -->
                     <div>
                         <div class="profile-card">
                             <div class="profile-card-header">
@@ -813,7 +1143,6 @@
                                 
                                 <c:choose>
                                     <c:when test="${editMode}">
-                                        <!-- MODO EDICIÓN -->
                                         <form action="${pageContext.request.contextPath}/perfil" method="POST">
                                             <input type="hidden" name="action" value="actualizar_perfil">
 
@@ -858,7 +1187,6 @@
                                     </c:when>
 
                                     <c:otherwise>
-                                        <!-- MODO LECTURA RELEVANTE -->
                                         <div class="info-group">
                                             <div class="info-label">Código Estudiantil</div>
                                             <div class="info-value"><c:out value="${usuarioPerfil.codigoEstudiantil}"/></div>
@@ -892,10 +1220,8 @@
                         </div>
                     </div>
 
-                    <!-- COLUMNA DERECHA: BILLETERA DUTS Y ESTADO DE CUENTA -->
                     <div class="col-wallet">
                         
-                        <!-- TARJETA DE BILLETERA DUTS -->
                         <div class="profile-card">
                             <div class="profile-card-header">
                                 <h3>Billetera DUTS</h3>
@@ -918,7 +1244,6 @@
                             </div>
                         </div>
 
-                        <!-- ACTIVIDAD Y ESTADO -->
                         <div class="profile-card">
                             <div class="profile-card-header">
                                 <h3>Estado de la Cuenta</h3>
@@ -947,6 +1272,37 @@
                             </div>
                         </div>
 
+                        <div class="profile-card app-download-card" id="seccionDescargaApp">
+                            <div class="profile-card-header" style="background: rgba(140, 184, 43, 0.08);">
+                                <h3>Ajustes de Aplicación Móvil</h3>
+                                <span class="app-badge-pill">OFICIAL UTS</span>
+                            </div>
+                            <div class="profile-card-body">
+                                <div class="app-download-box">
+                                    <div class="app-icon-circle">
+                                        <img src="${pageContext.request.contextPath}/assets/images/logouts.png" alt="UTS App">
+                                    </div>
+                                    <div>
+                                        <div class="app-title-name">DUTS Móvil UTS</div>
+                                        <div class="app-version-sub">Versión 2.4 Oficial • Android / PWA</div>
+                                    </div>
+                                </div>
+                                <p class="app-download-desc">
+                                    Lleva la plataforma DUTS a tu celular para transferencias instantáneas, consulta de saldo en tiempo real y notificaciones institucionales sin límites.
+                                </p>
+
+                                <a href="${pageContext.request.contextPath}/descargar-app?tipo=apk" class="btn-download-app-primary" id="btnDescargarApp" download="DUTS-UTS-Movil.apk" title="Descargar instalador APK directo para celulares Android">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                    <span>Descargar App (APK)</span>
+                                </a>
+
+                                <button type="button" class="btn-install-pwa-secondary" id="btnInstallPwa" onclick="triggerPwaInstall()" title="Agregar como acceso directo tipo App nativa">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                                    <span>Instalar en Pantalla de Inicio</span>
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>
@@ -955,5 +1311,96 @@
         </main>
     </div>
 
+    <nav class="mobile-bottom-nav" aria-label="Navegación principal de la aplicación">
+        <a href="${pageContext.request.contextPath}/dashboard" class="mobile-nav-item" title="Inicio">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            </div>
+            <span class="mobile-nav-label">Inicio</span>
+        </a>
+        <a href="${pageContext.request.contextPath}/transferencias" class="mobile-nav-item" title="Transferencias">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </div>
+            <span class="mobile-nav-label">Transferir</span>
+        </a>
+        <a href="${pageContext.request.contextPath}/eventos" class="mobile-nav-item" title="Eventos y Recompensas">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            </div>
+            <span class="mobile-nav-label">Eventos</span>
+        </a>
+        <a href="${pageContext.request.contextPath}/movimientos" class="mobile-nav-item" title="Historial y Facturas">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <span class="mobile-nav-label">Facturas</span>
+        </a>
+        <a href="${pageContext.request.contextPath}/perfil" class="mobile-nav-item active" title="Ajustes y Perfil">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <span class="mobile-nav-label">Ajustes</span>
+        </a>
+    </nav>
+
+    <script>
+        const btnToggleSidebar = document.getElementById('btnToggleSidebar');
+        const btnCloseSidebar = document.getElementById('btnCloseSidebar');
+        const mobileDrawerOverlay = document.getElementById('mobileDrawerOverlay');
+        const sidebar = document.querySelector('.sidebar');
+
+        function openDrawer() {
+            if (sidebar) sidebar.classList.add('mobile-open');
+            if (mobileDrawerOverlay) mobileDrawerOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDrawer() {
+            if (sidebar) sidebar.classList.remove('mobile-open');
+            if (mobileDrawerOverlay) mobileDrawerOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        if (btnToggleSidebar) btnToggleSidebar.addEventListener('click', openDrawer);
+        if (btnCloseSidebar) btnCloseSidebar.addEventListener('click', closeDrawer);
+        if (mobileDrawerOverlay) mobileDrawerOverlay.addEventListener('click', closeDrawer);
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('${pageContext.request.contextPath}/sw.js')
+                    .then(function(reg) {
+                        console.log('DUTS Service Worker registrado:', reg.scope);
+                    })
+                    .catch(function(err) {
+                        console.log('Error registrando Service Worker:', err);
+                    });
+            });
+        }
+
+        let deferredPrompt = null;
+        window.addEventListener('beforeinstallprompt', function(e) {
+            e.preventDefault();
+            deferredPrompt = e;
+            const btnPwa = document.getElementById('btnInstallPwa');
+            if (btnPwa) {
+                btnPwa.style.display = 'flex';
+            }
+        });
+
+        function triggerPwaInstall() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(function(choiceResult) {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('El usuario aceptó la instalación de la App DUTS');
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                alert('Para instalar la App DUTS en tu celular:\n1. En Android/Chrome: Menú (⋮) -> "Instalar aplicación" o "Agregar a la pantalla principal".\n2. En iPhone/Safari: Botón Compartir (⬆) -> "Agregar al inicio".\n\nTambién puedes descargar el archivo instalador APK con el botón verde superior.');
+            }
+        }
+    </script>
 </body>
 </html>

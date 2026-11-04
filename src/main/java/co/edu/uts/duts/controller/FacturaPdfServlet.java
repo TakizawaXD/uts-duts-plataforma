@@ -94,10 +94,19 @@ public class FacturaPdfServlet extends HttpServlet {
         // Logo / Título
         PdfPCell cLogo = new PdfPCell();
         cLogo.setBorder(Rectangle.NO_BORDER);
-        Font fTitulo = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD, COLOR_UTS_VERDE);
-        Font fSub = new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL, COLOR_TEXTO_MUTED);
+        try {
+            String logoPath = getServletContext().getRealPath("/assets/images/logouts.png");
+            if (logoPath != null && new java.io.File(logoPath).exists()) {
+                Image img = Image.getInstance(logoPath);
+                img.scaleToFit(140, 42);
+                img.setSpacingAfter(6);
+                cLogo.addElement(img);
+            }
+        } catch (Exception ignored) {}
+        Font fTitulo = new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD, COLOR_UTS_VERDE);
+        Font fSub = new Font(Font.FontFamily.HELVETICA, 8.5f, Font.NORMAL, COLOR_TEXTO_MUTED);
         cLogo.addElement(new Paragraph("UNIDADES TECNOLÓGICAS DE SANTANDER", fTitulo));
-        cLogo.addElement(new Paragraph("Plataforma Oficial de Billetera Digital DUTS", new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD, COLOR_UTS_CLARO)));
+        cLogo.addElement(new Paragraph("Plataforma Oficial de Billetera Digital DUTS", new Font(Font.FontFamily.HELVETICA, 10.5f, Font.BOLD, COLOR_UTS_CLARO)));
         cLogo.addElement(new Paragraph("NIT: 890.207.245-8 | Bucaramanga, Santander, Colombia", fSub));
         cLogo.addElement(new Paragraph("Resolución MinEducación - Vigilada por Mineducación", fSub));
         header.addCell(cLogo);
@@ -224,10 +233,19 @@ public class FacturaPdfServlet extends HttpServlet {
 
         PdfPCell cLogo = new PdfPCell();
         cLogo.setBorder(Rectangle.NO_BORDER);
-        Font fTitulo = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD, COLOR_UTS_VERDE);
-        Font fSub = new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL, COLOR_TEXTO_MUTED);
+        try {
+            String logoPath = getServletContext().getRealPath("/assets/images/logouts.png");
+            if (logoPath != null && new java.io.File(logoPath).exists()) {
+                Image img = Image.getInstance(logoPath);
+                img.scaleToFit(140, 42);
+                img.setSpacingAfter(6);
+                cLogo.addElement(img);
+            }
+        } catch (Exception ignored) {}
+        Font fTitulo = new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD, COLOR_UTS_VERDE);
+        Font fSub = new Font(Font.FontFamily.HELVETICA, 8.5f, Font.NORMAL, COLOR_TEXTO_MUTED);
         cLogo.addElement(new Paragraph("UNIDADES TECNOLÓGICAS DE SANTANDER", fTitulo));
-        cLogo.addElement(new Paragraph("EXTRACTO OFICIAL DE CUENTA INSTITUCIONAL DUTS", new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD, COLOR_UTS_CLARO)));
+        cLogo.addElement(new Paragraph("EXTRACTO OFICIAL DE CUENTA INSTITUCIONAL DUTS", new Font(Font.FontFamily.HELVETICA, 10.5f, Font.BOLD, COLOR_UTS_CLARO)));
         cLogo.addElement(new Paragraph("NIT: 890.207.245-8 | Bucaramanga, Santander, Colombia", fSub));
         cLogo.addElement(new Paragraph("Reporte Consolidado de Movimientos y Puntos", fSub));
         header.addCell(cLogo);

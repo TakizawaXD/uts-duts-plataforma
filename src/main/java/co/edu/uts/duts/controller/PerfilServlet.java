@@ -160,9 +160,9 @@ public class PerfilServlet extends HttpServlet {
                 session.setAttribute("flashError", "Error al procesar la imagen: " + e.getMessage());
             }
         } else if ("restablecer_foto".equals(action)) {
-            boolean ok = usuarioDAO.actualizarFotoPerfil(u.getId(), "avatar.jpg");
+            boolean ok = usuarioDAO.actualizarFotoPerfil(u.getId(), "default-avatar.svg");
             if (ok) {
-                u.setFotoPerfil("avatar.jpg");
+                u.setFotoPerfil("default-avatar.svg");
                 session.setAttribute("usuario", u);
                 session.setAttribute("flashSuccess", "Foto de perfil restablecida al avatar predeterminado.");
             } else {
@@ -191,7 +191,7 @@ public class PerfilServlet extends HttpServlet {
                 }
             }
         }
-        return "avatar.jpg";
+        return "default-avatar.svg";
     }
 }
 

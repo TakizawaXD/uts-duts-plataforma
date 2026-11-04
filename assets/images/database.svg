@@ -1,0 +1,279 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 660" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGradD" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <linearGradient id="tableHeadGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1b3d21"/>
+      <stop offset="100%" stop-color="#2f5c35"/>
+    </linearGradient>
+
+    <linearGradient id="tableHeadBlue" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0369a1"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+
+    <linearGradient id="tableHeadGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <linearGradient id="tableHeadPurple" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6d28d9"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+
+    <filter id="shadowD" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+
+    <marker id="circleMarker" markerWidth="8" markerHeight="8" refX="4" refY="4">
+      <circle cx="4" cy="4" r="3" fill="#8cb82b" stroke="#0f172a" stroke-width="1.5"/>
+    </marker>
+    <marker id="crowFoot" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 M 4 1 L 4 9" fill="none" stroke="#8cb82b" stroke-width="1.5"/>
+    </marker>
+  </defs>
+
+  <style>
+    .d-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 24px; font-weight: 800; fill: #ffffff; }
+    .d-sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .table-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace; font-size: 13.5px; font-weight: 800; fill: #ffffff; }
+    .table-count { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 10px; fill: #e2e8f0; font-weight: 600; }
+    .col-pk { font-family: "JetBrains Mono", Consolas, monospace; font-size: 11px; font-weight: 700; fill: #facc15; }
+    .col-fk { font-family: "JetBrains Mono", Consolas, monospace; font-size: 11px; font-weight: 700; fill: #38bdf8; }
+    .col-name { font-family: "JetBrains Mono", Consolas, monospace; font-size: 11px; fill: #f1f5f9; }
+    .col-type { font-family: "JetBrains Mono", Consolas, monospace; font-size: 10px; fill: #94a3b8; text-anchor: end; }
+    .rel-line { stroke: #8cb82b; stroke-width: 2; fill: none; }
+    .rel-line-blue { stroke: #38bdf8; stroke-width: 2; fill: none; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1100" height="660" rx="16" fill="url(#bgGradD)"/>
+
+  <!-- Header -->
+  <g transform="translate(50, 40)">
+    <text x="0" y="20" class="d-title">Diagrama Entidad - Relación (DER MySQL)</text>
+    <text x="0" y="40" class="d-sub">Modelo relacional normalizado con integridad referencial, libro mayor y control transaccional</text>
+  </g>
+
+  <!-- ================= RELACIONES (CONNECTOR LINES) ================= -->
+  <!-- usuarios (id) -> cuentas (usuario_id) -->
+  <path d="M 330 195 L 430 195" class="rel-line" marker-start="url(#circleMarker)" marker-end="url(#crowFoot)"/>
+  
+  <!-- cuentas (id) -> movimientos_duts (cuenta_id) -->
+  <path d="M 680 195 L 770 195" class="rel-line" marker-start="url(#circleMarker)" marker-end="url(#crowFoot)"/>
+
+  <!-- movimientos_duts (id) -> transferencias (movimiento_origen_id) -->
+  <path d="M 870 330 L 870 410" class="rel-line" marker-start="url(#circleMarker)" marker-end="url(#crowFoot)"/>
+
+  <!-- usuarios (id) -> inscripciones (usuario_id) -->
+  <path d="M 215 375 L 215 440 L 430 470" class="rel-line-blue" marker-start="url(#circleMarker)" marker-end="url(#crowFoot)"/>
+
+  <!-- eventos (id) -> inscripciones (evento_id) -->
+  <path d="M 430 550 L 330 550" class="rel-line" marker-start="url(#crowFoot)" marker-end="url(#circleMarker)"/>
+
+  <!-- ================= TABLA 1: USUARIOS ================= -->
+  <g transform="translate(50, 90)" filter="url(#shadowD)">
+    <rect width="280" height="285" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect width="280" height="32" rx="8" fill="url(#tableHeadGrad)"/>
+    <rect y="24" width="280" height="8" fill="url(#tableHeadGrad)"/>
+    <text x="14" y="21" class="table-title">usuarios</text>
+    <text x="266" y="21" class="table-count" text-anchor="end">Tabla Maestra</text>
+
+    <g transform="translate(14, 48)">
+      <text x="0" y="14" class="col-pk">PK</text>
+      <text x="32" y="14" class="col-name">id</text>
+      <text x="252" y="14" class="col-type">INT AUTO_INC</text>
+
+      <text x="0" y="34" class="col-name">codigo_estudiantil</text>
+      <text x="252" y="34" class="col-type">VARCHAR(20) UQ</text>
+
+      <text x="0" y="54" class="col-name">nombre_completo</text>
+      <text x="252" y="54" class="col-type">VARCHAR(100)</text>
+
+      <text x="0" y="74" class="col-name">correo</text>
+      <text x="252" y="74" class="col-type">VARCHAR(100) UQ</text>
+
+      <text x="0" y="94" class="col-name">username</text>
+      <text x="252" y="94" class="col-type">VARCHAR(50) UQ</text>
+
+      <text x="0" y="114" class="col-name">password_hash</text>
+      <text x="252" y="114" class="col-type">VARCHAR(255)</text>
+
+      <text x="0" y="134" class="col-name">programa_academico</text>
+      <text x="252" y="134" class="col-type">VARCHAR(100)</text>
+
+      <text x="0" y="154" class="col-name">semestre</text>
+      <text x="252" y="154" class="col-type">INT</text>
+
+      <text x="0" y="174" class="col-name">rol_id</text>
+      <text x="252" y="174" class="col-type">INT (1:Est, 2:Adm)</text>
+
+      <text x="0" y="194" class="col-name">foto_perfil</text>
+      <text x="252" y="194" class="col-type">VARCHAR(255)</text>
+
+      <text x="0" y="214" class="col-name">creado_en</text>
+      <text x="252" y="214" class="col-type">TIMESTAMP</text>
+    </g>
+  </g>
+
+  <!-- ================= TABLA 2: CUENTAS ================= -->
+  <g transform="translate(430, 115)" filter="url(#shadowD)">
+    <rect width="250" height="155" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect width="250" height="32" rx="8" fill="url(#tableHeadBlue)"/>
+    <rect y="24" width="250" height="8" fill="url(#tableHeadBlue)"/>
+    <text x="14" y="21" class="table-title">cuentas</text>
+    <text x="236" y="21" class="table-count" text-anchor="end">Saldos DUTS</text>
+
+    <g transform="translate(14, 48)">
+      <text x="0" y="14" class="col-pk">PK</text>
+      <text x="32" y="14" class="col-name">id</text>
+      <text x="222" y="14" class="col-type">INT AUTO_INC</text>
+
+      <text x="0" y="38" class="col-fk">FK</text>
+      <text x="32" y="38" class="col-name">usuario_id</text>
+      <text x="222" y="38" class="col-type">INT UQ</text>
+
+      <text x="0" y="62" class="col-name">saldo</text>
+      <text x="222" y="62" class="col-type">DECIMAL(10,2)</text>
+
+      <text x="0" y="86" class="col-name">actualizado_en</text>
+      <text x="222" y="86" class="col-type">TIMESTAMP</text>
+    </g>
+  </g>
+
+  <!-- ================= TABLA 3: MOVIMIENTOS_DUTS ================= -->
+  <g transform="translate(770, 90)" filter="url(#shadowD)">
+    <rect width="280" height="240" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect width="280" height="32" rx="8" fill="url(#tableHeadGold)"/>
+    <rect y="24" width="280" height="8" fill="url(#tableHeadGold)"/>
+    <text x="14" y="21" class="table-title">movimientos_duts</text>
+    <text x="266" y="21" class="table-count" text-anchor="end">Libro Mayor</text>
+
+    <g transform="translate(14, 48)">
+      <text x="0" y="14" class="col-pk">PK</text>
+      <text x="32" y="14" class="col-name">id</text>
+      <text x="252" y="14" class="col-type">INT AUTO_INC</text>
+
+      <text x="0" y="38" class="col-fk">FK</text>
+      <text x="32" y="38" class="col-name">cuenta_id</text>
+      <text x="252" y="38" class="col-type">INT</text>
+
+      <text x="0" y="62" class="col-name">tipo</text>
+      <text x="252" y="62" class="col-type">ENUM('IN','EG')</text>
+
+      <text x="0" y="86" class="col-name">monto</text>
+      <text x="252" y="86" class="col-type">DECIMAL(10,2)</text>
+
+      <text x="0" y="110" class="col-name">descripcion</text>
+      <text x="252" y="110" class="col-type">VARCHAR(255)</text>
+
+      <text x="0" y="134" class="col-name">referencia</text>
+      <text x="252" y="134" class="col-type">VARCHAR(50) UQ</text>
+
+      <text x="0" y="158" class="col-name">creado_en</text>
+      <text x="252" y="158" class="col-type">TIMESTAMP</text>
+    </g>
+  </g>
+
+  <!-- ================= TABLA 4: TRANSFERENCIAS ================= -->
+  <g transform="translate(770, 410)" filter="url(#shadowD)">
+    <rect width="280" height="195" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect width="280" height="32" rx="8" fill="url(#tableHeadPurple)"/>
+    <rect y="24" width="280" height="8" fill="url(#tableHeadPurple)"/>
+    <text x="14" y="21" class="table-title">transferencias</text>
+    <text x="266" y="21" class="table-count" text-anchor="end">P2P Entre Estudiantes</text>
+
+    <g transform="translate(14, 48)">
+      <text x="0" y="14" class="col-pk">PK</text>
+      <text x="32" y="14" class="col-name">id</text>
+      <text x="252" y="14" class="col-type">INT AUTO_INC</text>
+
+      <text x="0" y="38" class="col-fk">FK</text>
+      <text x="32" y="38" class="col-name">movimiento_origen_id</text>
+      <text x="252" y="38" class="col-type">INT</text>
+
+      <text x="0" y="62" class="col-fk">FK</text>
+      <text x="32" y="62" class="col-name">movimiento_destino_id</text>
+      <text x="252" y="62" class="col-type">INT</text>
+
+      <text x="0" y="86" class="col-name">concepto</text>
+      <text x="252" y="86" class="col-type">VARCHAR(255)</text>
+
+      <text x="0" y="110" class="col-name">fecha</text>
+      <text x="252" y="110" class="col-type">TIMESTAMP</text>
+    </g>
+  </g>
+
+  <!-- ================= TABLA 5: EVENTOS ================= -->
+  <g transform="translate(50, 410)" filter="url(#shadowD)">
+    <rect width="280" height="215" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect width="280" height="32" rx="8" fill="url(#tableHeadGrad)"/>
+    <rect y="24" width="280" height="8" fill="url(#tableHeadGrad)"/>
+    <text x="14" y="21" class="table-title">eventos</text>
+    <text x="266" y="21" class="table-count" text-anchor="end">Catálogo Institucional</text>
+
+    <g transform="translate(14, 48)">
+      <text x="0" y="14" class="col-pk">PK</text>
+      <text x="32" y="14" class="col-name">id</text>
+      <text x="252" y="14" class="col-type">INT AUTO_INC</text>
+
+      <text x="0" y="34" class="col-name">nombre</text>
+      <text x="252" y="34" class="col-type">VARCHAR(150)</text>
+
+      <text x="0" y="54" class="col-name">lugar / direccion</text>
+      <text x="252" y="54" class="col-type">VARCHAR(150)</text>
+
+      <text x="0" y="74" class="col-name">universidad</text>
+      <text x="252" y="74" class="col-type">VARCHAR(50)</text>
+
+      <text x="0" y="94" class="col-name">recompensa_duts</text>
+      <text x="252" y="94" class="col-type">DOUBLE (pts)</text>
+
+      <text x="0" y="114" class="col-name">cupos</text>
+      <text x="252" y="114" class="col-type">INT</text>
+
+      <text x="0" y="134" class="col-name">fecha / horario</text>
+      <text x="252" y="134" class="col-type">DATETIME / VARCHAR</text>
+
+      <text x="0" y="154" class="col-name">estado</text>
+      <text x="252" y="154" class="col-type">ENUM('ACT','FIN')</text>
+    </g>
+  </g>
+
+  <!-- ================= TABLA 6: INSCRIPCIONES ================= -->
+  <g transform="translate(430, 410)" filter="url(#shadowD)">
+    <rect width="250" height="195" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect width="250" height="32" rx="8" fill="url(#tableHeadBlue)"/>
+    <rect y="24" width="250" height="8" fill="url(#tableHeadBlue)"/>
+    <text x="14" y="21" class="table-title">inscripciones</text>
+    <text x="236" y="21" class="table-count" text-anchor="end">Asistencia</text>
+
+    <g transform="translate(14, 48)">
+      <text x="0" y="14" class="col-pk">PK</text>
+      <text x="32" y="14" class="col-name">id</text>
+      <text x="222" y="14" class="col-type">INT AUTO_INC</text>
+
+      <text x="0" y="38" class="col-fk">FK</text>
+      <text x="32" y="38" class="col-name">usuario_id</text>
+      <text x="222" y="38" class="col-type">INT</text>
+
+      <text x="0" y="62" class="col-fk">FK</text>
+      <text x="32" y="62" class="col-name">evento_id</text>
+      <text x="222" y="62" class="col-type">INT</text>
+
+      <text x="0" y="86" class="col-name">estado</text>
+      <text x="222" y="86" class="col-type">VARCHAR(20)</text>
+
+      <text x="0" y="110" class="col-name">reclamado</text>
+      <text x="222" y="110" class="col-type">TINYINT(1)</text>
+
+      <text x="0" y="134" class="col-name">fecha_inscripcion</text>
+      <text x="222" y="134" class="col-type">TIMESTAMP</text>
+    </g>
+  </g>
+</svg>

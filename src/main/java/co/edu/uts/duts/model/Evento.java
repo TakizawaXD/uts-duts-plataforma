@@ -47,9 +47,10 @@ public class Evento extends EntidadBase {
 
     private String imagenUrl;
     private String direccion;
+    private String universidad;
 
     public String getImagenUrl() { 
-        return (imagenUrl != null && !imagenUrl.trim().isEmpty()) ? imagenUrl : "evento_tecnologia.jpg"; 
+        return (imagenUrl != null && !imagenUrl.trim().isEmpty()) ? imagenUrl : "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80"; 
     }
     public void setImagenUrl(String imagenUrl) { this.imagenUrl = imagenUrl; }
 
@@ -57,6 +58,36 @@ public class Evento extends EntidadBase {
         return (direccion != null && !direccion.trim().isEmpty()) ? direccion : "Bucaramanga, Santander"; 
     }
     public void setDireccion(String direccion) { this.direccion = direccion; }
+
+    public String getUniversidad() {
+        return (universidad != null && !universidad.trim().isEmpty()) ? universidad : "UTS";
+    }
+    public void setUniversidad(String universidad) { this.universidad = universidad; }
+
+    private String horaInicio;
+    private String horaFin;
+    private String modalidad;
+    private String requisitos;
+
+    public String getHoraInicio() {
+        return (horaInicio != null && !horaInicio.trim().isEmpty()) ? horaInicio : "08:00 AM";
+    }
+    public void setHoraInicio(String horaInicio) { this.horaInicio = horaInicio; }
+
+    public String getHoraFin() {
+        return (horaFin != null && !horaFin.trim().isEmpty()) ? horaFin : "12:00 PM";
+    }
+    public void setHoraFin(String horaFin) { this.horaFin = horaFin; }
+
+    public String getModalidad() {
+        return (modalidad != null && !modalidad.trim().isEmpty()) ? modalidad : "Presencial";
+    }
+    public void setModalidad(String modalidad) { this.modalidad = modalidad; }
+
+    public String getRequisitos() {
+        return (requisitos != null && !requisitos.trim().isEmpty()) ? requisitos : "Carnet institucional vigente y documento de identidad";
+    }
+    public void setRequisitos(String requisitos) { this.requisitos = requisitos; }
 
     @Override
     public String getIdentificadorUnico() {

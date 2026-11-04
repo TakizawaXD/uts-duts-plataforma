@@ -5,8 +5,19 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>Eventos y Recompensas DUTS - Unidades Tecnológicas de Santander</title>
+    
+    <meta name="theme-color" content="#1b3d21">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="icon" type="image/svg+xml" href="${pageContext.request.contextPath}/assets/images/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/images/favicon.ico">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico">
+    <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/assets/images/favicon.svg">
+    <link rel="manifest" href="${pageContext.request.contextPath}/manifest.json">
     <style>
         :root {
             --uts-green: #2f5c35;
@@ -28,7 +39,6 @@
         * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
         body { background-color: var(--bg-canvas); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
 
-        /* TOP NAVBAR */
         .top-navbar {
             background-color: var(--white);
             height: 65px;
@@ -76,7 +86,6 @@
         .user-menu:hover { background-color: #f1f5f9; }
         .user-menu img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--uts-green-light); }
 
-        /* MAIN WRAPPER & SIDEBAR REDISEÑADO */
         .main-wrapper { display: flex; flex: 1; min-height: calc(100vh - 65px); }
         .sidebar {
             width: 270px;
@@ -90,7 +99,6 @@
             position: relative;
         }
 
-        /* PERFIL DE USUARIO EN CABECERA DEL SIDEBAR */
         .sidebar-brand-box {
             padding: 20px 18px 16px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -162,7 +170,6 @@
             border: 1px solid rgba(234, 179, 8, 0.4);
         }
 
-        /* NAVEGACIÓN INSTITUCIONAL */
         .sidebar-nav-container {
             flex: 1;
             padding: 14px 0;
@@ -238,7 +245,6 @@
             box-shadow: 0 0 6px var(--uts-green-light);
         }
 
-        /* WIDGET BILLETERA CIRCULAR EN SIDEBAR */
         .sidebar-wallet-card {
             margin: auto 12px 14px;
             background: rgba(0, 0, 0, 0.25);
@@ -314,7 +320,6 @@
             display: inline-block;
         }
 
-        /* PIE DE PÁGINA Y CERRAR SESIÓN */
         .sidebar-footer {
             padding: 14px 14px 18px;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -350,11 +355,9 @@
             letter-spacing: 0.3px;
         }
 
-        /* CONTENT AREA */
         .content-area { flex: 1; padding: 32px; overflow-y: auto; }
         .container { max-width: 1240px; margin: 0 auto; }
 
-        /* NOTIFICACIONES FLASH */
         .alert {
             padding: 14px 18px;
             border-radius: 10px;
@@ -367,7 +370,6 @@
         .alert-success { background-color: #f0fdf4; color: #166534; border: 1.5px solid #86efac; }
         .alert-error { background-color: #fef2f2; color: #991b1b; border: 1.5px solid #fecaca; }
 
-        /* HERO HEADER BAR */
         .events-hero-header {
             display: flex;
             align-items: center;
@@ -427,7 +429,6 @@
             border-color: #86efac;
         }
 
-        /* 4 TARJETAS KPI */
         .kpi-grid-4 {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -500,7 +501,6 @@
         .kpi-subtext { font-size: 11.5px; color: var(--text-muted); }
         .highlight-events .kpi-subtext { color: rgba(255,255,255,0.7); }
 
-        /* BARRA DE HERRAMIENTAS Y FILTRADO */
         .catalog-toolbar {
             background: var(--white);
             border: 1px solid var(--border-light);
@@ -538,6 +538,198 @@
             background: var(--uts-green);
             color: white;
             box-shadow: 0 2px 6px rgba(47, 92, 53, 0.3);
+        }
+
+        .api-network-banner {
+            background: linear-gradient(135deg, #0e2913 0%, #17361a 50%, #1e4522 100%);
+            border: 1px solid rgba(140, 184, 43, 0.4);
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-bottom: 22px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 14px rgba(27, 61, 33, 0.12);
+        }
+        .api-network-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .api-pulse-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            animation: apiPulse 2s infinite;
+            flex-shrink: 0;
+        }
+        @keyframes apiPulse {
+            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+        .api-network-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .api-network-subtitle {
+            font-size: 12px;
+            color: #c4e477;
+            margin-top: 3px;
+        }
+        .api-endpoint-badge {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .api-endpoint-badge:hover {
+            background: rgba(140, 184, 43, 0.25);
+            border-color: #8cb82b;
+            color: #c4e477;
+            transform: translateY(-1px);
+        }
+
+        .university-filter-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+        .uni-filter-label {
+            font-size: 11.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-right: 6px;
+        }
+        .uni-tabs {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .uni-tab-pill {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: #475569;
+            background: #f8fafc;
+            border: 1px solid var(--border-light);
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .uni-tab-pill:hover {
+            background: #f1f5f9;
+            border-color: var(--border-hover);
+            color: var(--text-main);
+            transform: translateY(-1px);
+        }
+        .uni-tab-pill.active {
+            background: #0f172a;
+            color: #ffffff;
+            border-color: #0f172a;
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);
+        }
+        .uni-tab-pill.pill-uts.active {
+            background: linear-gradient(135deg, #1b3d21 0%, #2f5c35 100%);
+            border-color: #8cb82b;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(47, 92, 53, 0.35);
+        }
+        .uni-tab-pill.pill-uis.active {
+            background: linear-gradient(135deg, #0c2340 0%, #1e3a8a 100%);
+            border-color: #3b82f6;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(30, 58, 138, 0.35);
+        }
+        .uni-tab-pill.pill-unab.active {
+            background: linear-gradient(135deg, #881337 0%, #b91c1c 100%);
+            border-color: #f43f5e;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(185, 28, 28, 0.35);
+        }
+        .uni-tab-pill.pill-udes.active {
+            background: linear-gradient(135deg, #155e75 0%, #0284c7 100%);
+            border-color: #38bdf8;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.35);
+        }
+        .uni-tab-pill.pill-ascun.active {
+            background: linear-gradient(135deg, #064e3b 0%, #047857 100%);
+            border-color: #10b981;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(4, 120, 87, 0.35);
+        }
+
+        .uni-badge-card {
+            font-size: 10.5px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+        }
+        .uni-badge-uts {
+            background: linear-gradient(135deg, #17361a 0%, #2f5c35 100%);
+            color: #eafbe7;
+            border: 1.5px solid #8cb82b;
+        }
+        .uni-badge-uis {
+            background: linear-gradient(135deg, #0b1f36 0%, #1e3a8a 100%);
+            color: #fed7aa;
+            border: 1.5px solid #60a5fa;
+        }
+        .uni-badge-unab {
+            background: linear-gradient(135deg, #701a24 0%, #991b1b 100%);
+            color: #ffe4e6;
+            border: 1.5px solid #fb7185;
+        }
+        .uni-badge-udes {
+            background: linear-gradient(135deg, #0e4c63 0%, #0369a1 100%);
+            color: #e0f2fe;
+            border: 1.5px solid #38bdf8;
+        }
+        .uni-badge-ascun {
+            background: linear-gradient(135deg, #043d2f 0%, #047857 100%);
+            color: #d1fae5;
+            border: 1.5px solid #34d399;
         }
 
         .search-catalog-form {
@@ -597,7 +789,6 @@
             background: #f1f5f9;
         }
 
-        /* GRID ESTILIZADO DE EVENTOS */
         .events-grid-styled {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -608,7 +799,6 @@
             .events-grid-styled { grid-template-columns: 1fr; }
         }
 
-        /* TARJETA DE EVENTO MODERNA */
         .event-card-modern {
             background: var(--white);
             border: 1px solid var(--border-light);
@@ -626,7 +816,6 @@
             border-color: var(--border-hover);
         }
 
-        /* BANNER DE IMAGEN */
         .event-hero-banner {
             height: 185px;
             position: relative;
@@ -699,7 +888,6 @@
             gap: 5px;
         }
 
-        /* CUERPO DE LA TARJETA */
         .event-body-styled {
             padding: 20px;
             flex: 1;
@@ -715,6 +903,7 @@
             margin-bottom: 8px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
+            line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -725,11 +914,11 @@
             margin-bottom: 16px;
             display: -webkit-box;
             -webkit-line-clamp: 3;
+            line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
 
-        /* BLOQUE DE UBICACIÓN Y DIRECCIÓN BUCARAMANGA */
         .event-location-box {
             background: #f8fafc;
             border: 1px solid var(--border-light);
@@ -766,7 +955,6 @@
             display: inline-block;
         }
 
-        /* FOOTER DE ACCIONES */
         .event-actions-footer {
             padding-top: 15px;
             border-top: 1px solid #f1f5f9;
@@ -799,7 +987,6 @@
             transform: translateY(-1px);
         }
 
-        /* ESTADO YA INSCRITO */
         .enrolled-actions-wrap {
             display: flex;
             flex-direction: column;
@@ -860,7 +1047,344 @@
             color: white;
         }
 
-        /* EMPTY STATE */
+        .event-card-modern {
+            cursor: pointer;
+        }
+        .event-datetime-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 4px 10px;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+        .click-info-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+        .event-card-modern:hover .click-info-badge {
+            background: #8cb82b;
+            color: #0f2e1b;
+            border-color: #8cb82b;
+            transform: scale(1.05);
+        }
+
+        .modal-event-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+        .modal-event-backdrop.active {
+            opacity: 1;
+        }
+        .modal-event-dialog {
+            background: #ffffff;
+            border-radius: 24px;
+            max-width: 620px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transform: scale(0.94) translateY(15px);
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .modal-event-backdrop.active .modal-event-dialog {
+            transform: scale(1) translateY(0);
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.65);
+            color: #ffffff;
+            border: none;
+            font-size: 22px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: background 0.2s, transform 0.2s;
+            backdrop-filter: blur(4px);
+            line-height: 1;
+        }
+        .modal-close-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.08);
+        }
+        .modal-event-banner {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            border-radius: 24px 24px 0 0;
+        }
+        .modal-event-banner::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 40%, rgba(15,23,42,0.85) 100%);
+            border-radius: 24px 24px 0 0;
+        }
+        .modal-banner-overlay {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 16px 20px;
+        }
+        .modal-badges-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .modal-banner-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .modal-mode-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            font-size: 11.5px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .modal-event-body {
+            padding: 24px;
+        }
+        .modal-org-sub {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--uts-green);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .modal-event-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.3;
+            margin-bottom: 12px;
+        }
+        .modal-event-desc {
+            font-size: 14.5px;
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .modal-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 600px) {
+            .modal-info-grid { grid-template-columns: 1fr; }
+            .modal-event-dialog {
+                border-radius: 24px 24px 0 0;
+                max-height: 92vh;
+                margin-top: auto;
+                transform: translateY(100%);
+            }
+            .modal-event-backdrop {
+                padding: 0;
+                align-items: flex-end;
+            }
+            .modal-event-backdrop.active .modal-event-dialog {
+                transform: translateY(0);
+            }
+        }
+        .modal-info-card {
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 14px 16px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .modal-info-card.highlight-time {
+            border-color: #cbd5e1;
+            background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        .modal-info-card.highlight-loc {
+            border-color: #cbd5e1;
+            background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        .modal-info-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .modal-info-icon.time-icon {
+            background: #fef3c7;
+            color: #b45309;
+        }
+        .modal-info-icon.loc-icon {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+        .modal-info-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .modal-info-label {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+        .modal-info-main {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.35;
+            margin-bottom: 4px;
+        }
+        .modal-info-sub {
+            font-size: 12.5px;
+            color: #475569;
+            line-height: 1.4;
+        }
+        .time-pill {
+            display: inline-block;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-top: 4px;
+        }
+        .btn-open-maps {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 6px;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #0284c7;
+            text-decoration: none;
+            padding: 4px 9px;
+            background: #f0f9ff;
+            border-radius: 6px;
+            border: 1px solid #bae6fd;
+            transition: all 0.15s;
+        }
+        .btn-open-maps:hover {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+        .modal-meta-box {
+            background: #f0fdf4;
+            border: 1.5px solid #bbf7d0;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 22px;
+        }
+        .modal-meta-row {
+            font-size: 13px;
+            color: #166534;
+            line-height: 1.5;
+            margin-bottom: 6px;
+        }
+        .modal-meta-row:last-child {
+            margin-bottom: 0;
+        }
+        .modal-actions-footer {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .btn-modal-enroll {
+            flex: 1;
+            background: linear-gradient(135deg, #1b3d21 0%, #2f5c35 100%);
+            color: #ffffff;
+            border: 1px solid #8cb82b;
+            padding: 13px 20px;
+            border-radius: 12px;
+            font-size: 14.5px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(27, 61, 33, 0.25);
+        }
+        .btn-modal-enroll:hover {
+            background: linear-gradient(135deg, #15361a 0%, #244c2a 100%);
+            box-shadow: 0 6px 16px rgba(27, 61, 33, 0.35);
+            transform: translateY(-1px);
+        }
+        .btn-modal-close {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            padding: 13px 18px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-modal-close:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
         .empty-events-box {
             padding: 70px 20px;
             text-align: center;
@@ -871,7 +1395,6 @@
             color: var(--text-muted);
         }
 
-        /* SECCIÓN ADMIN / CRUD STYLING */
         .admin-section-box {
             background: var(--white);
             border: 1px solid var(--border-light);
@@ -935,8 +1458,25 @@
             border-bottom: 1px solid var(--border-light);
             vertical-align: middle;
         }
+        .badge-status-activo {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            background: #dcfce7;
+            color: #15803d;
+            display: inline-block;
+        }
+        .badge-status-inactivo {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            background: #f1f5f9;
+            color: #64748b;
+            display: inline-block;
+        }
 
-        /* NOTA INSTITUCIONAL */
         .institutional-note-banner {
             background: #f8fafc;
             border: 1px solid var(--border-light);
@@ -949,13 +1489,249 @@
             font-size: 12.5px;
             line-height: 1.45;
         }
+
+        .mobile-bottom-nav,
+        .btn-close-sidebar,
+        .mobile-drawer-overlay {
+            display: none;
+        }
+
+        @media (max-width: 992px) {
+            body {
+                height: auto !important;
+                min-height: 100vh !important;
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .main-wrapper {
+                display: block !important;
+                overflow: visible !important;
+                position: relative !important;
+            }
+
+            .sidebar {
+                position: fixed !important;
+                top: 0 !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                width: 290px !important;
+                max-width: 85vw !important;
+                height: 100vh !important;
+                z-index: 10001 !important;
+                transform: translateX(-100%) !important;
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                box-shadow: 4px 0 30px rgba(0, 0, 0, 0.6) !important;
+                display: flex !important;
+            }
+            .sidebar.mobile-open {
+                transform: translateX(0) !important;
+            }
+
+            .btn-close-sidebar {
+                display: flex !important;
+                position: absolute !important;
+                top: 14px !important;
+                right: 14px !important;
+                background: rgba(255, 255, 255, 0.12) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                color: #ffffff !important;
+                width: 32px !important;
+                height: 32px !important;
+                border-radius: 50% !important;
+                align-items: center !important;
+                justify-content: center !important;
+                font-size: 20px !important;
+                line-height: 1 !important;
+                cursor: pointer !important;
+                z-index: 10;
+            }
+
+            .mobile-drawer-overlay {
+                display: none;
+                position: fixed !important;
+                inset: 0 !important;
+                background: rgba(0, 0, 0, 0.65) !important;
+                backdrop-filter: blur(4px) !important;
+                -webkit-backdrop-filter: blur(4px) !important;
+                z-index: 10000 !important;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            .mobile-drawer-overlay.active {
+                display: block !important;
+                opacity: 1 !important;
+            }
+
+            .content-area {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 16px 14px calc(85px + env(safe-area-inset-bottom, 0px)) 14px !important;
+                overflow-y: visible !important;
+            }
+
+            .top-navbar {
+                height: 54px !important;
+                padding: 0 14px !important;
+            }
+            .nav-icon-menu {
+                display: flex !important;
+                width: 36px !important;
+                height: 36px !important;
+                align-items: center !important;
+                justify-content: center !important;
+                border-radius: 8px !important;
+                background: #f1f5f9 !important;
+                color: #1b3d21 !important;
+                font-size: 19px !important;
+                cursor: pointer !important;
+                border: none !important;
+            }
+            .logo-subtitle,
+            .top-navbar-right > span {
+                display: none !important;
+            }
+            .logo-container img {
+                height: 32px !important;
+            }
+            .logo-title {
+                font-size: 17px !important;
+            }
+            .user-menu span {
+                font-size: 12px;
+                max-width: 90px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .user-menu img {
+                width: 32px !important;
+                height: 32px !important;
+            }
+            .balance-chip-nav {
+                padding: 4px 10px !important;
+                font-size: 12px !important;
+            }
+
+            .mobile-bottom-nav {
+                display: flex !important;
+                position: fixed !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                height: calc(62px + env(safe-area-inset-bottom, 0px)) !important;
+                padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+                background: rgba(255, 255, 255, 0.96) !important;
+                backdrop-filter: blur(20px) !important;
+                -webkit-backdrop-filter: blur(20px) !important;
+                border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+                box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.07) !important;
+                z-index: 9999 !important;
+                justify-content: space-around !important;
+                align-items: center !important;
+            }
+
+            .mobile-nav-item {
+                flex: 1 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                height: 100% !important;
+                text-decoration: none !important;
+                color: #64748b !important;
+                transition: all 0.15s ease !important;
+                position: relative !important;
+                -webkit-tap-highlight-color: transparent !important;
+            }
+
+            .mobile-nav-item:active {
+                transform: scale(0.92) !important;
+            }
+
+            .mobile-nav-icon-wrap {
+                width: 32px !important;
+                height: 26px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+            }
+
+            .mobile-nav-label {
+                font-size: 10.5px !important;
+                font-weight: 600 !important;
+                margin-top: 2px !important;
+                letter-spacing: -0.2px !important;
+            }
+
+            .mobile-nav-item.active {
+                color: #27522d !important;
+            }
+
+            .mobile-nav-item.active .mobile-nav-icon-wrap {
+                color: #27522d !important;
+                transform: translateY(-2px) !important;
+            }
+
+            .mobile-nav-item.active .mobile-nav-label {
+                font-weight: 800 !important;
+                color: #1e4522 !important;
+            }
+
+            .mobile-nav-item.active::after {
+                content: '' !important;
+                position: absolute !important;
+                top: 4px !important;
+                width: 24px !important;
+                height: 3px !important;
+                background: #8cb82b !important;
+                border-radius: 99px !important;
+                box-shadow: 0 0 8px rgba(140, 184, 43, 0.7) !important;
+            }
+
+            .page-hero-banner {
+                padding: 18px 16px !important;
+                border-radius: 18px !important;
+            }
+            .events-catalog-grid {
+                grid-template-columns: 1fr !important;
+                gap: 16px !important;
+            }
+            .event-catalog-card {
+                border-radius: 18px !important;
+            }
+            .filter-bar-catalog {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 10px !important;
+            }
+            .uni-filters-row {
+                overflow-x: auto !important;
+                padding-bottom: 6px !important;
+                flex-wrap: nowrap !important;
+            }
+            .uni-filter-btn {
+                flex-shrink: 0 !important;
+                padding: 6px 12px !important;
+                border-radius: 20px !important;
+            }
+            .admin-crud-card {
+                border-radius: 18px !important;
+                padding: 18px 16px !important;
+            }
+            .crud-form-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- TOP NAVBAR -->
     <header class="top-navbar">
         <div class="top-navbar-left">
+            <button type="button" class="nav-icon-menu" id="btnToggleSidebar" aria-label="Menú">&#9776;</button>
             <a href="${pageContext.request.contextPath}/dashboard" class="logo-container" title="Ir a Inicio UTS">
                 <img src="${pageContext.request.contextPath}/assets/images/logouts.png" alt="DUTS UTS">
                 <div class="logo-text-box">
@@ -971,19 +1747,20 @@
             </div>
             <a href="${pageContext.request.contextPath}/perfil" class="user-menu" title="Ver mi perfil institucional">
                 <span><c:out value="${sessionScope.usuario.nombreCompleto}"/></span>
-                <img src="${not empty sessionScope.usuario.fotoPerfil ? sessionScope.usuario.fotoPerfil : pageContext.request.contextPath.concat('/assets/images/user_avatar_uts.png')}" alt="Avatar">
+                <img src="${pageContext.request.contextPath}/assets/images/${not empty sessionScope.usuario.fotoPerfil && sessionScope.usuario.fotoPerfil != 'avatar.jpg' ? sessionScope.usuario.fotoPerfil : 'default-avatar.svg'}" alt="Avatar">
             </a>
         </div>
     </header>
 
     <div class="main-wrapper">
-        <!-- SIDEBAR INSTITUCIONAL REDISEÑADO -->
+        <div class="mobile-drawer-overlay" id="mobileDrawerOverlay"></div>
+        
         <aside class="sidebar">
-            <!-- CABECERA: PERFIL DE USUARIO -->
             <div class="sidebar-brand-box">
+                <button type="button" class="btn-close-sidebar" id="btnCloseSidebar" aria-label="Cerrar Menú">&times;</button>
                 <div class="sidebar-user-pill">
                     <div class="sidebar-user-avatar-wrap">
-                        <img src="${pageContext.request.contextPath}/assets/images/${not empty sessionScope.usuario.fotoPerfil ? sessionScope.usuario.fotoPerfil : 'avatar.jpg'}" alt="Avatar">
+                        <img src="${pageContext.request.contextPath}/assets/images/${not empty sessionScope.usuario.fotoPerfil && sessionScope.usuario.fotoPerfil != 'avatar.jpg' ? sessionScope.usuario.fotoPerfil : 'default-avatar.svg'}" alt="Avatar">
                         <span class="user-live-indicator" title="Sesión activa"></span>
                     </div>
                     <div class="sidebar-user-meta">
@@ -1004,7 +1781,6 @@
                 </div>
             </div>
 
-            <!-- NAVEGACIÓN PRINCIPAL -->
             <div class="sidebar-nav-container">
                 <div class="sidebar-nav-section-title">Menú Principal</div>
                 <ul class="sidebar-menu">
@@ -1021,7 +1797,7 @@
                             <span class="nav-icon">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                             </span>
-                            <span>Mi Perfil</span>
+                            <span>Mi Perfil y Ajustes</span>
                         </a>
                     </li>
                     <li>
@@ -1049,9 +1825,17 @@
                             <span>Historial y Facturas</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/descargar-app?tipo=apk" download="DUTS-UTS-Movil.apk" style="color: #c4e477; font-weight: 700; background: rgba(140, 184, 43, 0.12); border-radius: 8px;">
+                            <span class="nav-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8cb82b" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            </span>
+                            <span>Descargar App Móvil</span>
+                            <span style="background:#8cb82b;color:#0d2813;font-size:9px;font-weight:900;padding:2px 6px;border-radius:4px;margin-left:auto;">APK</span>
+                        </a>
+                    </li>
                 </ul>
 
-                <!-- WIDGET BILLETERA CIRCULAR EN SIDEBAR -->
                 <div class="sidebar-wallet-card">
                     <div class="sidebar-wallet-top">
                         <span class="wallet-badge-pill">ECONOMÍA CIRCULAR</span>
@@ -1075,7 +1859,6 @@
                 </div>
             </div>
 
-            <!-- PIE DE PÁGINA DEL SIDEBAR -->
             <div class="sidebar-footer">
                 <a href="${pageContext.request.contextPath}/logout" class="sidebar-logout-btn">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
@@ -1088,7 +1871,6 @@
         <main class="content-area">
             <div class="container">
 
-                <!-- ALERTAS -->
                 <c:if test="${not empty flashSuccess}">
                     <div class="alert alert-success">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
@@ -1102,7 +1884,6 @@
                     </div>
                 </c:if>
 
-                <!-- HERO HEADER -->
                 <div class="events-hero-header">
                     <div class="hero-title-box">
                         <h1>
@@ -1122,7 +1903,6 @@
                     </div>
                 </div>
 
-                <!-- 4 TARJETAS KPI RESUMEN -->
                 <div class="kpi-grid-4">
                     <div class="kpi-card highlight-events">
                         <div class="kpi-header">
@@ -1188,18 +1968,63 @@
                     </div>
                 </div>
 
-                <!-- BARRA DE CATEGORÍAS Y BÚSQUEDA -->
+                <div class="api-network-banner">
+                    <div class="api-network-left">
+                        <div class="api-pulse-dot" title="Conexión en tiempo real con la Red Universitaria"></div>
+                        <div>
+                            <div class="api-network-title">
+                                Red Abierta de Eventos Universitarios de Bucaramanga y Santander
+                            </div>
+                            <div class="api-network-subtitle">
+                                Conectado a las APIs de UTS, UIS, UNAB, UDES y ASCUN Nodo Santander · Gana DUTS por participar
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="${pageContext.request.contextPath}/api/eventos/bucaramanga" target="_blank" class="api-endpoint-badge" title="Explorar el endpoint JSON de la Red Universitaria">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                            <span>Ver API REST (JSON)</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="university-filter-row">
+                    <span class="uni-filter-label">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                        Universidad:
+                    </span>
+                    <div class="uni-tabs">
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=TODAS&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill ${filtroUniversidad == 'TODAS' ? 'active' : ''}">Todas</a>
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=UTS&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-uts ${filtroUniversidad == 'UTS' ? 'active' : ''}">
+                            <strong>UTS</strong> Unidades Tecnológicas
+                        </a>
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=UIS&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-uis ${filtroUniversidad == 'UIS' ? 'active' : ''}">
+                            <strong>UIS</strong> Industrial Santander
+                        </a>
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=UNAB&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-unab ${filtroUniversidad == 'UNAB' ? 'active' : ''}">
+                            <strong>UNAB</strong> Autónoma
+                        </a>
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=UDES&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-udes ${filtroUniversidad == 'UDES' ? 'active' : ''}">
+                            <strong>UDES</strong> Santander
+                        </a>
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=ASCUN&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-ascun ${filtroUniversidad == 'ASCUN' ? 'active' : ''}">
+                            <strong>ASCUN</strong> Deportes
+                        </a>
+                    </div>
+                </div>
+
                 <div class="catalog-toolbar">
                     <div class="category-tabs">
-                        <a href="${pageContext.request.contextPath}/eventos?categoria=TODOS&buscar=${filtroBuscar}" class="category-tab-btn ${filtroCategoria == 'TODOS' ? 'active' : ''}">Todos</a>
-                        <a href="${pageContext.request.contextPath}/eventos?categoria=Tecnología&buscar=${filtroBuscar}" class="category-tab-btn ${filtroCategoria == 'Tecnología' ? 'active' : ''}">Tecnología</a>
-                        <a href="${pageContext.request.contextPath}/eventos?categoria=Conferencias&buscar=${filtroBuscar}" class="category-tab-btn ${filtroCategoria == 'Conferencias' ? 'active' : ''}">Conferencias</a>
-                        <a href="${pageContext.request.contextPath}/eventos?categoria=Emprendimiento&buscar=${filtroBuscar}" class="category-tab-btn ${filtroCategoria == 'Emprendimiento' ? 'active' : ''}">Emprendimiento</a>
-                        <a href="${pageContext.request.contextPath}/eventos?categoria=Deportivos&buscar=${filtroBuscar}" class="category-tab-btn ${filtroCategoria == 'Deportivos' ? 'active' : ''}">Deportivos</a>
-                        <a href="${pageContext.request.contextPath}/eventos?categoria=Talleres&buscar=${filtroBuscar}" class="category-tab-btn ${filtroCategoria == 'Talleres' ? 'active' : ''}">Talleres</a>
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=${filtroUniversidad}&categoria=TODOS&buscar=${filtroBuscar}" class="category-tab-btn ${filtroCategoria == 'TODOS' ? 'active' : ''}">Todos</a>
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=${filtroUniversidad}&categoria=Tecnología&buscar=${filtroBuscar}" class="category-tab-btn ${filtroCategoria == 'Tecnología' ? 'active' : ''}">Tecnología</a>
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=${filtroUniversidad}&categoria=Conferencias&buscar=${filtroBuscar}" class="category-tab-btn ${filtroCategoria == 'Conferencias' ? 'active' : ''}">Conferencias</a>
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=${filtroUniversidad}&categoria=Emprendimiento&buscar=${filtroBuscar}" class="category-tab-btn ${filtroCategoria == 'Emprendimiento' ? 'active' : ''}">Emprendimiento</a>
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=${filtroUniversidad}&categoria=Deportivos&buscar=${filtroBuscar}" class="category-tab-btn ${filtroCategoria == 'Deportivos' ? 'active' : ''}">Deportivos</a>
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=${filtroUniversidad}&categoria=Talleres&buscar=${filtroBuscar}" class="category-tab-btn ${filtroCategoria == 'Talleres' ? 'active' : ''}">Talleres</a>
                     </div>
 
                     <form action="${pageContext.request.contextPath}/eventos" method="GET" class="search-catalog-form">
+                        <input type="hidden" name="universidad" value="${filtroUniversidad}">
                         <input type="hidden" name="categoria" value="${filtroCategoria}">
                         <div class="search-catalog-wrap">
                             <span class="search-catalog-icon">
@@ -1208,22 +2033,24 @@
                             <input type="text" name="buscar" value="${filtroBuscar}" placeholder="Buscar evento, lugar o dirección..." class="search-catalog-input">
                         </div>
                         <button type="submit" class="btn-search-catalog">Buscar</button>
-                        <c:if test="${not empty filtroBuscar or filtroCategoria != 'TODOS'}">
+                        <c:if test="${not empty filtroBuscar or filtroCategoria != 'TODOS' or filtroUniversidad != 'TODAS'}">
                             <a href="${pageContext.request.contextPath}/eventos" class="btn-clear-catalog">Limpiar</a>
                         </c:if>
                     </form>
                 </div>
 
-                <!-- CATÁLOGO ESTUDIANTE: GRID REDISEÑADO CON IMÁGENES REALES Y ESTÉTICA MODERNA -->
                 <c:choose>
                     <c:when test="${not empty eventos}">
                         <div class="events-grid-styled">
                             <c:forEach items="${eventos}" var="ev">
                                 <div class="event-card-modern">
-                                    <!-- BANNER SUPERIOR CON IMAGEN REAL Y BADGES FLOTANTES -->
-                                    <div class="event-hero-banner" style="background-image: url('${pageContext.request.contextPath}/assets/images/${not empty ev.imagenUrl ? ev.imagenUrl : 'evento_tecnologia.jpg'}');">
+                                    <c:set var="evImg" value="${not empty ev.imagenUrl ? ev.imagenUrl : 'evento_tecnologia.jpg'}"/>
+                                    <div class="event-hero-banner" style="background-image: url('${pageContext.request.contextPath}/assets/images/${evImg}');">
                                         <div class="banner-top-row">
-                                            <span class="event-category-pill"><c:out value="${ev.categoria}"/></span>
+                                            <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+                                                <span class="uni-badge-card uni-badge-${ev.universidad.toLowerCase()}"><c:out value="${ev.universidad}"/></span>
+                                                <span class="event-category-pill"><c:out value="${ev.categoria}"/></span>
+                                            </div>
                                             <span class="reward-badge-floating">
                                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                                                 +<fmt:formatNumber value="${ev.recompensaDuts}" minFractionDigits="0"/> DUTS
@@ -1237,13 +2064,11 @@
                                         </div>
                                     </div>
 
-                                    <!-- DETALLES DEL EVENTO -->
                                     <div class="event-body-styled">
                                         <div>
                                             <h3 class="event-title-styled" title="${ev.nombre}"><c:out value="${ev.nombre}"/></h3>
                                             <p class="event-desc-styled"><c:out value="${ev.descripcion}"/></p>
 
-                                            <!-- UBICACIÓN Y DIRECCIÓN EXACTA BUCARAMANGA -->
                                             <div class="event-location-box">
                                                 <div class="loc-row">
                                                     <svg class="loc-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
@@ -1256,7 +2081,6 @@
                                             </div>
                                         </div>
 
-                                        <!-- ACCIONES DE INSCRIPCIÓN / RECLAMO DE DUTS -->
                                         <div class="event-actions-footer">
                                             <c:choose>
                                                 <c:when test="${ev.inscrito}">
@@ -1308,7 +2132,6 @@
                     </c:otherwise>
                 </c:choose>
 
-                <!-- PANEL CRUD PARA ADMINISTRADORES (SI ES ADMIN) -->
                 <c:if test="${esAdmin}">
                     <div class="admin-section-box">
                         <div class="admin-header-title">
@@ -1318,7 +2141,7 @@
                             </c:choose>
                         </div>
                         <form action="${pageContext.request.contextPath}/eventos" method="POST">
-                            <input type="hidden" name="action" value="${not empty eventoEditar ? 'editar' : 'crear'}">
+                            <input type="hidden" name="action" value="${not empty eventoEditar ? 'actualizar' : 'crear'}">
                             <c:if test="${not empty eventoEditar}">
                                 <input type="hidden" name="id" value="${eventoEditar.id}">
                             </c:if>
@@ -1327,6 +2150,16 @@
                                 <div class="admin-input-group">
                                     <label for="nombre">Nombre del Evento *</label>
                                     <input type="text" id="nombre" name="nombre" class="admin-input-field" value="${eventoEditar != null ? eventoEditar.nombre : ''}" required>
+                                </div>
+                                <div class="admin-input-group">
+                                    <label for="universidad">Institución Universitaria *</label>
+                                    <select id="universidad" name="universidad" class="admin-input-field" required>
+                                        <option value="UTS" ${eventoEditar != null && eventoEditar.universidad == 'UTS' ? 'selected' : ''}>UTS - Unidades Tecnológicas de Santander</option>
+                                        <option value="UIS" ${eventoEditar != null && eventoEditar.universidad == 'UIS' ? 'selected' : ''}>UIS - Universidad Industrial de Santander</option>
+                                        <option value="UNAB" ${eventoEditar != null && eventoEditar.universidad == 'UNAB' ? 'selected' : ''}>UNAB - Universidad Autónoma de Bucaramanga</option>
+                                        <option value="UDES" ${eventoEditar != null && eventoEditar.universidad == 'UDES' ? 'selected' : ''}>UDES - Universidad de Santander</option>
+                                        <option value="ASCUN" ${eventoEditar != null && eventoEditar.universidad == 'ASCUN' ? 'selected' : ''}>ASCUN - Asociación Colombiana de Universidades</option>
+                                    </select>
                                 </div>
                                 <div class="admin-input-group">
                                     <label for="categoria">Categoría *</label>
@@ -1393,7 +2226,6 @@
                             </div>
                         </form>
 
-                        <!-- LISTADO MAESTRO DE EVENTOS CRUD -->
                         <div style="margin-top: 30px;">
                             <h4 style="font-size: 14px; font-weight: 800; color: var(--text-main); margin-bottom: 12px;">Gestión de Todos los Eventos en Base de Datos</h4>
                             <div style="overflow-x: auto;">
@@ -1401,6 +2233,7 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
+                                            <th>Institución</th>
                                             <th>Nombre</th>
                                             <th>Categoría</th>
                                             <th>Lugar</th>
@@ -1414,13 +2247,14 @@
                                         <c:forEach items="${todosEventosAdmin != null ? todosEventosAdmin : eventos}" var="e">
                                             <tr>
                                                 <td>#<c:out value="${e.id}"/></td>
+                                                <td><span class="uni-badge-card uni-badge-${e.universidad.toLowerCase()}"><c:out value="${e.universidad}"/></span></td>
                                                 <td><strong><c:out value="${e.nombre}"/></strong></td>
                                                 <td><c:out value="${e.categoria}"/></td>
                                                 <td><c:out value="${e.lugar}"/></td>
                                                 <td style="color: #16a34a; font-weight: 700;">+<fmt:formatNumber value="${e.recompensaDuts}" minFractionDigits="0"/> DUTS</td>
                                                 <td><c:out value="${e.cupos}"/></td>
                                                 <td>
-                                                    <span style="padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: 700; background: ${e.estado == 'ACTIVO' ? '#dcfce7' : '#f1f5f9'}; color: ${e.estado == 'ACTIVO' ? '#15803d' : '#64748b'};">
+                                                    <span class="${e.estado == 'ACTIVO' ? 'badge-status-activo' : 'badge-status-inactivo'}">
                                                         <c:out value="${e.estado}"/>
                                                     </span>
                                                 </td>
@@ -1441,7 +2275,6 @@
                     </div>
                 </c:if>
 
-                <!-- NOTA INSTITUCIONAL -->
                 <div class="institutional-note-banner">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--uts-green)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                     <div>
@@ -1454,5 +2287,72 @@
         </main>
     </div>
 
+    <nav class="mobile-bottom-nav" aria-label="Navegación principal de la aplicación">
+        <a href="${pageContext.request.contextPath}/dashboard" class="mobile-nav-item" title="Inicio">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            </div>
+            <span class="mobile-nav-label">Inicio</span>
+        </a>
+        <a href="${pageContext.request.contextPath}/transferencias" class="mobile-nav-item" title="Transferencias">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </div>
+            <span class="mobile-nav-label">Transferir</span>
+        </a>
+        <a href="${pageContext.request.contextPath}/eventos" class="mobile-nav-item active" title="Eventos y Recompensas">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            </div>
+            <span class="mobile-nav-label">Eventos</span>
+        </a>
+        <a href="${pageContext.request.contextPath}/movimientos" class="mobile-nav-item" title="Historial y Facturas">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <span class="mobile-nav-label">Facturas</span>
+        </a>
+        <a href="${pageContext.request.contextPath}/perfil" class="mobile-nav-item" title="Ajustes y Perfil">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <span class="mobile-nav-label">Ajustes</span>
+        </a>
+    </nav>
+
+    <script>
+        const btnToggleSidebar = document.getElementById('btnToggleSidebar');
+        const btnCloseSidebar = document.getElementById('btnCloseSidebar');
+        const mobileDrawerOverlay = document.getElementById('mobileDrawerOverlay');
+        const sidebar = document.querySelector('.sidebar');
+
+        function openDrawer() {
+            if (sidebar) sidebar.classList.add('mobile-open');
+            if (mobileDrawerOverlay) mobileDrawerOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDrawer() {
+            if (sidebar) sidebar.classList.remove('mobile-open');
+            if (mobileDrawerOverlay) mobileDrawerOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        if (btnToggleSidebar) btnToggleSidebar.addEventListener('click', openDrawer);
+        if (btnCloseSidebar) btnCloseSidebar.addEventListener('click', closeDrawer);
+        if (mobileDrawerOverlay) mobileDrawerOverlay.addEventListener('click', closeDrawer);
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('${pageContext.request.contextPath}/sw.js')
+                    .then(function(reg) {
+                        console.log('DUTS Service Worker registrado:', reg.scope);
+                    })
+                    .catch(function(err) {
+                        console.log('Error registrando Service Worker:', err);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>

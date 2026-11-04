@@ -5,8 +5,19 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>Extracto y Facturas Oficiales DUTS - Unidades Tecnológicas de Santander</title>
+    
+    <meta name="theme-color" content="#1b3d21">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="icon" type="image/svg+xml" href="${pageContext.request.contextPath}/assets/images/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/images/favicon.ico">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico">
+    <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/assets/images/favicon.svg">
+    <link rel="manifest" href="${pageContext.request.contextPath}/manifest.json">
     <style>
         :root {
             --uts-green: #2f5c35;
@@ -32,7 +43,6 @@
         * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
         body { background-color: var(--bg-canvas); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
 
-        /* TOP NAVBAR */
         .top-navbar {
             background-color: var(--white);
             height: 65px;
@@ -80,8 +90,6 @@
         .user-menu:hover { background-color: #f1f5f9; }
         .user-menu img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--uts-green-light); }
 
-        /* MAIN WRAPPER & SIDEBAR */
-        /* MAIN WRAPPER & SIDEBAR REDISEÑADO */
         .main-wrapper { display: flex; flex: 1; min-height: calc(100vh - 65px); }
         .sidebar {
             width: 270px;
@@ -95,7 +103,6 @@
             position: relative;
         }
 
-        /* PERFIL DE USUARIO EN CABECERA DEL SIDEBAR */
         .sidebar-brand-box {
             padding: 20px 18px 16px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -167,7 +174,6 @@
             border: 1px solid rgba(234, 179, 8, 0.4);
         }
 
-        /* NAVEGACIÓN INSTITUCIONAL */
         .sidebar-nav-container {
             flex: 1;
             padding: 14px 0;
@@ -243,7 +249,6 @@
             box-shadow: 0 0 6px var(--uts-green-light);
         }
 
-        /* WIDGET BILLETERA CIRCULAR EN SIDEBAR */
         .sidebar-wallet-card {
             margin: auto 12px 14px;
             background: rgba(0, 0, 0, 0.25);
@@ -319,7 +324,6 @@
             display: inline-block;
         }
 
-        /* PIE DE PÁGINA Y CERRAR SESIÓN */
         .sidebar-footer {
             padding: 14px 14px 18px;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -355,11 +359,9 @@
             letter-spacing: 0.3px;
         }
 
-        /* CONTENT */
         .content-area { flex: 1; padding: 32px; overflow-y: auto; }
         .container { max-width: 1240px; margin: 0 auto; }
 
-        /* HERO HEADER */
         .statement-header-bar {
             display: flex;
             align-items: center;
@@ -428,7 +430,6 @@
             transform: translateY(-1px);
         }
 
-        /* METRIC CARDS / FINANCIAL KPIS */
         .kpi-grid-4 {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -508,7 +509,6 @@
         .text-income { color: var(--income-color) !important; }
         .text-expense { color: var(--expense-color) !important; }
 
-        /* PANEL PRINCIPAL DEL EXTRACTO */
         .statement-card {
             background: var(--white);
             border: 1px solid var(--border-light);
@@ -518,7 +518,6 @@
             margin-bottom: 30px;
         }
 
-        /* FILTROS Y BARRA DE HERRAMIENTAS */
         .table-toolbar {
             padding: 18px 24px;
             border-bottom: 1px solid var(--border-light);
@@ -610,7 +609,6 @@
         }
         .btn-filter-clear:hover { background: #e2e8f0; }
 
-        /* TABLA MODERNA DEL EXTRACTO */
         .table-responsive { width: 100%; overflow-x: auto; }
         .fintech-table {
             width: 100%;
@@ -638,7 +636,6 @@
             background: #fbfcfe;
         }
 
-        /* ELEMENTOS DENTRO DE LA TABLA */
         .ref-code-box {
             display: flex;
             flex-direction: column;
@@ -706,7 +703,6 @@
         .amount-cell.income { color: var(--income-color); }
         .amount-cell.expense { color: var(--expense-color); }
 
-        /* BOTONES DE FACTURA EN PDF */
         .btn-download-factura {
             display: inline-flex;
             align-items: center;
@@ -729,7 +725,6 @@
             box-shadow: 0 2px 6px rgba(220, 38, 38, 0.25);
         }
 
-        /* EMPTY STATE */
         .empty-ledger-state {
             padding: 60px 20px;
             text-align: center;
@@ -753,7 +748,6 @@
             margin-bottom: 6px;
         }
 
-        /* FOOTER DE CERTIFICACIÓN */
         .institutional-footer-note {
             background: #f8fafc;
             border: 1px solid var(--border-light);
@@ -772,7 +766,6 @@
             flex-shrink: 0;
         }
 
-        /* MEDIA PRINT (PARA IMPRESIÓN DIRECTA DEL NAVEGADOR) */
         @media print {
             .sidebar, .top-navbar, .header-actions-group, .table-toolbar, .btn-download-factura {
                 display: none !important;
@@ -784,13 +777,261 @@
             }
             .statement-card { border: none !important; box-shadow: none !important; }
         }
+
+        .mobile-bottom-nav,
+        .btn-close-sidebar,
+        .mobile-drawer-overlay {
+            display: none;
+        }
+
+        @media (max-width: 992px) {
+            body {
+                height: auto !important;
+                min-height: 100vh !important;
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .main-wrapper {
+                display: block !important;
+                overflow: visible !important;
+                position: relative !important;
+            }
+
+            .sidebar {
+                position: fixed !important;
+                top: 0 !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                width: 290px !important;
+                max-width: 85vw !important;
+                height: 100vh !important;
+                z-index: 10001 !important;
+                transform: translateX(-100%) !important;
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                box-shadow: 4px 0 30px rgba(0, 0, 0, 0.6) !important;
+                display: flex !important;
+            }
+            .sidebar.mobile-open {
+                transform: translateX(0) !important;
+            }
+
+            .btn-close-sidebar {
+                display: flex !important;
+                position: absolute !important;
+                top: 14px !important;
+                right: 14px !important;
+                background: rgba(255, 255, 255, 0.12) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                color: #ffffff !important;
+                width: 32px !important;
+                height: 32px !important;
+                border-radius: 50% !important;
+                align-items: center !important;
+                justify-content: center !important;
+                font-size: 20px !important;
+                line-height: 1 !important;
+                cursor: pointer !important;
+                z-index: 10;
+            }
+
+            .mobile-drawer-overlay {
+                display: none;
+                position: fixed !important;
+                inset: 0 !important;
+                background: rgba(0, 0, 0, 0.65) !important;
+                backdrop-filter: blur(4px) !important;
+                -webkit-backdrop-filter: blur(4px) !important;
+                z-index: 10000 !important;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            .mobile-drawer-overlay.active {
+                display: block !important;
+                opacity: 1 !important;
+            }
+
+            .content-area {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 16px 14px calc(85px + env(safe-area-inset-bottom, 0px)) 14px !important;
+                overflow-y: visible !important;
+            }
+
+            .top-navbar {
+                height: 54px !important;
+                padding: 0 14px !important;
+            }
+            .nav-icon-menu {
+                display: flex !important;
+                width: 36px !important;
+                height: 36px !important;
+                align-items: center !important;
+                justify-content: center !important;
+                border-radius: 8px !important;
+                background: #f1f5f9 !important;
+                color: #1b3d21 !important;
+                font-size: 19px !important;
+                cursor: pointer !important;
+                border: none !important;
+            }
+            .logo-subtitle,
+            .top-navbar-right > span {
+                display: none !important;
+            }
+            .logo-container img {
+                height: 32px !important;
+            }
+            .logo-title {
+                font-size: 17px !important;
+            }
+            .user-menu span {
+                font-size: 12px;
+                max-width: 90px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .user-menu img {
+                width: 32px !important;
+                height: 32px !important;
+            }
+            .balance-chip-nav {
+                display: none !important;
+            }
+
+            .mobile-bottom-nav {
+                display: flex !important;
+                position: fixed !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                height: calc(62px + env(safe-area-inset-bottom, 0px)) !important;
+                padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+                background: rgba(255, 255, 255, 0.96) !important;
+                backdrop-filter: blur(20px) !important;
+                -webkit-backdrop-filter: blur(20px) !important;
+                border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+                box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.07) !important;
+                z-index: 9999 !important;
+                justify-content: space-around !important;
+                align-items: center !important;
+            }
+
+            .mobile-nav-item {
+                flex: 1 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                height: 100% !important;
+                text-decoration: none !important;
+                color: #64748b !important;
+                transition: all 0.15s ease !important;
+                position: relative !important;
+                -webkit-tap-highlight-color: transparent !important;
+            }
+
+            .mobile-nav-item:active {
+                transform: scale(0.92) !important;
+            }
+
+            .mobile-nav-icon-wrap {
+                width: 32px !important;
+                height: 26px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+            }
+
+            .mobile-nav-label {
+                font-size: 10.5px !important;
+                font-weight: 600 !important;
+                margin-top: 2px !important;
+                letter-spacing: -0.2px !important;
+            }
+
+            .mobile-nav-item.active {
+                color: #27522d !important;
+            }
+
+            .mobile-nav-item.active .mobile-nav-icon-wrap {
+                color: #27522d !important;
+                transform: translateY(-2px) !important;
+            }
+
+            .mobile-nav-item.active .mobile-nav-label {
+                font-weight: 800 !important;
+                color: #1e4522 !important;
+            }
+
+            .mobile-nav-item.active::after {
+                content: '' !important;
+                position: absolute !important;
+                top: 4px !important;
+                width: 24px !important;
+                height: 3px !important;
+                background: #8cb82b !important;
+                border-radius: 99px !important;
+                box-shadow: 0 0 8px rgba(140, 184, 43, 0.7) !important;
+            }
+
+            .stats-kpi-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px !important;
+            }
+            .kpi-card {
+                padding: 14px 12px !important;
+                border-radius: 14px !important;
+            }
+            .kpi-val {
+                font-size: 16px !important;
+            }
+            .statement-card {
+                border-radius: 18px !important;
+            }
+            .statement-header {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 14px !important;
+                padding: 16px 14px !important;
+            }
+            .header-actions-group {
+                width: 100% !important;
+                flex-direction: column !important;
+            }
+            .header-actions-group a {
+                width: 100% !important;
+                justify-content: center !important;
+                padding: 11px 14px !important;
+                font-size: 13px !important;
+            }
+            .table-toolbar {
+                padding: 12px 14px !important;
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 10px !important;
+            }
+            .filter-form-wrap {
+                flex-direction: column !important;
+                gap: 8px !important;
+            }
+            .search-box-wrap {
+                min-width: 100% !important;
+            }
+            .filter-select {
+                width: 100% !important;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- TOP NAVBAR -->
     <header class="top-navbar">
         <div class="top-navbar-left">
+            <button type="button" class="nav-icon-menu" id="btnToggleSidebar" aria-label="Menú">&#9776;</button>
             <a href="${pageContext.request.contextPath}/dashboard" class="logo-container" title="Ir a Inicio UTS">
                 <img src="${pageContext.request.contextPath}/assets/images/logouts.png" alt="DUTS UTS">
                 <div class="logo-text-box">
@@ -806,18 +1047,20 @@
             </div>
             <a href="${pageContext.request.contextPath}/perfil" class="user-menu" title="Ver mi perfil institucional">
                 <span><c:out value="${sessionScope.usuario.nombreCompleto}"/></span>
-                <img src="${not empty sessionScope.usuario.fotoPerfil ? sessionScope.usuario.fotoPerfil : pageContext.request.contextPath.concat('/assets/images/user_avatar_uts.png')}" alt="Avatar">
+                <img src="${pageContext.request.contextPath}/assets/images/${not empty sessionScope.usuario.fotoPerfil && sessionScope.usuario.fotoPerfil != 'avatar.jpg' ? sessionScope.usuario.fotoPerfil : 'default-avatar.svg'}" alt="Avatar">
             </a>
         </div>
     </header>
 
-        <!-- SIDEBAR INSTITUCIONAL REDISEÑADO -->
+    <div class="main-wrapper">
+        <div class="mobile-drawer-overlay" id="mobileDrawerOverlay"></div>
+        
         <aside class="sidebar">
-            <!-- CABECERA: PERFIL DE USUARIO -->
             <div class="sidebar-brand-box">
+                <button type="button" class="btn-close-sidebar" id="btnCloseSidebar" aria-label="Cerrar Menú">&times;</button>
                 <div class="sidebar-user-pill">
                     <div class="sidebar-user-avatar-wrap">
-                        <img src="${pageContext.request.contextPath}/assets/images/${not empty sessionScope.usuario.fotoPerfil ? sessionScope.usuario.fotoPerfil : 'avatar.jpg'}" alt="Avatar">
+                        <img src="${pageContext.request.contextPath}/assets/images/${not empty sessionScope.usuario.fotoPerfil && sessionScope.usuario.fotoPerfil != 'avatar.jpg' ? sessionScope.usuario.fotoPerfil : 'default-avatar.svg'}" alt="Avatar">
                         <span class="user-live-indicator" title="Sesión activa"></span>
                     </div>
                     <div class="sidebar-user-meta">
@@ -838,7 +1081,6 @@
                 </div>
             </div>
 
-            <!-- NAVEGACIÓN PRINCIPAL -->
             <div class="sidebar-nav-container">
                 <div class="sidebar-nav-section-title">Menú Principal</div>
                 <ul class="sidebar-menu">
@@ -855,7 +1097,7 @@
                             <span class="nav-icon">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                             </span>
-                            <span>Mi Perfil</span>
+                            <span>Mi Perfil y Ajustes</span>
                         </a>
                     </li>
                     <li>
@@ -883,9 +1125,17 @@
                             <span class="active-pip"></span>
                         </a>
                     </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/descargar-app?tipo=apk" download="DUTS-UTS-Movil.apk" style="color: #c4e477; font-weight: 700; background: rgba(140, 184, 43, 0.12); border-radius: 8px;">
+                            <span class="nav-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8cb82b" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            </span>
+                            <span>Descargar App Móvil</span>
+                            <span style="background:#8cb82b;color:#0d2813;font-size:9px;font-weight:900;padding:2px 6px;border-radius:4px;margin-left:auto;">APK</span>
+                        </a>
+                    </li>
                 </ul>
 
-                <!-- WIDGET BILLETERA CIRCULAR EN SIDEBAR -->
                 <div class="sidebar-wallet-card">
                     <div class="sidebar-wallet-top">
                         <span class="wallet-badge-pill">ECONOMÍA CIRCULAR</span>
@@ -909,7 +1159,6 @@
                 </div>
             </div>
 
-            <!-- PIE DE PÁGINA DEL SIDEBAR -->
             <div class="sidebar-footer">
                 <a href="${pageContext.request.contextPath}/logout" class="sidebar-logout-btn">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
@@ -922,7 +1171,6 @@
         <main class="content-area">
             <div class="container">
 
-                <!-- ENCABEZADO PRINCIPAL DE LA VISTA -->
                 <div class="statement-header-bar">
                     <div class="statement-title-box">
                         <h1>
@@ -943,7 +1191,6 @@
                     </div>
                 </div>
 
-                <!-- 4 TARJETAS KPI DE RESUMEN FINANCIERO -->
                 <div class="kpi-grid-4">
                     <div class="kpi-card highlight-wallet">
                         <div class="kpi-header">
@@ -1010,9 +1257,7 @@
                     </div>
                 </div>
 
-                <!-- CARD PRINCIPAL: TABLA DE EXTRACTO REDISEÑADA -->
                 <div class="statement-card">
-                    <!-- BARRA DE FILTROS Y BÚSQUEDA -->
                     <div class="table-toolbar">
                         <div class="filter-tabs">
                             <a href="${pageContext.request.contextPath}/movimientos?tipo=TODOS&buscar=${filtroBuscar}" class="tab-btn ${filtroTipo == 'TODOS' ? 'active' : ''}">Todos (${totalMovimientos})</a>
@@ -1035,7 +1280,6 @@
                         </form>
                     </div>
 
-                    <!-- TABLA DE MOVIMIENTOS -->
                     <div class="table-responsive">
                         <c:choose>
                             <c:when test="${not empty movimientos}">
@@ -1118,7 +1362,6 @@
                     </div>
                 </div>
 
-                <!-- NOTA INSTITUCIONAL INFERIOR -->
                 <div class="institutional-footer-note">
                     <svg class="footer-note-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                     <div>
@@ -1131,5 +1374,72 @@
         </main>
     </div>
 
+    <nav class="mobile-bottom-nav" aria-label="Navegación principal de la aplicación">
+        <a href="${pageContext.request.contextPath}/dashboard" class="mobile-nav-item" title="Inicio">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            </div>
+            <span class="mobile-nav-label">Inicio</span>
+        </a>
+        <a href="${pageContext.request.contextPath}/transferencias" class="mobile-nav-item" title="Transferencias">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </div>
+            <span class="mobile-nav-label">Transferir</span>
+        </a>
+        <a href="${pageContext.request.contextPath}/eventos" class="mobile-nav-item" title="Eventos y Recompensas">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            </div>
+            <span class="mobile-nav-label">Eventos</span>
+        </a>
+        <a href="${pageContext.request.contextPath}/movimientos" class="mobile-nav-item active" title="Historial y Facturas">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <span class="mobile-nav-label">Facturas</span>
+        </a>
+        <a href="${pageContext.request.contextPath}/perfil" class="mobile-nav-item" title="Ajustes y Perfil">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <span class="mobile-nav-label">Ajustes</span>
+        </a>
+    </nav>
+
+    <script>
+        const btnToggleSidebar = document.getElementById('btnToggleSidebar');
+        const btnCloseSidebar = document.getElementById('btnCloseSidebar');
+        const mobileDrawerOverlay = document.getElementById('mobileDrawerOverlay');
+        const sidebar = document.querySelector('.sidebar');
+
+        function openDrawer() {
+            if (sidebar) sidebar.classList.add('mobile-open');
+            if (mobileDrawerOverlay) mobileDrawerOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDrawer() {
+            if (sidebar) sidebar.classList.remove('mobile-open');
+            if (mobileDrawerOverlay) mobileDrawerOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        if (btnToggleSidebar) btnToggleSidebar.addEventListener('click', openDrawer);
+        if (btnCloseSidebar) btnCloseSidebar.addEventListener('click', closeDrawer);
+        if (mobileDrawerOverlay) mobileDrawerOverlay.addEventListener('click', closeDrawer);
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('${pageContext.request.contextPath}/sw.js')
+                    .then(function(reg) {
+                        console.log('DUTS Service Worker registrado:', reg.scope);
+                    })
+                    .catch(function(err) {
+                        console.log('Error registrando Service Worker:', err);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>

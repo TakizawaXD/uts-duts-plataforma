@@ -5,8 +5,19 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área Personal - DUTS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>Área Personal - DUTS UTS</title>
+    
+    <meta name="theme-color" content="#1b3d21">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="icon" type="image/svg+xml" href="${pageContext.request.contextPath}/assets/images/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/images/favicon.ico">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico">
+    <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/assets/images/favicon.svg">
+    <link rel="manifest" href="${pageContext.request.contextPath}/manifest.json">
     <style>
         :root {
             --atena-green: #2f5c35;
@@ -26,7 +37,6 @@
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
         body { background-color: var(--bg-light); color: var(--text-dark); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
 
-        /* TOP NAVBAR */
         .top-navbar {
             background-color: var(--white);
             height: 60px;
@@ -48,10 +58,8 @@
         .user-menu { display: flex; align-items: center; gap: 12px; font-weight: 600; color: var(--atena-green); }
         .user-menu img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); }
 
-        /* MAIN LAYOUT */
         .main-wrapper { display: flex; flex: 1; overflow: hidden; }
 
-        /* MAIN WRAPPER & SIDEBAR REDISEÑADO */
         .sidebar {
             width: 270px;
             background: linear-gradient(180deg, #102613 0%, #17361a 35%, #1e4522 100%);
@@ -64,7 +72,6 @@
             position: relative;
         }
 
-        /* PERFIL DE USUARIO EN CABECERA DEL SIDEBAR */
         .sidebar-brand-box {
             padding: 20px 18px 16px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -136,7 +143,6 @@
             border: 1px solid rgba(234, 179, 8, 0.4);
         }
 
-        /* NAVEGACIÓN INSTITUCIONAL */
         .sidebar-nav-container {
             flex: 1;
             padding: 14px 0;
@@ -212,7 +218,6 @@
             box-shadow: 0 0 6px var(--uts-green-light);
         }
 
-        /* WIDGET BILLETERA CIRCULAR EN SIDEBAR */
         .sidebar-wallet-card {
             margin: auto 12px 14px;
             background: rgba(0, 0, 0, 0.25);
@@ -288,7 +293,6 @@
             display: inline-block;
         }
 
-        /* PIE DE PÁGINA Y CERRAR SESIÓN */
         .sidebar-footer {
             padding: 14px 14px 18px;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -324,16 +328,13 @@
             letter-spacing: 0.3px;
         }
 
-        /* CONTENT */
         .content-area { flex: 1; padding: 25px 30px; overflow-y: auto; }
         .container { max-width: 1200px; margin: 0 auto; }
 
-        /* NOTIFICATIONS */
         .alert { padding: 14px 18px; border-radius: 4px; margin-bottom: 20px; font-size: 14px; border: 1px solid transparent; }
         .alert-success { background-color: var(--success-bg); color: var(--success-text); border-color: #c8e6c9; }
         .alert-error { background-color: var(--error-bg); color: var(--error-text); border-color: #ffcdd2; }
 
-        /* HEADER CARD */
         .page-header-card {
             background: var(--white);
             padding: 20px 25px;
@@ -353,7 +354,6 @@
         .role-admin { background: #ffeaa7; color: #d63031; }
         .role-student { background: #e8f5e9; color: var(--atena-green); }
 
-        /* SECTION CARDS */
         .section-card {
             background: var(--white);
             border: 1px solid var(--border-color);
@@ -372,7 +372,6 @@
         .section-title { font-size: 15px; font-weight: 700; color: var(--atena-green); }
         .section-body { padding: 20px; }
 
-        /* BALANCE SUMMARY & NOTICIAS UTS */
         .balance-grid {
             display: grid;
             grid-template-columns: 360px 1fr;
@@ -389,17 +388,18 @@
         .balance-box {
             background: #ffffff;
             border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 24px;
-            text-align: center;
-            box-shadow: var(--card-shadow);
+            border-radius: 4px;
+            padding: 24px 28px;
+            text-align: left;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: flex-start;
         }
-        .balance-label { font-size: 13px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
-        .balance-amount { font-size: 36px; font-weight: 800; color: var(--atena-green); margin: 12px 0 6px; }
-        .balance-actions { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .balance-label { font-size: 13px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; text-align: left; }
+        .balance-amount { font-size: 36px; font-weight: 800; color: var(--atena-green); margin: 10px 0 6px; text-align: left; }
+        .balance-actions { display: flex; justify-content: flex-start; align-items: center; gap: 10px; margin-top: 16px; width: 100%; }
 
         .btn-atena {
             background-color: var(--atena-green);
@@ -408,7 +408,7 @@
             padding: 10px 18px;
             font-size: 13px;
             font-weight: 600;
-            border-radius: 8px;
+            border-radius: 4px;
             text-decoration: none;
             cursor: pointer;
             display: inline-block;
@@ -423,7 +423,7 @@
             padding: 10px 16px;
             font-size: 13px;
             font-weight: 600;
-            border-radius: 8px;
+            border-radius: 4px;
             text-decoration: none;
             cursor: pointer;
             display: inline-block;
@@ -431,13 +431,12 @@
         }
         .btn-secondary:hover { background-color: #e2e6ea; }
 
-        /* CARRUSEL DE NOTICIAS INSTITUCIONALES UTS (100% PURO CSS CONSTANTE) */
         .uts-news-carousel-container {
             position: relative;
             width: 100%;
             min-height: 250px;
             height: 100%;
-            border-radius: 14px;
+            border-radius: 4px;
             overflow: hidden;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
             border: 1px solid rgba(47, 92, 53, 0.25);
@@ -545,8 +544,8 @@
             color: #d8f58c;
             font-size: 10px;
             font-weight: 800;
-            padding: 3px 10px;
-            border-radius: 20px;
+            padding: 3px 8px;
+            border-radius: 3px;
             letter-spacing: 0.6px;
             text-transform: uppercase;
             display: inline-flex;
@@ -619,8 +618,8 @@
         .uts-carousel-dot {
             display: inline-block;
             width: 18px;
-            height: 5px;
-            border-radius: 4px;
+            height: 4px;
+            border-radius: 2px;
             background: rgba(255, 255, 255, 0.35);
             cursor: pointer;
             transition: all 0.3s ease;
@@ -644,14 +643,13 @@
             top: 12px;
             right: 14px;
             z-index: 5;
-            background: rgba(0, 0, 0, 0.45);
-            backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, 0.55);
             border: 1px solid rgba(255, 255, 255, 0.15);
             color: rgba(255, 255, 255, 0.7);
             font-size: 9.5px;
             font-weight: 600;
             padding: 3px 8px;
-            border-radius: 12px;
+            border-radius: 3px;
             letter-spacing: 0.4px;
             pointer-events: none;
             display: flex;
@@ -659,14 +657,13 @@
             gap: 4px;
         }
 
-        /* REQUISITO DE GRADUACIÓN UTS (70.000 DUTS) */
         .grad-requirement-card {
             background: linear-gradient(135deg, #1b3d21 0%, #2f5c35 100%);
-            border-radius: 12px;
+            border-radius: 4px;
             padding: 22px 26px;
             color: #ffffff;
             margin-bottom: 24px;
-            box-shadow: 0 4px 20px rgba(27, 61, 33, 0.18);
+            box-shadow: 0 2px 8px rgba(27, 61, 33, 0.12);
             position: relative;
             overflow: hidden;
         }
@@ -694,8 +691,8 @@
             color: #c4e477;
             font-size: 11px;
             font-weight: 800;
-            padding: 4px 12px;
-            border-radius: 20px;
+            padding: 4px 10px;
+            border-radius: 3px;
             letter-spacing: 0.6px;
             text-transform: uppercase;
         }
@@ -729,37 +726,36 @@
             color: rgba(255, 255, 255, 0.9);
         }
         .grad-progress-bar-bg {
-            height: 12px;
+            height: 10px;
             background: rgba(0, 0, 0, 0.28);
-            border-radius: 20px;
+            border-radius: 2px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.12);
         }
         .grad-progress-bar-fill {
             height: 100%;
             background: linear-gradient(90deg, #8cb82b 0%, #a3e635 100%);
-            border-radius: 20px;
+            border-radius: 2px;
             transition: width 0.4s ease;
             box-shadow: 0 0 10px rgba(140, 184, 43, 0.6);
         }
         .grad-meta-stats {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 14px;
             font-size: 12.5px;
             flex-wrap: wrap;
         }
         .grad-stat-pill {
             background: rgba(0, 0, 0, 0.2);
-            padding: 6px 14px;
-            border-radius: 8px;
+            padding: 6px 12px;
+            border-radius: 3px;
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         .grad-stat-pill strong {
             color: #8cb82b;
         }
 
-        /* PROMEDIOS DE DUTS (REQUERIMIENTO 2.3) */
         .averages-section {
             margin-bottom: 25px;
         }
@@ -782,16 +778,16 @@
         .average-card {
             background: #ffffff;
             border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border-radius: 4px;
             padding: 16px 18px;
-            box-shadow: var(--card-shadow);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             transition: transform 0.2s, box-shadow 0.2s;
             position: relative;
             overflow: hidden;
         }
         .average-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
         .avg-card-header {
             display: flex;
@@ -809,7 +805,7 @@
         .avg-icon {
             width: 28px;
             height: 28px;
-            border-radius: 8px;
+            border-radius: 3px;
             background: #f0fdf4;
             color: #16a34a;
             display: flex;
@@ -834,7 +830,6 @@
             color: var(--text-muted);
         }
 
-        /* EVENTS GRID */
         .events-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
@@ -886,7 +881,6 @@
             border: 1px solid #d4ecd4;
         }
 
-        /* MOVEMENTS TABLE */
         .table-responsive { width: 100%; overflow-x: auto; }
         .styled-table {
             width: 100%;
@@ -927,14 +921,311 @@
         .empty-state { text-align: center; color: var(--text-muted); padding: 30px; font-size: 13px; }
 
         .form-inline { display: inline; }
+
+        .mobile-bottom-nav,
+        .btn-close-sidebar,
+        .mobile-drawer-overlay {
+            display: none;
+        }
+
+        @media (max-width: 992px) {
+            body {
+                height: auto !important;
+                min-height: 100vh !important;
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .main-wrapper {
+                display: block !important;
+                overflow: visible !important;
+                position: relative !important;
+            }
+
+            .sidebar {
+                position: fixed !important;
+                top: 0 !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                width: 290px !important;
+                max-width: 85vw !important;
+                height: 100vh !important;
+                z-index: 10001 !important;
+                transform: translateX(-100%) !important;
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                box-shadow: 4px 0 30px rgba(0, 0, 0, 0.6) !important;
+                display: flex !important;
+            }
+            .sidebar.mobile-open {
+                transform: translateX(0) !important;
+            }
+
+            .btn-close-sidebar {
+                display: flex !important;
+                position: absolute !important;
+                top: 14px !important;
+                right: 14px !important;
+                background: rgba(255, 255, 255, 0.12) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                color: #ffffff !important;
+                width: 32px !important;
+                height: 32px !important;
+                border-radius: 50% !important;
+                align-items: center !important;
+                justify-content: center !important;
+                font-size: 20px !important;
+                line-height: 1 !important;
+                cursor: pointer !important;
+                z-index: 10;
+            }
+
+            .mobile-drawer-overlay {
+                display: none;
+                position: fixed !important;
+                inset: 0 !important;
+                background: rgba(0, 0, 0, 0.65) !important;
+                backdrop-filter: blur(4px) !important;
+                -webkit-backdrop-filter: blur(4px) !important;
+                z-index: 10000 !important;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            .mobile-drawer-overlay.active {
+                display: block !important;
+                opacity: 1 !important;
+            }
+
+            .content-area {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 16px 14px calc(85px + env(safe-area-inset-bottom, 0px)) 14px !important;
+                overflow-y: visible !important;
+            }
+
+            .top-navbar {
+                height: 54px !important;
+                padding: 0 14px !important;
+            }
+            .nav-icon-menu {
+                display: flex !important;
+                width: 36px !important;
+                height: 36px !important;
+                align-items: center !important;
+                justify-content: center !important;
+                border-radius: 8px !important;
+                background: #f1f5f9 !important;
+                color: #1b3d21 !important;
+                font-size: 19px !important;
+                cursor: pointer !important;
+                border: none !important;
+            }
+            .logo-subtext,
+            .top-navbar-right > span {
+                display: none !important;
+            }
+            .logo-container img {
+                height: 32px !important;
+            }
+            .logo-text {
+                font-size: 19px !important;
+            }
+            .user-menu span {
+                font-size: 12.5px;
+                max-width: 110px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .user-menu img {
+                width: 32px !important;
+                height: 32px !important;
+            }
+
+            .mobile-bottom-nav {
+                display: flex !important;
+                position: fixed !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                height: calc(62px + env(safe-area-inset-bottom, 0px)) !important;
+                padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+                background: rgba(255, 255, 255, 0.96) !important;
+                backdrop-filter: blur(20px) !important;
+                -webkit-backdrop-filter: blur(20px) !important;
+                border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+                box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.07) !important;
+                z-index: 9999 !important;
+                justify-content: space-around !important;
+                align-items: center !important;
+            }
+
+            .mobile-nav-item {
+                flex: 1 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                height: 100% !important;
+                text-decoration: none !important;
+                color: #64748b !important;
+                transition: all 0.15s ease !important;
+                position: relative !important;
+                -webkit-tap-highlight-color: transparent !important;
+            }
+
+            .mobile-nav-item:active {
+                transform: scale(0.92) !important;
+            }
+
+            .mobile-nav-icon-wrap {
+                width: 32px !important;
+                height: 26px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+            }
+
+            .mobile-nav-label {
+                font-size: 10.5px !important;
+                font-weight: 600 !important;
+                margin-top: 2px !important;
+                letter-spacing: -0.2px !important;
+            }
+
+            .mobile-nav-item.active {
+                color: #27522d !important;
+            }
+
+            .mobile-nav-item.active .mobile-nav-icon-wrap {
+                color: #27522d !important;
+                transform: translateY(-2px) !important;
+            }
+
+            .mobile-nav-item.active .mobile-nav-label {
+                font-weight: 800 !important;
+                color: #1e4522 !important;
+            }
+
+            .mobile-nav-item.active::after {
+                content: '' !important;
+                position: absolute !important;
+                top: 4px !important;
+                width: 24px !important;
+                height: 3px !important;
+                background: #8cb82b !important;
+                border-radius: 99px !important;
+                box-shadow: 0 0 8px rgba(140, 184, 43, 0.7) !important;
+            }
+
+            .page-header-card {
+                padding: 14px 16px !important;
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 12px !important;
+                border-radius: 16px !important;
+            }
+            .user-info-large {
+                gap: 12px !important;
+            }
+            .avatar-large {
+                width: 52px !important;
+                height: 52px !important;
+            }
+            .user-titles h1 {
+                font-size: 18px !important;
+            }
+
+            .balance-box {
+                background: linear-gradient(135deg, #102914 0%, #1e4c25 100%) !important;
+                color: #ffffff !important;
+                border: 1px solid rgba(140, 184, 43, 0.4) !important;
+                border-radius: 18px !important;
+                padding: 20px 18px !important;
+                box-shadow: 0 10px 25px rgba(16, 41, 20, 0.25) !important;
+                position: relative !important;
+                overflow: hidden !important;
+            }
+            .balance-box::before {
+                content: 'DUTS' !important;
+                position: absolute !important;
+                right: -10px !important;
+                bottom: -15px !important;
+                font-size: 80px !important;
+                font-weight: 900 !important;
+                color: rgba(255, 255, 255, 0.05) !important;
+                pointer-events: none !important;
+            }
+            .balance-label {
+                color: #c4e477 !important;
+                font-size: 11px !important;
+                letter-spacing: 0.8px !important;
+            }
+            .balance-amount {
+                color: #ffffff !important;
+                font-size: 32px !important;
+                margin: 6px 0 14px !important;
+                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+            }
+            .balance-actions {
+                display: flex !important;
+                gap: 8px !important;
+                width: 100% !important;
+            }
+            .balance-actions a {
+                flex: 1 !important;
+                text-align: center !important;
+                padding: 10px 12px !important;
+                font-size: 12px !important;
+                border-radius: 10px !important;
+            }
+
+            .uts-news-carousel-container {
+                min-height: 200px !important;
+                border-radius: 16px !important;
+            }
+            .uts-slide {
+                padding: 16px 14px !important;
+            }
+            .uts-slide-title {
+                font-size: 16px !important;
+            }
+            .uts-slide-desc {
+                font-size: 11.5px !important;
+                display: -webkit-box !important;
+                -webkit-line-clamp: 2 !important;
+                line-clamp: 2 !important;
+                -webkit-box-orient: vertical !important;
+                overflow: hidden !important;
+            }
+
+            .avg-card-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px !important;
+            }
+            .section-card {
+                border-radius: 16px !important;
+                margin-bottom: 16px !important;
+            }
+            .section-header {
+                padding: 12px 16px !important;
+            }
+            .section-body {
+                padding: 14px !important;
+            }
+            .events-grid {
+                grid-template-columns: 1fr !important;
+                gap: 14px !important;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- TOP NAVBAR -->
     <header class="top-navbar">
         <div class="top-navbar-left">
-            <button class="nav-icon-menu" aria-label="Menú">&#9776;</button>
+            <button type="button" class="nav-icon-menu" id="btnToggleSidebar" aria-label="Menú">&#9776;</button>
             <a href="${pageContext.request.contextPath}/dashboard" class="logo-container" title="Ir a Inicio">
                 <img src="${pageContext.request.contextPath}/assets/images/logouts.png" alt="DUTS UTS">
                 <span class="logo-text">DUTS</span>
@@ -945,21 +1236,20 @@
             <span>Portal Académico UTS</span>
             <a href="${pageContext.request.contextPath}/perfil" class="user-menu" style="text-decoration: none;">
                 <span><c:out value="${sessionScope.usuario.nombreCompleto}"/></span>
-                <img src="${pageContext.request.contextPath}/assets/images/${sessionScope.usuario.fotoPerfil}" alt="Avatar">
+                <img src="${pageContext.request.contextPath}/assets/images/${not empty sessionScope.usuario.fotoPerfil && sessionScope.usuario.fotoPerfil != 'avatar.jpg' ? sessionScope.usuario.fotoPerfil : 'default-avatar.svg'}" alt="Avatar">
             </a>
         </div>
     </header>
 
-    <!-- MAIN WRAPPER -->
     <div class="main-wrapper">
+        <div class="mobile-drawer-overlay" id="mobileDrawerOverlay"></div>
         
-        <!-- SIDEBAR INSTITUCIONAL REDISEÑADO -->
         <aside class="sidebar">
-            <!-- CABECERA: PERFIL DE USUARIO -->
             <div class="sidebar-brand-box">
+                <button type="button" class="btn-close-sidebar" id="btnCloseSidebar" aria-label="Cerrar Menú">&times;</button>
                 <div class="sidebar-user-pill">
                     <div class="sidebar-user-avatar-wrap">
-                        <img src="${pageContext.request.contextPath}/assets/images/${not empty sessionScope.usuario.fotoPerfil ? sessionScope.usuario.fotoPerfil : 'avatar.jpg'}" alt="Avatar">
+                        <img src="${pageContext.request.contextPath}/assets/images/${not empty sessionScope.usuario.fotoPerfil && sessionScope.usuario.fotoPerfil != 'avatar.jpg' ? sessionScope.usuario.fotoPerfil : 'default-avatar.svg'}" alt="Avatar">
                         <span class="user-live-indicator" title="Sesión activa"></span>
                     </div>
                     <div class="sidebar-user-meta">
@@ -980,7 +1270,6 @@
                 </div>
             </div>
 
-            <!-- NAVEGACIÓN PRINCIPAL -->
             <div class="sidebar-nav-container">
                 <div class="sidebar-nav-section-title">Menú Principal</div>
                 <ul class="sidebar-menu">
@@ -998,7 +1287,7 @@
                             <span class="nav-icon">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                             </span>
-                            <span>Mi Perfil</span>
+                            <span>Mi Perfil y Ajustes</span>
                         </a>
                     </li>
                     <li>
@@ -1025,6 +1314,15 @@
                             <span>Historial y Facturas</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/descargar-app?tipo=apk" download="DUTS-UTS-Movil.apk" style="color: #c4e477; font-weight: 700; background: rgba(140, 184, 43, 0.12); border-radius: 8px;">
+                            <span class="nav-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8cb82b" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            </span>
+                            <span>Descargar App Móvil</span>
+                            <span style="background:#8cb82b;color:#0d2813;font-size:9px;font-weight:900;padding:2px 6px;border-radius:4px;margin-left:auto;">APK</span>
+                        </a>
+                    </li>
                     <c:if test="${sessionScope.usuario.rolId == 2}">
                         <li>
                             <a href="${pageContext.request.contextPath}/eventos" style="background: rgba(234, 179, 8, 0.18); border-left-color: #facc15;">
@@ -1037,7 +1335,6 @@
                     </c:if>
                 </ul>
 
-                <!-- WIDGET BILLETERA CIRCULAR EN SIDEBAR -->
                 <div class="sidebar-wallet-card">
                     <div class="sidebar-wallet-top">
                         <span class="wallet-badge-pill">ECONOMÍA CIRCULAR</span>
@@ -1061,7 +1358,6 @@
                 </div>
             </div>
 
-            <!-- PIE DE PÁGINA DEL SIDEBAR -->
             <div class="sidebar-footer">
                 <a href="${pageContext.request.contextPath}/logout" class="sidebar-logout-btn">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
@@ -1071,11 +1367,9 @@
             </div>
         </aside>
 
-        <!-- CONTENT AREA -->
         <main class="content-area">
             <div class="container">
                 
-                <!-- FLASH MESSAGES -->
                 <c:if test="${not empty flashSuccess}">
                     <div class="alert alert-success">
                         <strong>Operación exitosa:</strong> <c:out value="${flashSuccess}" />
@@ -1087,11 +1381,10 @@
                     </div>
                 </c:if>
 
-                <!-- HEADER CARD -->
                 <div class="page-header-card">
                     <div class="user-info-large">
                         <div class="avatar-large">
-                            <img src="${pageContext.request.contextPath}/assets/images/${sessionScope.usuario.fotoPerfil}" alt="Avatar">
+                            <img src="${pageContext.request.contextPath}/assets/images/${not empty sessionScope.usuario.fotoPerfil && sessionScope.usuario.fotoPerfil != 'avatar.jpg' ? sessionScope.usuario.fotoPerfil : 'default-avatar.svg'}" alt="Avatar">
                         </div>
                         <div class="user-titles">
                             <h1><c:out value="${sessionScope.usuario.nombreCompleto}"/>: Área personal</h1>
@@ -1111,7 +1404,6 @@
                     </div>
                 </div>
 
-                <!-- REQUISITO DE GRADUACIÓN INSTITUCIONAL (70.000 DUTS) -->
                 <div class="grad-requirement-card">
                     <div class="grad-card-header">
                         <span class="grad-badge">Requisito Obligatorio de Grado UTS</span>
@@ -1128,7 +1420,7 @@
                             <span><fmt:formatNumber value="${saldo}" minFractionDigits="2" maxFractionDigits="2"/> / 70.000,00 DUTS</span>
                         </div>
                         <div class="grad-progress-bar-bg">
-                            <div class="grad-progress-bar-fill" style="width: ${metricas.progresoGraduacion}%;"></div>
+                            <div class="grad-progress-bar-fill" id="gradProgressBarFill" data-progress="${metricas.progresoGraduacion}"></div>
                         </div>
                     </div>
                     <div class="grad-meta-stats">
@@ -1144,7 +1436,6 @@
                     </div>
                 </div>
 
-                <!-- RESUMEN DE SALDO -->
                 <div class="balance-grid">
                     <div class="balance-box">
                         <div class="balance-label">Saldo Disponible en tu Billetera DUTS</div>
@@ -1162,9 +1453,7 @@
                         </div>
                     </div>
 
-                    <!-- CARRUSEL DE NOTICIAS INSTITUCIONALES UTS (100% CONSTANTE) -->
                     <div class="uts-news-carousel-container" title="Pasa el cursor sobre las noticias para pausar la lectura">
-                        <!-- Controles de selección de diapositivas -->
                         <input type="radio" name="uts-carousel-select" id="c-slide-1" class="uts-carousel-radio" checked>
                         <input type="radio" name="uts-carousel-select" id="c-slide-2" class="uts-carousel-radio">
                         <input type="radio" name="uts-carousel-select" id="c-slide-3" class="uts-carousel-radio">
@@ -1177,7 +1466,6 @@
 
                         <div class="uts-carousel-viewport">
                             <div class="uts-carousel-track">
-                                <!-- DIAPOSITIVA 1: CAMPUS CENTRAL Y ESTUDIANTES -->
                                 <div class="uts-slide" style="background-image: url('${pageContext.request.contextPath}/assets/images/uts_campus_estudiantes.png');">
                                     <div class="uts-slide-overlay"></div>
                                     <div class="uts-slide-content">
@@ -1198,7 +1486,6 @@
                                     </div>
                                 </div>
 
-                                <!-- DIAPOSITIVA 2: PLAZOLETA Y EDIFICIO CENTRAL UTS -->
                                 <div class="uts-slide" style="background-image: url('${pageContext.request.contextPath}/assets/images/uts_campus_plazoleta.png');">
                                     <div class="uts-slide-overlay"></div>
                                     <div class="uts-slide-content">
@@ -1219,7 +1506,6 @@
                                     </div>
                                 </div>
 
-                                <!-- DIAPOSITIVA 3: REQUISITO DE GRADO 70.000 DUTS -->
                                 <div class="uts-slide" style="background-image: url('${pageContext.request.contextPath}/assets/images/banner-dashboard.jpg');">
                                     <div class="uts-slide-overlay"></div>
                                     <div class="uts-slide-content">
@@ -1240,7 +1526,6 @@
                                     </div>
                                 </div>
 
-                                <!-- DIAPOSITIVA 4: BIENESTAR Y TORNEO ASCUN / RALLY -->
                                 <div class="uts-slide" style="background-image: url('${pageContext.request.contextPath}/assets/images/evento-rally.jpg');">
                                     <div class="uts-slide-overlay"></div>
                                     <div class="uts-slide-content">
@@ -1263,7 +1548,6 @@
                             </div>
                         </div>
 
-                        <!-- Indicadores interactivos (Bullets / P&iacute;ldoras) -->
                         <div class="uts-carousel-indicators">
                             <label for="c-slide-1" class="uts-carousel-dot" title="Noticia 1: Lo Hacemos Posible"></label>
                             <label for="c-slide-2" class="uts-carousel-dot" title="Noticia 2: Campus Bucaramanga"></label>
@@ -1273,7 +1557,6 @@
                     </div>
                 </div>
 
-                <!-- PROMEDIOS DE DUTS (REQUERIMIENTO 2.3) -->
                 <div class="averages-section">
                     <div class="averages-section-title">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
@@ -1334,7 +1617,6 @@
                     </div>
                 </div>
 
-                <!-- EVENTOS ACTIVOS CONEXIÓN BD -->
                 <div class="section-card">
                     <div class="section-header">
                         <span class="section-title">Eventos Institucionales Disponibles</span>
@@ -1390,7 +1672,6 @@
                     </div>
                 </div>
 
-                <!-- MOVIMIENTOS RECIENTES CONEXIÓN BD -->
                 <div class="section-card">
                     <div class="section-header">
                         <span class="section-title">Últimos Movimientos Financieros</span>
@@ -1453,5 +1734,77 @@
         </main>
     </div>
 
+    <nav class="mobile-bottom-nav" aria-label="Navegación principal de la aplicación">
+        <a href="${pageContext.request.contextPath}/dashboard" class="mobile-nav-item active" title="Inicio">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            </div>
+            <span class="mobile-nav-label">Inicio</span>
+        </a>
+        <a href="${pageContext.request.contextPath}/transferencias" class="mobile-nav-item" title="Transferencias">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </div>
+            <span class="mobile-nav-label">Transferir</span>
+        </a>
+        <a href="${pageContext.request.contextPath}/eventos" class="mobile-nav-item" title="Eventos y Recompensas">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            </div>
+            <span class="mobile-nav-label">Eventos</span>
+        </a>
+        <a href="${pageContext.request.contextPath}/movimientos" class="mobile-nav-item" title="Historial y Facturas">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <span class="mobile-nav-label">Facturas</span>
+        </a>
+        <a href="${pageContext.request.contextPath}/perfil" class="mobile-nav-item" title="Ajustes y Perfil">
+            <div class="mobile-nav-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <span class="mobile-nav-label">Ajustes</span>
+        </a>
+    </nav>
+
+    <script>
+        const btnToggleSidebar = document.getElementById('btnToggleSidebar');
+        const btnCloseSidebar = document.getElementById('btnCloseSidebar');
+        const mobileDrawerOverlay = document.getElementById('mobileDrawerOverlay');
+        const sidebar = document.querySelector('.sidebar');
+
+        function openDrawer() {
+            if (sidebar) sidebar.classList.add('mobile-open');
+            if (mobileDrawerOverlay) mobileDrawerOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDrawer() {
+            if (sidebar) sidebar.classList.remove('mobile-open');
+            if (mobileDrawerOverlay) mobileDrawerOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        if (btnToggleSidebar) btnToggleSidebar.addEventListener('click', openDrawer);
+        if (btnCloseSidebar) btnCloseSidebar.addEventListener('click', closeDrawer);
+        if (mobileDrawerOverlay) mobileDrawerOverlay.addEventListener('click', closeDrawer);
+
+        const gradBar = document.getElementById('gradProgressBarFill');
+        if (gradBar && gradBar.dataset.progress) {
+            gradBar.style.width = gradBar.dataset.progress + '%';
+        }
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('${pageContext.request.contextPath}/sw.js')
+                    .then(function(reg) {
+                        console.log('DUTS Service Worker registrado:', reg.scope);
+                    })
+                    .catch(function(err) {
+                        console.log('Error registrando Service Worker:', err);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>

@@ -1,0 +1,319 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    
+    <linearGradient id="utsGreenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1b3d21"/>
+      <stop offset="50%" stop-color="#2f5c35"/>
+      <stop offset="100%" stop-color="#8cb82b"/>
+    </linearGradient>
+    
+    <linearGradient id="cardGradDark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <linearGradient id="accentCyan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+
+    <linearGradient id="accentGreen" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#8cb82b"/>
+    </linearGradient>
+
+    <linearGradient id="accentOrange" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#eab308"/>
+    </linearGradient>
+
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+    
+    <filter id="glowGreen" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#8cb82b"/>
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 26px; font-weight: 800; fill: #ffffff; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #94a3b8; letter-spacing: 0.5px; }
+    .tier-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 15px; font-weight: 700; fill: #f8fafc; }
+    .tier-sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; fill: #64748b; font-weight: 500; }
+    .item-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12.5px; font-weight: 700; fill: #e2e8f0; }
+    .item-sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 10.5px; fill: #94a3b8; }
+    .badge-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+    .conn-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace; font-size: 10.5px; font-weight: 600; fill: #8cb82b; }
+  </style>
+
+  <!-- Background Canvas -->
+  <rect width="1100" height="680" rx="16" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle decorative grid -->
+  <g opacity="0.04" stroke="#ffffff" stroke-width="1">
+    <path d="M0 80 H1100 M0 160 H1100 M0 240 H1100 M0 320 H1100 M0 400 H1100 M0 480 H1100 M0 560 H1100 M0 640 H1100"/>
+    <path d="M100 0 V680 M200 0 V680 M300 0 V680 M400 0 V680 M500 0 V680 M600 0 V680 M700 0 V680 M800 0 V680 M900 0 V680 M1000 0 V680"/>
+  </g>
+
+  <!-- Header Section -->
+  <g transform="translate(50, 45)">
+    <rect x="0" y="0" width="44" height="44" rx="10" fill="url(#utsGreenGrad)"/>
+    <text x="22" y="28" font-family="sans-serif" font-size="20" font-weight="900" fill="#ffffff" text-anchor="middle">U</text>
+    <text x="60" y="24" class="title">Arquitectura Integral de UTS DUTS</text>
+    <text x="60" y="42" class="subtitle">Patrón Modelo-Vista-Controlador (MVC) Multinivel sobre Apache Tomcat 9/10 &amp; MySQL 8.0</text>
+    
+    <rect x="830" y="8" width="170" height="28" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <circle cx="846" cy="22" r="5" fill="#22c55e" filter="url(#glowGreen)"/>
+    <text x="860" y="26" class="badge-text" fill="#8cb82b">Servicio Activo :8081</text>
+  </g>
+
+  <!-- ================= TIER 1: CLIENTE (FRONTEND) ================= -->
+  <g transform="translate(50, 120)" filter="url(#shadow)">
+    <rect width="220" height="510" rx="14" fill="#131d2e" stroke="#1e293b" stroke-width="1.5"/>
+    <rect width="220" height="4" rx="2" fill="url(#accentCyan)"/>
+    
+    <text x="20" y="34" class="tier-title">Cliente Web</text>
+    <text x="20" y="50" class="tier-sub">Capa de Presentación UI/UX</text>
+
+    <!-- Component 1: Vistas JSP Institucionales -->
+    <g transform="translate(14, 70)">
+      <rect width="192" height="74" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <circle cx="16" cy="18" r="4" fill="#38bdf8"/>
+      <text x="28" y="22" class="item-title">Vistas JSP &amp; JSTL</text>
+      <text x="16" y="42" class="item-sub">• Dashboard &amp; Métricas</text>
+      <text x="16" y="58" class="item-sub">• Eventos, Billetera, Perfil</text>
+    </g>
+
+    <!-- Component 2: Sistema de Errores -->
+    <g transform="translate(14, 154)">
+      <rect width="192" height="74" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <circle cx="16" cy="18" r="4" fill="#f87171"/>
+      <text x="28" y="22" class="item-title">Páginas de Error UTS</text>
+      <text x="16" y="42" class="item-sub">• 404 No Encontrado</text>
+      <text x="16" y="58" class="item-sub">• 403 Restringido / 500 Falla</text>
+    </g>
+
+    <!-- Component 3: CSS & Branding UTS -->
+    <g transform="translate(14, 238)">
+      <rect width="192" height="74" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <circle cx="16" cy="18" r="4" fill="#4ade80"/>
+      <text x="28" y="22" class="item-title">Identidad Visual UTS</text>
+      <text x="16" y="42" class="item-sub">• Paleta Verde #2f5c35</text>
+      <text x="16" y="58" class="item-sub">• Responsive &amp; Glassmorphism</text>
+    </g>
+
+    <!-- Component 4: PWA Móvil -->
+    <g transform="translate(14, 322)">
+      <rect width="192" height="74" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <circle cx="16" cy="18" r="4" fill="#fbbf24"/>
+      <text x="28" y="22" class="item-title">PWA &amp; Service Worker</text>
+      <text x="16" y="42" class="item-sub">• manifest.json / sw.js</text>
+      <text x="16" y="58" class="item-sub">• Instalable Móvil / APK</text>
+    </g>
+
+    <!-- Component 5: JavaScript Vanilla -->
+    <g transform="translate(14, 406)">
+      <rect width="192" height="84" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <circle cx="16" cy="18" r="4" fill="#a78bfa"/>
+      <text x="28" y="22" class="item-title">Vanilla JS interactivo</text>
+      <text x="16" y="42" class="item-sub">• QR Code Generator</text>
+      <text x="16" y="58" class="item-sub">• Cálculos dinámicos DUTS</text>
+      <text x="16" y="74" class="item-sub">• Validación cliente</text>
+    </g>
+  </g>
+
+  <!-- Connection: Tier 1 to Tier 2 -->
+  <path d="M 270 240 L 320 240" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrowBlue)"/>
+  <path d="M 320 380 L 270 380" stroke="#8cb82b" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="272" y="215" width="46" height="18" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="295" y="228" font-family="monospace" font-size="9" fill="#38bdf8" text-anchor="middle">HTTP</text>
+  <rect x="272" y="355" width="46" height="18" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="295" y="368" font-family="monospace" font-size="9" fill="#8cb82b" text-anchor="middle">HTML</text>
+
+  <!-- ================= TIER 2: CONTROLADORES & SEGURIDAD ================= -->
+  <g transform="translate(325, 120)" filter="url(#shadow)">
+    <rect width="250" height="510" rx="14" fill="#131d2e" stroke="#1e293b" stroke-width="1.5"/>
+    <rect width="250" height="4" rx="2" fill="url(#accentGreen)"/>
+    
+    <text x="20" y="34" class="tier-title">Servlets &amp; Filtros (EE)</text>
+    <text x="20" y="50" class="tier-sub">Capa de Control &amp; Seguridad</text>
+
+    <!-- Filtros de Seguridad -->
+    <g transform="translate(14, 70)">
+      <rect width="222" height="74" rx="8" fill="#1e293b" stroke="#22c55e" stroke-width="1"/>
+      <rect x="150" y="8" width="62" height="16" rx="8" fill="#14532d"/>
+      <text x="181" y="20" class="badge-text" fill="#4ade80" text-anchor="middle">Filtros</text>
+      <text x="16" y="24" class="item-title">Filtros Globales</text>
+      <text x="16" y="44" class="item-sub">• CharacterEncodingFilter (UTF-8)</text>
+      <text x="16" y="60" class="item-sub">• AuthFilter (Roles &amp; Sesión)</text>
+    </g>
+
+    <!-- Servlets Principales -->
+    <g transform="translate(14, 154)">
+      <rect width="222" height="120" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="16" y="22" class="item-title">Controladores Principales</text>
+      <text x="16" y="42" class="item-sub">• DashboardServlet (/dashboard)</text>
+      <text x="16" y="58" class="item-sub">• EventosServlet (/eventos CRUD)</text>
+      <text x="16" y="74" class="item-sub">• TransferenciasServlet (/transferir)</text>
+      <text x="16" y="90" class="item-sub">• PerfilServlet (/perfil Multipart)</text>
+      <text x="16" y="106" class="item-sub">• Login &amp; RegistroServlet</text>
+    </g>
+
+    <!-- Reportes y PDF -->
+    <g transform="translate(14, 284)">
+      <rect width="222" height="96" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="16" y="22" class="item-title">Motor de Reportes iText</text>
+      <text x="16" y="42" class="item-sub">• FacturaPdfServlet</text>
+      <text x="16" y="58" class="item-sub">• Comprobante Electrónico DUTS</text>
+      <text x="16" y="74" class="item-sub">• Extractos con Marca de Agua</text>
+      <text x="16" y="90" class="item-sub">• Generación streaming segura</text>
+    </g>
+
+    <!-- API RESTful -->
+    <g transform="translate(14, 390)">
+      <rect width="222" height="100" rx="8" fill="#1e293b" stroke="#0ea5e9" stroke-width="1"/>
+      <rect x="145" y="8" width="67" height="16" rx="8" fill="#0369a1"/>
+      <text x="178" y="20" class="badge-text" fill="#7dd3fc" text-anchor="middle">REST API</text>
+      <text x="16" y="24" class="item-title">ApiEventosServlet</text>
+      <text x="16" y="46" class="item-sub">• Endpoints: /api/eventos</text>
+      <text x="16" y="62" class="item-sub">• Filtros JSON (red santandereana)</text>
+      <text x="16" y="78" class="item-sub">• Manejo de errores 500 JSON</text>
+    </g>
+  </g>
+
+  <!-- Connection: Tier 2 to Tier 3 -->
+  <path d="M 575 250 L 625 250" stroke="#8cb82b" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 625 390 L 575 390" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrowBlue)"/>
+  <rect x="580" y="225" width="40" height="18" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="600" y="238" font-family="monospace" font-size="9" fill="#8cb82b" text-anchor="middle">DAO</text>
+  <rect x="580" y="365" width="40" height="18" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="600" y="378" font-family="monospace" font-size="9" fill="#38bdf8" text-anchor="middle">DTO</text>
+
+  <!-- ================= TIER 3: MODELO Y ACCESO A DATOS (DAO) ================= -->
+  <g transform="translate(630, 120)" filter="url(#shadow)">
+    <rect width="220" height="510" rx="14" fill="#131d2e" stroke="#1e293b" stroke-width="1.5"/>
+    <rect width="220" height="4" rx="2" fill="url(#accentOrange)"/>
+    
+    <text x="20" y="34" class="tier-title">Modelo &amp; DAOs</text>
+    <text x="20" y="50" class="tier-sub">Capa de Lógica &amp; Persistencia</text>
+
+    <!-- Transaccionalidad ACID -->
+    <g transform="translate(14, 70)">
+      <rect width="192" height="74" rx="8" fill="#1e293b" stroke="#eab308" stroke-width="1"/>
+      <circle cx="16" cy="18" r="4" fill="#eab308"/>
+      <text x="28" y="22" class="item-title">TransferenciaDAO</text>
+      <text x="16" y="42" class="item-sub">• Transacciones Atómicas (ACID)</text>
+      <text x="16" y="58" class="item-sub">• Rollback ante inconsistencias</text>
+    </g>
+
+    <!-- UsuarioDAO & Seguridad -->
+    <g transform="translate(14, 154)">
+      <rect width="192" height="74" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <circle cx="16" cy="18" r="4" fill="#f43f5e"/>
+      <text x="28" y="22" class="item-title">UsuarioDAO (BCrypt)</text>
+      <text x="16" y="42" class="item-sub">• Salting &amp; Hash seguro</text>
+      <text x="16" y="58" class="item-sub">• Bono bienvenida (500 DUTS)</text>
+    </g>
+
+    <!-- EventoDAO & Asistencia -->
+    <g transform="translate(14, 238)">
+      <rect width="192" height="74" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <circle cx="16" cy="18" r="4" fill="#3b82f6"/>
+      <text x="28" y="22" class="item-title">EventoDAO &amp; Cupos</text>
+      <text x="16" y="42" class="item-sub">• Inscripción y Recompensas</text>
+      <text x="16" y="58" class="item-sub">• Validación de Asistencia</text>
+    </g>
+
+    <!-- MovimientoDAO & Analítica -->
+    <g transform="translate(14, 322)">
+      <rect width="192" height="74" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <circle cx="16" cy="18" r="4" fill="#10b981"/>
+      <text x="28" y="22" class="item-title">MovimientoDAO</text>
+      <text x="16" y="42" class="item-sub">• Auditoría y Libro Mayor</text>
+      <text x="16" y="58" class="item-sub">• Métricas DUTS (Meta 70k)</text>
+    </g>
+
+    <!-- Conexión Pool JDBC -->
+    <g transform="translate(14, 406)">
+      <rect width="192" height="84" rx="8" fill="#1e293b" stroke="#8cb82b" stroke-width="1"/>
+      <circle cx="16" cy="18" r="4" fill="#8cb82b"/>
+      <text x="28" y="22" class="item-title">DatabaseConnection</text>
+      <text x="16" y="42" class="item-sub">• Driver com.mysql.cj.jdbc</text>
+      <text x="16" y="58" class="item-sub">• Try-with-resources seguro</text>
+      <text x="16" y="74" class="item-sub">• Timezone &amp; UTF-8</text>
+    </g>
+  </g>
+
+  <!-- Connection: Tier 3 to Tier 4 -->
+  <path d="M 850 310 L 880 310" stroke="#f97316" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="852" y="285" width="26" height="18" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="865" y="298" font-family="monospace" font-size="9" fill="#f97316" text-anchor="middle">SQL</text>
+
+  <!-- ================= TIER 4: BASE DE DATOS ================= -->
+  <g transform="translate(885, 120)" filter="url(#shadow)">
+    <rect width="165" height="510" rx="14" fill="#131d2e" stroke="#1e293b" stroke-width="1.5"/>
+    <rect width="165" height="4" rx="2" fill="url(#utsGreenGrad)"/>
+    
+    <text x="16" y="34" class="tier-title">Base de Datos</text>
+    <text x="16" y="50" class="tier-sub">MySQL 8.0 (InnoDB)</text>
+
+    <!-- Database Cylinder Graphic -->
+    <g transform="translate(25, 75)">
+      <ellipse cx="57" cy="15" rx="57" ry="12" fill="#2f5c35"/>
+      <path d="M 0 15 V 60 A 57 12 0 0 0 114 60 V 15 Z" fill="#1b3d21"/>
+      <ellipse cx="57" cy="60" rx="57" ry="12" fill="#2f5c35"/>
+      <text x="57" y="40" font-family="sans-serif" font-size="13" font-weight="800" fill="#ffffff" text-anchor="middle">duts (DB)</text>
+    </g>
+
+    <!-- Tablas Principales -->
+    <g transform="translate(12, 170)">
+      <rect width="141" height="44" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="12" y="22" class="item-title">usuarios</text>
+      <text x="12" y="36" class="item-sub">PK: id, codigo, rol</text>
+    </g>
+
+    <g transform="translate(12, 224)">
+      <rect width="141" height="44" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="12" y="22" class="item-title">cuentas</text>
+      <text x="12" y="36" class="item-sub">FK: usuario_id, saldo</text>
+    </g>
+
+    <g transform="translate(12, 278)">
+      <rect width="141" height="44" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="12" y="22" class="item-title">movimientos_duts</text>
+      <text x="12" y="36" class="item-sub">FK: cuenta_id, ref</text>
+    </g>
+
+    <g transform="translate(12, 332)">
+      <rect width="141" height="44" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="12" y="22" class="item-title">transferencias</text>
+      <text x="12" y="36" class="item-sub">origen_id, destino_id</text>
+    </g>
+
+    <g transform="translate(12, 386)">
+      <rect width="141" height="44" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="12" y="22" class="item-title">eventos</text>
+      <text x="12" y="36" class="item-sub">recompensa, cupos</text>
+    </g>
+
+    <g transform="translate(12, 440)">
+      <rect width="141" height="44" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="12" y="22" class="item-title">inscripciones</text>
+      <text x="12" y="36" class="item-sub">usuario_id, evento_id</text>
+    </g>
+  </g>
+</svg>

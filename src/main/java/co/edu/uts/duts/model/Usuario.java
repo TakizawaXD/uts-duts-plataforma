@@ -47,7 +47,7 @@ public class Usuario extends EntidadBase {
     public void setFechaRegistro(Timestamp fechaRegistro) { this.fechaRegistro = fechaRegistro; }
 
     public String getFotoPerfil() {
-        return (fotoPerfil != null && !fotoPerfil.trim().isEmpty()) ? fotoPerfil : "avatar.jpg";
+        return (fotoPerfil != null && !fotoPerfil.trim().isEmpty() && !fotoPerfil.equals("avatar.jpg")) ? fotoPerfil : "default-avatar.svg";
     }
     public void setFotoPerfil(String fotoPerfil) {
         this.fotoPerfil = fotoPerfil;
