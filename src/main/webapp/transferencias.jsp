@@ -1567,6 +1567,7 @@
 
                             <form id="form-transferencia" action="${pageContext.request.contextPath}/transferencias" method="POST">
                                 <input type="hidden" name="action" value="enviar">
+                                <input type="hidden" name="csrfToken" value="${csrfToken}">
 
                                 <div class="form-grid-2">
                                     <div class="input-block">

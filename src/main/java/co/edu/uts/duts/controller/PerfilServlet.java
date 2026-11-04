@@ -3,6 +3,7 @@ package co.edu.uts.duts.controller;
 import co.edu.uts.duts.dao.CuentaDAO;
 import co.edu.uts.duts.dao.UsuarioDAO;
 import co.edu.uts.duts.model.Usuario;
+import co.edu.uts.duts.security.SecurityUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -18,7 +19,7 @@ import java.nio.file.StandardCopyOption;
 
 /**
  * PerfilServlet: Gestión de datos de cuenta institucional, programa académico,
- * semestre y carga multipart del avatar fotográfico del estudiante.
+ * semestre y carga multipart segura del avatar fotográfico con validación de magic bytes.
  */
 @WebServlet("/perfil")
 @MultipartConfig(
@@ -62,6 +63,11 @@ public class PerfilServlet extends BaseServlet {
             return;
         }
 
+        if (!validarCsrf(req)) {
+            redirect(req, resp, "/perfil");
+            return;
+        }
+
         Usuario u = getUsuarioSesion(req);
         String action = req.getParameter("action");
 
@@ -87,7 +93,12 @@ public class PerfilServlet extends BaseServlet {
             return;
         }
 
-        boolean ok = usuarioDAO.actualizarPerfil(u.getId(), nombreCompleto, correo, programaAcademico, semestre);
+        // Sanitización contra inyecciones XSS
+        String nombreLimpio = SecurityUtils.sanitizarTexto(nombreCompleto);
+        String correoLimpio = SecurityUtils.sanitizarTexto(correo);
+        String programaLimpio = SecurityUtils.sanitizarTexto(programaAcademico);
+
+        boolean ok = usuarioDAO.actualizarPerfil(u.getId(), nombreLimpio, correoLimpio, programaLimpio, semestre);
         if (ok) {
             setFlashSuccess(req, "Información de perfil actualizada exitosamente en el sistema.");
         } else {
@@ -103,7 +114,8 @@ public class PerfilServlet extends BaseServlet {
                 return;
             }
 
-            String fileName = extractFileName(filePart);
+            // 1. Validar extensión permitida
+            String fileName = SecurityUtils.sanitizarNombreArchivo(extractFileName(filePart));
             String ext = "jpg";
             int dotIndex = fileName.lastIndexOf('.');
             if (dotIndex > 0) {
@@ -111,13 +123,21 @@ public class PerfilServlet extends BaseServlet {
             }
 
             if (!ext.matches("jpe?g|png|webp|gif")) {
-                setFlashError(req, "Formato de imagen no permitido. Usa archivos JPG, PNG o WEBP.");
+                setFlashError(req, "Formato de imagen no permitido. Solo se admiten archivos JPG, PNG, WEBP o GIF.");
                 return;
+            }
+
+            // 2. Blindaje con Magic Bytes: validar la firma binaria real del archivo
+            try (InputStream testStream = filePart.getInputStream()) {
+                if (!SecurityUtils.esFirmaImagenValida(testStream)) {
+                    setFlashError(req, "El archivo seleccionado no es una imagen auténtica o está dañado.");
+                    return;
+                }
             }
 
             String newFileName = "avatar_" + u.getId() + "_" + System.currentTimeMillis() + "." + ext;
 
-            // 1. Guardar en webapp desplegada
+            // 3. Guardar en webapp desplegada
             String deployedPath = req.getServletContext().getRealPath("/assets/images");
             File targetFile = null;
             if (deployedPath != null) {
@@ -131,7 +151,7 @@ public class PerfilServlet extends BaseServlet {
                 }
             }
 
-            // 2. Guardar en directorio de desarrollo para persistir entre builds
+            // 4. Guardar en directorio de desarrollo para persistir entre builds
             try {
                 String projectDir = System.getProperty("user.dir");
                 File srcImagesDir = new File(projectDir, "src/main/webapp/assets/images");
@@ -141,7 +161,7 @@ public class PerfilServlet extends BaseServlet {
                 }
             } catch (Exception ignored) {}
 
-            // 3. Persistir nombre en base de datos
+            // 5. Persistir nombre en base de datos
             boolean ok = usuarioDAO.actualizarFotoPerfil(u.getId(), newFileName);
             if (ok) {
                 u.setFotoPerfil(newFileName);

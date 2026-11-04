@@ -1448,6 +1448,7 @@
                             
                             <form action="${pageContext.request.contextPath}/dashboard" method="POST" class="form-inline">
                                 <input type="hidden" name="action" value="recargar_estimulo">
+                                <input type="hidden" name="csrfToken" value="${csrfToken}">
                                 <button type="submit" class="btn-secondary" title="Acreditar 5,000 DUTS de prueba a tu saldo">+ Recargar Estímulo (5,000)</button>
                             </form>
                         </div>
@@ -1648,6 +1649,7 @@
                                                             <form action="${pageContext.request.contextPath}/dashboard" method="POST" class="form-inline">
                                                                 <input type="hidden" name="action" value="reclamar_recompensa">
                                                                 <input type="hidden" name="eventoId" value="${ev.id}">
+                                                                <input type="hidden" name="csrfToken" value="${csrfToken}">
                                                                 <button type="submit" class="btn-atena" style="font-size: 11px; padding: 5px 10px; background-color: var(--atena-light-green);">Reclamar DUTS</button>
                                                             </form>
                                                         </c:when>
@@ -1655,6 +1657,7 @@
                                                             <form action="${pageContext.request.contextPath}/dashboard" method="POST" class="form-inline">
                                                                 <input type="hidden" name="action" value="inscribir_evento">
                                                                 <input type="hidden" name="eventoId" value="${ev.id}">
+                                                                <input type="hidden" name="csrfToken" value="${csrfToken}">
                                                                 <button type="submit" class="btn-secondary" style="font-size: 11px; padding: 5px 10px;">Inscribirme</button>
                                                             </form>
                                                         </c:otherwise>

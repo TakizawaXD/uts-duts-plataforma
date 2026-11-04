@@ -1,6 +1,9 @@
 package co.edu.uts.duts.controller;
 
 import co.edu.uts.duts.model.Usuario;
+import co.edu.uts.duts.security.CsrfTokenManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,10 +14,12 @@ import java.io.IOException;
 
 /**
  * BaseServlet: Controlador base que centraliza la gestión de sesiones,
- * redirecciones, despachos JSP, mensajes flash y utilidades de parseo
+ * redirecciones, despachos JSP, mensajes flash, tokens CSRF y utilidades de parseo
  * para evitar duplicación de código (anti-patrón spaghetti).
  */
 public abstract class BaseServlet extends HttpServlet {
+
+    private static final Logger log = LoggerFactory.getLogger(BaseServlet.class);
 
     /**
      * Obtiene el usuario autenticado en la sesión HTTP actual, o null si no existe.
@@ -38,6 +43,14 @@ public abstract class BaseServlet extends HttpServlet {
     }
 
     /**
+     * Verifica si el usuario actual posee rol de Administrador (rolId == 2).
+     */
+    protected boolean esUsuarioAdmin(HttpServletRequest req) {
+        Usuario u = getUsuarioSesion(req);
+        return u != null && u.getRolId() == 2;
+    }
+
+    /**
      * Valida la sesión y redirige a /login si no está autenticado.
      * Retorna true si está autenticado, false si ya se envió la redirección.
      */
@@ -47,6 +60,37 @@ public abstract class BaseServlet extends HttpServlet {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Valida que el usuario tenga privilegios de Administrador.
+     * Si no es admin, envía un error HTTP 403 Forbidden.
+     */
+    protected boolean asegurarAdmin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        if (!asegurarAutenticacion(req, resp)) {
+            return false;
+        }
+        if (!esUsuarioAdmin(req)) {
+            log.warn("ACCESO NO AUTORIZADO: Usuario '{}' intentó ejecutar acción de administrador.", 
+                    getUsuarioSesion(req).getUsername());
+            resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Acceso restringido a administradores.");
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Valida el token CSRF para peticiones POST/PUT/DELETE.
+     * Retorna true si el token es legítimo, false si fue falsificado o expiró.
+     */
+    protected boolean validarCsrf(HttpServletRequest req) {
+        boolean valido = CsrfTokenManager.validarToken(req);
+        if (!valido) {
+            log.warn("ALERTA DE SEGURIDAD CSRF: Petición desde IP '{}' con token inválido o ausente en '{}'.",
+                    req.getRemoteAddr(), req.getRequestURI());
+            setFlashError(req, "La sesión de seguridad o token CSRF ha expirado. Por favor inténtalo de nuevo.");
+        }
+        return valido;
     }
 
     /**
@@ -86,9 +130,14 @@ public abstract class BaseServlet extends HttpServlet {
     }
 
     /**
-     * Despacha la petición a la vista JSP correspondiente.
+     * Despacha la petición a la vista JSP correspondiente, inyectando el token CSRF.
      */
     protected void forward(HttpServletRequest req, HttpServletResponse resp, String jspPath) throws ServletException, IOException {
+        HttpSession session = req.getSession(false);
+        if (session != null) {
+            String token = CsrfTokenManager.obtenerOGenerarToken(session);
+            req.setAttribute("csrfToken", token);
+        }
         req.getRequestDispatcher(jspPath).forward(req, resp);
     }
 

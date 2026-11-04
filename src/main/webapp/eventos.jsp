@@ -2093,6 +2093,7 @@
                                                             <form action="${pageContext.request.contextPath}/eventos" method="POST" style="flex: 1;">
                                                                 <input type="hidden" name="action" value="reclamar">
                                                                 <input type="hidden" name="eventoId" value="${ev.id}">
+                                                                <input type="hidden" name="csrfToken" value="${csrfToken}">
                                                                 <button type="submit" class="btn-claim-duts" title="Confirmar asistencia y abonar puntos a tu cuenta">
                                                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                                                                     Reclamar +<fmt:formatNumber value="${ev.recompensaDuts}" minFractionDigits="0"/> DUTS
@@ -2101,6 +2102,7 @@
                                                             <form action="${pageContext.request.contextPath}/eventos" method="POST">
                                                                 <input type="hidden" name="action" value="cancelar_inscripcion">
                                                                 <input type="hidden" name="eventoId" value="${ev.id}">
+                                                                <input type="hidden" name="csrfToken" value="${csrfToken}">
                                                                 <button type="submit" class="btn-cancel-enroll" title="Cancelar inscripción">Cancelar</button>
                                                             </form>
                                                         </div>
@@ -2110,6 +2112,7 @@
                                                     <form action="${pageContext.request.contextPath}/eventos" method="POST" style="width: 100%;">
                                                         <input type="hidden" name="action" value="inscribir">
                                                         <input type="hidden" name="eventoId" value="${ev.id}">
+                                                        <input type="hidden" name="csrfToken" value="${csrfToken}">
                                                         <button type="submit" class="btn-register-event">
                                                             <span>Inscribirme y Ganar Puntos</span>
                                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
@@ -2142,6 +2145,7 @@
                         </div>
                         <form action="${pageContext.request.contextPath}/eventos" method="POST">
                             <input type="hidden" name="action" value="${not empty eventoEditar ? 'actualizar' : 'crear'}">
+                            <input type="hidden" name="csrfToken" value="${csrfToken}">
                             <c:if test="${not empty eventoEditar}">
                                 <input type="hidden" name="id" value="${eventoEditar.id}">
                             </c:if>
@@ -2263,6 +2267,7 @@
                                                     <form action="${pageContext.request.contextPath}/eventos" method="POST" style="display: inline;">
                                                         <input type="hidden" name="action" value="eliminar">
                                                         <input type="hidden" name="id" value="${e.id}">
+                                                        <input type="hidden" name="csrfToken" value="${csrfToken}">
                                                         <button type="submit" style="background: none; border: none; color: #dc2626; font-weight: 700; cursor: pointer;">Eliminar</button>
                                                     </form>
                                                 </td>

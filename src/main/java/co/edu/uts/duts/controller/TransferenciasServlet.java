@@ -58,6 +58,11 @@ public class TransferenciasServlet extends BaseServlet {
             return;
         }
 
+        if (!validarCsrf(req)) {
+            redirect(req, resp, "/transferencias");
+            return;
+        }
+
         Usuario u = getUsuarioSesion(req);
         String action = req.getParameter("action");
 

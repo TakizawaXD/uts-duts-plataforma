@@ -69,6 +69,11 @@ public class EventosServlet extends BaseServlet {
             return;
         }
 
+        if (!validarCsrf(req)) {
+            redirect(req, resp, "/eventos");
+            return;
+        }
+
         Usuario u = getUsuarioSesion(req);
         boolean esAdmin = (u.getRolId() == 2);
         String action = req.getParameter("action");
@@ -94,7 +99,11 @@ public class EventosServlet extends BaseServlet {
             } else {
                 setFlashError(req, "No se pudo acreditar la recompensa.");
             }
-        } else if (esAdmin) {
+        } else if ("crear".equals(action) || "actualizar".equals(action) || "eliminar".equals(action)) {
+            if (!esAdmin) {
+                resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Acceso no autorizado: Operación restringida a Administradores.");
+                return;
+            }
             procesarAccionesAdmin(req, action);
         }
 

@@ -1097,12 +1097,14 @@
                                 <summary class="avatar-change-toggle">Cambiar foto de perfil &#9662;</summary>
                                 <form action="${pageContext.request.contextPath}/perfil" method="POST" enctype="multipart/form-data" class="avatar-upload-form">
                                     <input type="hidden" name="action" value="cambiar_foto">
+                                    <input type="hidden" name="csrfToken" value="${csrfToken}">
                                     <input type="file" name="foto" id="fotoFile" accept="image/jpeg,image/png,image/webp,image/jpg" required class="file-upload-input">
                                     <button type="submit" class="btn-upload-submit">Subir y Guardar</button>
                                 </form>
                                 <c:if test="${not empty usuarioPerfil.fotoPerfil && usuarioPerfil.fotoPerfil != 'default-avatar.svg' && usuarioPerfil.fotoPerfil != 'avatar.jpg'}">
                                     <form action="${pageContext.request.contextPath}/perfil" method="POST" style="margin-top: 6px;">
                                         <input type="hidden" name="action" value="restablecer_foto">
+                                        <input type="hidden" name="csrfToken" value="${csrfToken}">
                                         <button type="submit" class="btn-restore-avatar">Restablecer foto predeterminada</button>
                                     </form>
                                 </c:if>
@@ -1145,6 +1147,7 @@
                                     <c:when test="${editMode}">
                                         <form action="${pageContext.request.contextPath}/perfil" method="POST">
                                             <input type="hidden" name="action" value="actualizar_perfil">
+                                            <input type="hidden" name="csrfToken" value="${csrfToken}">
 
                                             <div class="edit-form-group">
                                                 <label for="nombreCompleto">Nombre Completo *</label>

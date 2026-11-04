@@ -65,6 +65,11 @@ public class DashboardServlet extends BaseServlet {
             return;
         }
 
+        if (!validarCsrf(req)) {
+            redirect(req, resp, "/dashboard");
+            return;
+        }
+
         Usuario u = getUsuarioSesion(req);
         String action = req.getParameter("action");
 
