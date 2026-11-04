@@ -1,49 +1,43 @@
 package co.edu.uts.duts.controller;
 
+import co.edu.uts.duts.dao.TransferenciaDAO;
+import co.edu.uts.duts.model.Usuario;
+import co.edu.uts.duts.service.TransferenciaService;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import co.edu.uts.duts.dao.CuentaDAO;
-import co.edu.uts.duts.dao.TransferenciaDAO;
-import co.edu.uts.duts.dao.UsuarioDAO;
-import co.edu.uts.duts.model.Usuario;
-
+/**
+ * TransferenciasServlet: Controlador del módulo P2P de transferencias DUTS.
+ * Permite buscar destinatarios universitarios y enviar fondos de forma instantánea.
+ */
 @WebServlet("/transferencias")
-public class TransferenciasServlet extends HttpServlet {
+public class TransferenciasServlet extends BaseServlet {
 
-    private CuentaDAO cuentaDAO = new CuentaDAO();
-    private TransferenciaDAO transferenciaDAO = new TransferenciaDAO();
-    private UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final TransferenciaService transferenciaService = new TransferenciaService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("usuario") == null) {
-            resp.sendRedirect(req.getContextPath() + "/login");
+        if (!asegurarAutenticacion(req, resp)) {
             return;
         }
 
-        Usuario u = (Usuario) session.getAttribute("usuario");
+        Usuario u = getUsuarioSesion(req);
 
-        // Cargar saldo actual y el historial de transferencias
-        double saldo = cuentaDAO.obtenerSaldoPorUsuarioId(u.getId());
-        List<Map<String, Object>> transferencias = transferenciaDAO.listarTransferenciasUsuario(u.getId());
+        double saldo = transferenciaService.obtenerSaldoUsuario(u.getId());
+        List<Map<String, Object>> transferencias = transferenciaService.listarTransferencias(u.getId());
 
-        // Buscar/listar destinatarios disponibles en la base de datos excluyendo al usuario actual
-        String queryBusqueda = req.getParameter("buscar");
-        List<Usuario> usuariosDisponibles = usuarioDAO.buscarDestinatarios(u.getId(), queryBusqueda);
+        String queryBusqueda = getParamTrimmed(req, "buscar", null);
+        List<Usuario> usuariosDisponibles = transferenciaService.buscarDestinatarios(u.getId(), queryBusqueda);
 
-        // Si se envió un destinatario preseleccionado, buscar su información detallada
-        String destinatarioPrefill = req.getParameter("destinatario");
-        if (destinatarioPrefill != null && !destinatarioPrefill.trim().isEmpty()) {
-            Usuario destSel = usuarioDAO.obtenerPorUsernameOCodigo(destinatarioPrefill.trim());
+        String destinatarioPrefill = getParamTrimmed(req, "destinatario", null);
+        if (destinatarioPrefill != null) {
+            Usuario destSel = transferenciaService.obtenerDestinatario(destinatarioPrefill);
             if (destSel != null && destSel.getId() != u.getId()) {
                 req.setAttribute("destinatarioSeleccionado", destSel);
             }
@@ -52,59 +46,44 @@ public class TransferenciasServlet extends HttpServlet {
         req.setAttribute("saldo", saldo);
         req.setAttribute("transferencias", transferencias);
         req.setAttribute("usuariosDisponibles", usuariosDisponibles);
-        req.setAttribute("queryBusqueda", queryBusqueda);
+        req.setAttribute("queryBusqueda", queryBusqueda != null ? queryBusqueda : "");
 
-        if (session.getAttribute("flashSuccess") != null) {
-            req.setAttribute("flashSuccess", session.getAttribute("flashSuccess"));
-            session.removeAttribute("flashSuccess");
-        }
-        if (session.getAttribute("flashError") != null) {
-            req.setAttribute("flashError", session.getAttribute("flashError"));
-            session.removeAttribute("flashError");
-        }
-
-        req.getRequestDispatcher("/transferencias.jsp").forward(req, resp);
+        transferirFlashMessages(req);
+        forward(req, resp, "/transferencias.jsp");
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("usuario") == null) {
-            resp.sendRedirect(req.getContextPath() + "/login");
+        if (!asegurarAutenticacion(req, resp)) {
             return;
         }
 
-        Usuario u = (Usuario) session.getAttribute("usuario");
+        Usuario u = getUsuarioSesion(req);
         String action = req.getParameter("action");
 
         if ("enviar".equals(action)) {
-            String destinatario = req.getParameter("destinatario");
-            String montoStr = req.getParameter("monto");
-            String concepto = req.getParameter("concepto");
+            String destinatario = getParamTrimmed(req, "destinatario", null);
+            double monto = getParamDouble(req, "monto", 0.0);
+            String concepto = getParamTrimmed(req, "concepto", "Transferencia DUTS entre compañeros");
 
-            if (destinatario == null || destinatario.trim().isEmpty() || montoStr == null || montoStr.trim().isEmpty()) {
-                session.setAttribute("flashError", "Por favor completa todos los campos obligatorios.");
+            if (destinatario == null || monto <= 0) {
+                setFlashError(req, "Por favor completa el destinatario y un monto válido mayor a 0 DUTS.");
             } else {
-                try {
-                    double monto = Double.parseDouble(montoStr.trim());
-                    TransferenciaDAO.ResultadoTransferencia resultado = transferenciaDAO.transferirDuts(
-                            u.getId(),
-                            destinatario.trim(),
-                            monto,
-                            concepto
-                    );
+                TransferenciaDAO.ResultadoTransferencia resultado = transferenciaService.realizarTransferencia(
+                        u.getId(),
+                        destinatario,
+                        monto,
+                        concepto
+                );
 
-                    if (resultado.isExitoso()) {
-                        session.setAttribute("flashSuccess", resultado.getMensaje());
-                    } else {
-                        session.setAttribute("flashError", resultado.getMensaje());
-                    }
-                } catch (NumberFormatException e) {
-                    session.setAttribute("flashError", "El monto ingresado no es un número válido.");
+                if (resultado.isExitoso()) {
+                    setFlashSuccess(req, resultado.getMensaje());
+                } else {
+                    setFlashError(req, resultado.getMensaje());
                 }
             }
         }
 
-        resp.sendRedirect(req.getContextPath() + "/transferencias");
+        redirect(req, resp, "/transferencias");
     }
 }

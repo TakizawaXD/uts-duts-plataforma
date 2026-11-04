@@ -17,22 +17,22 @@
 
 ---
 
-## 📑 Tabla de Contenido
-1. [¿Qué es UTS DUTS y Propósito?](#-qué-es-uts-duts-y-propósito)
-2. [Arquitectura del Sistema](#-arquitectura-del-sistema)
-3. [Flujo de Funcionamiento y Ciclo Transaccional](#-flujo-de-funcionamiento-y-ciclo-transaccional)
-4. [Stack Tecnológico](#-stack-tecnológico)
-5. [Estructura del Proyecto y Módulos](#-estructura-del-proyecto-y-módulos)
-6. [Modelo de Base de Datos (DER)](#-modelo-de-base-de-datos-der)
-7. [API RESTful: Red Universitaria](#-api-restful-red-universitaria)
-8. [Instalación y Puesta en Marcha](#-instalación-y-puesta-en-marcha)
-9. [Galería de Funcionalidades (Capturas Reales)](#-galería-de-funcionalidades-capturas-reales)
-10. [Seguridad y Transaccionalidad ACID](#-seguridad-y-transaccionalidad-acid)
-11. [Créditos Institucionales](#-créditos-institucionales)
+## Tabla de Contenido
+1. [¿Qué es UTS DUTS y Propósito?](#qué-es-uts-duts-y-propósito)
+2. [Arquitectura del Sistema](#arquitectura-del-sistema)
+3. [Flujo de Funcionamiento y Ciclo Transaccional](#flujo-de-funcionamiento-y-ciclo-transaccional)
+4. [Stack Tecnológico](#stack-tecnológico)
+5. [Estructura del Proyecto y Módulos](#estructura-del-proyecto-y-módulos)
+6. [Modelo de Base de Datos (DER)](#modelo-de-base-de-datos-der)
+7. [API RESTful: Red Universitaria](#api-restful-red-universitaria)
+8. [Instalación y Puesta en Marcha](#instalación-y-puesta-en-marcha)
+9. [Galería de Funcionalidades (Capturas Reales)](#galería-de-funcionalidades-capturas-reales)
+10. [Seguridad y Transaccionalidad ACID](#seguridad-y-transaccionalidad-acid)
+11. [Créditos Institucionales](#créditos-institucionales)
 
 ---
 
-## 💡 ¿Qué es UTS DUTS y Propósito?
+## ¿Qué es UTS DUTS y Propósito?
 
 **UTS DUTS** es un ecosistema web financiero y académico desarrollado a la medida para las **Unidades Tecnológicas de Santander (UTS)**. Introduce el **DUTS (Punto de Mérito Institucional)** como un token virtual que incentiva el aprendizaje y premia el compromiso de los estudiantes dentro de un entorno seguro y transparente.
 
@@ -43,14 +43,14 @@
 ```
 
 ### Objetivos Clave
-* 🎓 **Estímulo al Mérito Universitario:** Recompensar a los alumnos con puntos DUTS por su asistencia a conferencias, olimpiadas, talleres y semilleros de investigación.
-* 💳 **Educación Financiera Integral:** Capacitar a los estudiantes en el uso práctico de billeteras electrónicas, transferencias interpersonales seguras y conciliación de extractos.
-* 🎯 **Meta Obligatoria de Grado:** Los estudiantes monitorean su avance hacia el cumplimiento del requisito institucional de **70.000 DUTS** acumulados a lo largo de su carrera.
-* 📄 **Facturación Oficial Automatizada:** Expedición de comprobantes digitales con folios de auditoría generados en PDF bajo estándares institucionales.
+* **Estímulo al Mérito Universitario:** Recompensar a los alumnos con puntos DUTS por su asistencia a conferencias, olimpiadas, talleres y semilleros de investigación.
+* **Educación Financiera Integral:** Capacitar a los estudiantes en el uso práctico de billeteras electrónicas, transferencias interpersonales seguras y conciliación de extractos.
+* **Meta Obligatoria de Grado:** Los estudiantes monitorean su avance hacia el cumplimiento del requisito institucional de **70.000 DUTS** acumulados a lo largo de su carrera.
+* **Facturación Oficial Automatizada:** Expedición de comprobantes digitales con folios de auditoría generados en PDF bajo estándares institucionales.
 
 ---
 
-## 🏛️ Arquitectura del Sistema
+## Arquitectura del Sistema
 
 El sistema implementa el patrón **Modelo-Vista-Controlador (MVC)** multinivel, desacoplando la lógica de negocio, el control de acceso y la persistencia relacional.
 
@@ -69,7 +69,7 @@ El sistema implementa el patrón **Modelo-Vista-Controlador (MVC)** multinivel, 
 
 ---
 
-## 🔄 Flujo de Funcionamiento y Ciclo Transaccional
+## Flujo de Funcionamiento y Ciclo Transaccional
 
 El ecosistema transaccional DUTS garantiza un flujo paso a paso claro y auditable desde el primer acceso del estudiante hasta la descarga de su comprobante final:
 
@@ -85,7 +85,7 @@ El ecosistema transaccional DUTS garantiza un flujo paso a paso claro y auditabl
 
 ---
 
-## 🛠️ Stack Tecnológico
+## Stack Tecnológico
 
 <div align="center">
   <img src="assets/images/technologies.svg" alt="Stack Tecnológico Oficial UTS DUTS" width="100%">
@@ -101,7 +101,7 @@ El ecosistema transaccional DUTS garantiza un flujo paso a paso claro y auditabl
 
 ---
 
-## 📂 Estructura del Proyecto y Módulos
+## Estructura del Proyecto y Módulos
 
 El proyecto sigue rigurosamente el estándar Maven Standard Directory Layout (`src/main/java` y `src/main/webapp`):
 
@@ -111,8 +111,11 @@ El proyecto sigue rigurosamente el estándar Maven Standard Directory Layout (`s
 
 ```
 uts-duts-plataforma/
+├── Dockerfile                                # Configuración multicapa para despliegue en la nube
 ├── pom.xml                                   # Configuración de dependencias Maven y Tomcat
 ├── README.md                                 # Documentación técnica visual
+├── sql/
+│   └── schema.sql                            # Script de base de datos MySQL y datos semilla
 ├── assets/
 │   └── images/                               # Recursos gráficos vectoriales (SVG) y capturas
 │       ├── banner.png                        # Portada de cabecera
@@ -153,7 +156,7 @@ uts-duts-plataforma/
 
 ---
 
-## 🗄️ Modelo de Base de Datos (DER)
+## Modelo de Base de Datos (DER)
 
 La base de datos relacional `duts` en MySQL 8.0 implementa normalización en Tercera Forma Normal (3FN), garantizando consistencia, auditoría y relaciones estrictas:
 
@@ -172,7 +175,7 @@ La base de datos relacional `duts` en MySQL 8.0 implementa normalización en Ter
 
 ---
 
-## 🌐 API RESTful: Red Universitaria
+## API RESTful: Red Universitaria
 
 La plataforma expone una API REST ligera para interoperar con otras instituciones académicas del departamento de Santander (UIS, UNAB, UDES y nodo ASCUN):
 
@@ -218,7 +221,7 @@ Retorna la agenda de eventos académicos y extracurriculares con recompensas DUT
 
 ---
 
-## 🚀 Instalación y Puesta en Marcha
+## Instalación y Puesta en Marcha
 
 <div align="center">
   <img src="assets/images/installation.svg" alt="Guía de Instalación y Puesta en Marcha Local" width="100%">
@@ -231,7 +234,7 @@ Inicia el servicio de MySQL (puerto 3306) y crea la base de datos `duts`:
 ```sql
 CREATE DATABASE duts CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
-*(Si tu usuario de MySQL no es `root` o tiene contraseña, ajusta las credenciales en `DatabaseConnection.java`).*
+*(Si tu usuario de MySQL no es `root` o tiene contraseña, ajusta las credenciales en `DatabaseConnection.java` o pásalas como variable de entorno).*
 
 ### 2. Compilar el Código
 En la raíz del proyecto, ejecuta Maven para compilar las clases:
@@ -254,7 +257,7 @@ El filtro redirigirá automáticamente a la pantalla de bienvenida institucional
 
 ---
 
-## 📸 Galería de Funcionalidades (Capturas Reales)
+## Galería de Funcionalidades (Capturas Reales)
 
 Las siguientes capturas han sido tomadas directamente del entorno de ejecución activo:
 
@@ -280,7 +283,7 @@ Diseños adaptativos que cambian dinámicamente según si el estudiante ha inici
 
 ---
 
-## 🔐 Seguridad y Transaccionalidad ACID
+## Seguridad y Transaccionalidad ACID
 
 El sistema incorpora múltiples capas de protección técnica:
 
@@ -299,7 +302,7 @@ El sistema incorpora múltiples capas de protección técnica:
 
 ---
 
-## 🎓 Créditos Institucionales
+## Créditos Institucionales
 
 * **Institución:** Unidades Tecnológicas de Santander — UTS
 * **Campus:** Bucaramanga, Santander, Colombia

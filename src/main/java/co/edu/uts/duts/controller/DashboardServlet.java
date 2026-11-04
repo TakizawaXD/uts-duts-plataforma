@@ -1,114 +1,96 @@
 package co.edu.uts.duts.controller;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.List;
-
 import co.edu.uts.duts.dao.CuentaDAO;
-import co.edu.uts.duts.dao.EventoDAO;
 import co.edu.uts.duts.dao.MovimientoDAO;
 import co.edu.uts.duts.dao.TransferenciaDAO;
 import co.edu.uts.duts.model.Evento;
+import co.edu.uts.duts.model.MetricasDuts;
 import co.edu.uts.duts.model.Movimiento;
 import co.edu.uts.duts.model.Usuario;
+import co.edu.uts.duts.service.EventoService;
+import co.edu.uts.duts.service.TransferenciaService;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+
+/**
+ * DashboardServlet: Panel de control principal del ecosistema DUTS.
+ * Proporciona balance en tiempo real, métricas analíticas y accesos directos.
+ */
 @WebServlet({"/dashboard", "/inicio"})
-public class DashboardServlet extends HttpServlet {
-    
-    private CuentaDAO cuentaDAO = new CuentaDAO();
-    private EventoDAO eventoDAO = new EventoDAO();
-    private MovimientoDAO movimientoDAO = new MovimientoDAO();
-    private TransferenciaDAO transferenciaDAO = new TransferenciaDAO();
+public class DashboardServlet extends BaseServlet {
+
+    private final CuentaDAO cuentaDAO = new CuentaDAO();
+    private final MovimientoDAO movimientoDAO = new MovimientoDAO();
+    private final EventoService eventoService = new EventoService();
+    private final TransferenciaService transferenciaService = new TransferenciaService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("usuario") == null) {
-            resp.sendRedirect(req.getContextPath() + "/login");
+        if (!asegurarAutenticacion(req, resp)) {
             return;
         }
-        
-        Usuario u = (Usuario) session.getAttribute("usuario");
-        
-        // 1. Obtener saldo en tiempo real desde la BD
+
+        Usuario u = getUsuarioSesion(req);
+
+        // 1. Saldo actual
         double saldo = cuentaDAO.obtenerSaldoPorUsuarioId(u.getId());
         req.setAttribute("saldo", saldo);
 
-        // 2. Obtener eventos activos y verificar si el estudiante está inscrito
-        List<Evento> eventos = eventoDAO.listarActivos(u.getId());
+        // 2. Eventos activos para el estudiante
+        List<Evento> eventos = eventoService.listarPorUsuario(u);
         req.setAttribute("eventos", eventos);
 
-        // 3. Obtener últimos movimientos
+        // 3. Últimos movimientos (límite 6)
         List<Movimiento> movimientos = movimientoDAO.listarPorUsuario(u.getId(), 6);
         req.setAttribute("movimientos", movimientos);
 
-        // 4. Métricas analíticas (promedio semana, mes, año, semestre) y meta de graduación (70.000 DUTS)
-        co.edu.uts.duts.model.MetricasDuts metricas = movimientoDAO.obtenerMetricasDuts(u.getId(), saldo, u.getSemestre());
+        // 4. Métricas analíticas de avance hacia la meta institucional
+        MetricasDuts metricas = movimientoDAO.obtenerMetricasDuts(u.getId(), saldo, u.getSemestre());
         req.setAttribute("metricas", metricas);
 
-        // 5. Mover mensajes flash de sesión a la solicitud si existen
-        if (session.getAttribute("flashSuccess") != null) {
-            req.setAttribute("flashSuccess", session.getAttribute("flashSuccess"));
-            session.removeAttribute("flashSuccess");
-        }
-        if (session.getAttribute("flashError") != null) {
-            req.setAttribute("flashError", session.getAttribute("flashError"));
-            session.removeAttribute("flashError");
-        }
+        // 5. Transferir mensajes flash para renderizado en JSP
+        transferirFlashMessages(req);
 
-        req.getRequestDispatcher("/dashboard.jsp").forward(req, resp);
+        forward(req, resp, "/dashboard.jsp");
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("usuario") == null) {
-            resp.sendRedirect(req.getContextPath() + "/login");
+        if (!asegurarAutenticacion(req, resp)) {
             return;
         }
 
-        Usuario u = (Usuario) session.getAttribute("usuario");
+        Usuario u = getUsuarioSesion(req);
         String action = req.getParameter("action");
 
-        // Acción rápida para recargar saldo de estímulo en la plataforma
         if ("recargar_estimulo".equals(action)) {
-            TransferenciaDAO.ResultadoTransferencia res = transferenciaDAO.recargarSaldoSimulado(u.getId(), 5000.0);
+            TransferenciaDAO.ResultadoTransferencia res = transferenciaService.recargarSaldoSimulado(u.getId(), 5000.0);
             if (res.isExitoso()) {
-                session.setAttribute("flashSuccess", res.getMensaje());
+                setFlashSuccess(req, res.getMensaje());
             } else {
-                session.setAttribute("flashError", res.getMensaje());
+                setFlashError(req, res.getMensaje());
             }
         } else if ("inscribir_evento".equals(action)) {
-            try {
-                int eventoId = Integer.parseInt(req.getParameter("eventoId"));
-                boolean ok = eventoDAO.inscribirUsuario(u.getId(), eventoId);
-                if (ok) {
-                    session.setAttribute("flashSuccess", "Inscripción al evento realizada exitosamente.");
-                } else {
-                    session.setAttribute("flashError", "Ya te encuentras inscrito o el evento no está disponible.");
-                }
-            } catch (Exception e) {
-                session.setAttribute("flashError", "Datos del evento inválidos.");
+            int eventoId = getParamInt(req, "eventoId", -1);
+            if (eventoId > 0 && eventoService.inscribirUsuario(u.getId(), eventoId)) {
+                setFlashSuccess(req, "Inscripción al evento realizada exitosamente.");
+            } else {
+                setFlashError(req, "Ya te encuentras inscrito o el evento no está disponible.");
             }
         } else if ("reclamar_recompensa".equals(action)) {
-            try {
-                int eventoId = Integer.parseInt(req.getParameter("eventoId"));
-                boolean ok = eventoDAO.reclamarRecompensa(u.getId(), eventoId);
-                if (ok) {
-                    session.setAttribute("flashSuccess", "Recompensa reclamada exitosamente. Tu saldo DUTS ha sido incrementado.");
-                } else {
-                    session.setAttribute("flashError", "No se pudo reclamar la recompensa del evento.");
-                }
-            } catch (Exception e) {
-                session.setAttribute("flashError", "Error al procesar la recompensa.");
+            int eventoId = getParamInt(req, "eventoId", -1);
+            if (eventoId > 0 && eventoService.reclamarRecompensa(u.getId(), eventoId)) {
+                setFlashSuccess(req, "Recompensa reclamada exitosamente. Tu saldo DUTS ha sido incrementado.");
+            } else {
+                setFlashError(req, "No se pudo reclamar la recompensa del evento.");
             }
         }
 
-        resp.sendRedirect(req.getContextPath() + "/dashboard");
+        redirect(req, resp, "/dashboard");
     }
 }

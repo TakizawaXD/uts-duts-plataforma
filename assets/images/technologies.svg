@@ -23,6 +23,7 @@
     .card-title-t { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: 800; fill: #f8fafc; }
     .card-version { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace; font-size: 10.5px; font-weight: 700; }
     .card-desc-t { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; fill: #94a3b8; line-height: 1.4; }
+    .tech-logo-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace; font-size: 12px; font-weight: 900; fill: #ffffff; }
   </style>
 
   <!-- Background -->
@@ -35,14 +36,13 @@
   </g>
 
   <!-- ================= FILA 1: BACKEND CORE ================= -->
-  <!-- Category 1 Label -->
   <text x="50" y="112" class="cat-title" fill="#38bdf8">Backend &amp; Servidor</text>
 
   <!-- Card 1: Java 21 -->
   <g transform="translate(50, 125)" filter="url(#shadowT)">
     <rect width="230" height="96" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1"/>
     <rect x="14" y="14" width="40" height="40" rx="8" fill="#ea580c"/>
-    <text x="34" y="38" font-family="sans-serif" font-size="16" font-weight="900" fill="#ffffff" text-anchor="middle">☕</text>
+    <text x="34" y="38" class="tech-logo-text" text-anchor="middle">JAVA</text>
     <text x="64" y="32" class="card-title-t">Java Platform</text>
     <rect x="64" y="38" width="58" height="18" rx="4" fill="#431407"/>
     <text x="93" y="51" class="card-version" fill="#fb923c" text-anchor="middle">JDK 21 LTS</text>
@@ -53,7 +53,7 @@
   <g transform="translate(300, 125)" filter="url(#shadowT)">
     <rect width="230" height="96" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1"/>
     <rect x="14" y="14" width="40" height="40" rx="8" fill="#2563eb"/>
-    <text x="34" y="38" font-family="sans-serif" font-size="16" font-weight="900" fill="#ffffff" text-anchor="middle">⚡</text>
+    <text x="34" y="38" class="tech-logo-text" text-anchor="middle">EE</text>
     <text x="64" y="32" class="card-title-t">Java EE / Servlets</text>
     <rect x="64" y="38" width="80" height="18" rx="4" fill="#172554"/>
     <text x="104" y="51" class="card-version" fill="#60a5fa" text-anchor="middle">Servlet 4.0 / JSP</text>
@@ -64,7 +64,7 @@
   <g transform="translate(550, 125)" filter="url(#shadowT)">
     <rect width="230" height="96" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1"/>
     <rect x="14" y="14" width="40" height="40" rx="8" fill="#ca8a04"/>
-    <text x="34" y="38" font-family="sans-serif" font-size="16" font-weight="900" fill="#ffffff" text-anchor="middle">🐱</text>
+    <text x="34" y="38" class="tech-logo-text" text-anchor="middle">TC</text>
     <text x="64" y="32" class="card-title-t">Apache Tomcat</text>
     <rect x="64" y="38" width="75" height="18" rx="4" fill="#422006"/>
     <text x="101.5" y="51" class="card-version" fill="#facc15" text-anchor="middle">v9.0 / v10.0</text>
@@ -75,7 +75,7 @@
   <g transform="translate(800, 125)" filter="url(#shadowT)">
     <rect width="250" height="96" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1"/>
     <rect x="14" y="14" width="40" height="40" rx="8" fill="#dc2626"/>
-    <text x="34" y="38" font-family="sans-serif" font-size="16" font-weight="900" fill="#ffffff" text-anchor="middle">📦</text>
+    <text x="34" y="38" class="tech-logo-text" text-anchor="middle">MVN</text>
     <text x="64" y="32" class="card-title-t">Apache Maven</text>
     <rect x="64" y="38" width="65" height="18" rx="4" fill="#450a0a"/>
     <text x="96.5" y="51" class="card-version" fill="#f87171" text-anchor="middle">v3.8 / v3.9</text>
@@ -83,14 +83,13 @@
   </g>
 
   <!-- ================= FILA 2: DATOS, SEGURIDAD & REPORTES ================= -->
-  <!-- Category 2 Label -->
   <text x="50" y="272" class="cat-title" fill="#4ade80">Persistencia, Seguridad &amp; Frontend</text>
 
   <!-- Card 5: MySQL -->
   <g transform="translate(50, 285)" filter="url(#shadowT)">
     <rect width="230" height="145" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1"/>
     <rect x="14" y="14" width="40" height="40" rx="8" fill="#0284c7"/>
-    <text x="34" y="38" font-family="sans-serif" font-size="16" font-weight="900" fill="#ffffff" text-anchor="middle">🐬</text>
+    <text x="34" y="38" class="tech-logo-text" text-anchor="middle">SQL</text>
     <text x="64" y="32" class="card-title-t">MySQL Database</text>
     <rect x="64" y="38" width="80" height="18" rx="4" fill="#082f49"/>
     <text x="104" y="51" class="card-version" fill="#38bdf8" text-anchor="middle">MySQL 8.0</text>
@@ -103,7 +102,7 @@
   <g transform="translate(300, 285)" filter="url(#shadowT)">
     <rect width="230" height="145" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1"/>
     <rect x="14" y="14" width="40" height="40" rx="8" fill="#15803d"/>
-    <text x="34" y="38" font-family="sans-serif" font-size="16" font-weight="900" fill="#ffffff" text-anchor="middle">🔒</text>
+    <text x="34" y="38" class="tech-logo-text" text-anchor="middle">SEC</text>
     <text x="64" y="32" class="card-title-t">BCrypt Cripto</text>
     <rect x="64" y="38" width="60" height="18" rx="4" fill="#052e16"/>
     <text x="94" y="51" class="card-version" fill="#4ade80" text-anchor="middle">jbcrypt 0.4</text>
@@ -116,7 +115,7 @@
   <g transform="translate(550, 285)" filter="url(#shadowT)">
     <rect width="230" height="145" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1"/>
     <rect x="14" y="14" width="40" height="40" rx="8" fill="#b91c1c"/>
-    <text x="34" y="38" font-family="sans-serif" font-size="16" font-weight="900" fill="#ffffff" text-anchor="middle">📄</text>
+    <text x="34" y="38" class="tech-logo-text" text-anchor="middle">PDF</text>
     <text x="64" y="32" class="card-title-t">iTextPDF Engine</text>
     <rect x="64" y="38" width="68" height="18" rx="4" fill="#450a0a"/>
     <text x="98" y="51" class="card-version" fill="#f87171" text-anchor="middle">v5.5.13.3</text>
@@ -129,7 +128,7 @@
   <g transform="translate(800, 285)" filter="url(#shadowT)">
     <rect width="250" height="145" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1"/>
     <rect x="14" y="14" width="40" height="40" rx="8" fill="#4f46e5"/>
-    <text x="34" y="38" font-family="sans-serif" font-size="16" font-weight="900" fill="#ffffff" text-anchor="middle">🎨</text>
+    <text x="34" y="38" class="tech-logo-text" text-anchor="middle">WEB</text>
     <text x="64" y="32" class="card-title-t">Frontend &amp; PWA</text>
     <rect x="64" y="38" width="95" height="18" rx="4" fill="#1e1b4b"/>
     <text x="111.5" y="51" class="card-version" fill="#818cf8" text-anchor="middle">HTML5 / CSS3 / PWA</text>

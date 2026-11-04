@@ -67,14 +67,16 @@ public class UsuarioDAO {
         String sqlUsuario = "INSERT INTO usuarios (codigo_estudiantil, nombre_completo, correo, username, password_hash, programa_academico, semestre, rol_id) VALUES (?, ?, ?, ?, ?, ?, ?, 1)";
         String sqlCuenta = "INSERT INTO cuentas (usuario_id, saldo) VALUES (?, 500.00)";
         String sqlMovimiento = "INSERT INTO movimientos_duts (cuenta_id, tipo, monto, descripcion, referencia) VALUES (?, 'INGRESO', 500.00, 'Bono de Bienvenida por Primera Inscripción DUTS', ?)";
-        
+
         Connection con = null;
         try {
             con = DatabaseConnection.getConnection();
             con.setAutoCommit(false);
-            
+
             String hash = BCrypt.hashpw(passwordPlana, BCrypt.gensalt(12));
-            
+
+            // 1. Insertar usuario
+            int userId = -1;
             try (PreparedStatement psUser = con.prepareStatement(sqlUsuario, Statement.RETURN_GENERATED_KEYS)) {
                 psUser.setString(1, u.getCodigoEstudiantil());
                 psUser.setString(2, u.getNombreCompleto());
@@ -83,36 +85,45 @@ public class UsuarioDAO {
                 psUser.setString(5, hash);
                 psUser.setString(6, u.getProgramaAcademico());
                 psUser.setInt(7, u.getSemestre());
-                
+
                 int rows = psUser.executeUpdate();
-                if (rows > 0) {
-                    try (ResultSet rs = psUser.getGeneratedKeys()) {
-                        if (rs.next()) {
-                            int userId = rs.getInt(1);
-                            int cuentaId = -1;
-                            try (PreparedStatement psCuenta = con.prepareStatement(sqlCuenta, Statement.RETURN_GENERATED_KEYS)) {
-                                psCuenta.setInt(1, userId);
-                                psCuenta.executeUpdate();
-                                try (ResultSet rsC = psCuenta.getGeneratedKeys()) {
-                                    if (rsC.next()) {
-                                        cuentaId = rsC.getInt(1);
-                                    }
-                                }
-                            }
-                            if (cuentaId != -1) {
-                                try (PreparedStatement psMov = con.prepareStatement(sqlMovimiento)) {
-                                    psMov.setInt(1, cuentaId);
-                                    psMov.setString(2, "BONO-BIENVENIDA-" + System.currentTimeMillis());
-                                    psMov.executeUpdate();
-                                }
-                            }
-                        }
-                    }
-                } else {
+                if (rows <= 0) {
                     con.rollback();
                     return false;
                 }
+                try (ResultSet rs = psUser.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        userId = rs.getInt(1);
+                    }
+                }
             }
+
+            if (userId == -1) {
+                con.rollback();
+                return false;
+            }
+
+            // 2. Crear cuenta con bono de 500 DUTS
+            int cuentaId = -1;
+            try (PreparedStatement psCuenta = con.prepareStatement(sqlCuenta, Statement.RETURN_GENERATED_KEYS)) {
+                psCuenta.setInt(1, userId);
+                psCuenta.executeUpdate();
+                try (ResultSet rsC = psCuenta.getGeneratedKeys()) {
+                    if (rsC.next()) {
+                        cuentaId = rsC.getInt(1);
+                    }
+                }
+            }
+
+            // 3. Registrar movimiento inicial de auditoría
+            if (cuentaId != -1) {
+                try (PreparedStatement psMov = con.prepareStatement(sqlMovimiento)) {
+                    psMov.setInt(1, cuentaId);
+                    psMov.setString(2, "BONO-BIENVENIDA-" + System.currentTimeMillis());
+                    psMov.executeUpdate();
+                }
+            }
+
             con.commit();
             return true;
         } catch (SQLException e) {
