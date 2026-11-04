@@ -95,6 +95,16 @@ CREATE TABLE inscripciones_eventos (
 ) ENGINE=InnoDB;
 
 -- ==========================================================
+-- ÍNDICES ESTRATÉGICOS DE RENDIMIENTO PARA PRODUCCIÓN
+-- Optimizan las consultas más frecuentes de balance, historial y filtros
+-- ==========================================================
+CREATE INDEX idx_movimientos_cuenta_fecha ON movimientos_duts(cuenta_id, creado_en DESC);
+CREATE INDEX idx_eventos_estado_fecha ON eventos(estado, fecha ASC);
+CREATE INDEX idx_eventos_categoria ON eventos(categoria);
+CREATE INDEX idx_inscripciones_user_reclamado ON inscripciones_eventos(usuario_id, reclamado);
+CREATE INDEX idx_transferencias_fecha ON transferencias(fecha DESC);
+
+-- ==========================================================
 -- DATOS INICIALES (SEMILLA) PARA PRUEBAS INMEDIATAS
 -- Contraseñas con hash BCrypt:
 --   admin -> 'admin123'

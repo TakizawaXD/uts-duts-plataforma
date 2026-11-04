@@ -3,12 +3,16 @@ package co.edu.uts.duts.dao;
 import co.edu.uts.duts.model.Usuario;
 import co.edu.uts.duts.util.DatabaseConnection;
 import org.mindrot.jbcrypt.BCrypt;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioDAO {
+
+    private static final Logger log = LoggerFactory.getLogger(UsuarioDAO.class);
 
     public Usuario autenticar(String usernameOrCorreo, String passwordPlana) {
         String sql = "SELECT * FROM usuarios WHERE username = ? OR correo = ?";
@@ -26,7 +30,7 @@ public class UsuarioDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Error al autenticar usuario '{}': {}", usernameOrCorreo, e.getMessage(), e);
         }
         return null;
     }

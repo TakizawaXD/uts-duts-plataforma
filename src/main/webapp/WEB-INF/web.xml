@@ -6,6 +6,9 @@
     
     <display-name>DUTS Plataforma</display-name>
     
+    <!-- Optimización de arranque: Evita escaneo redundante de anotaciones en JARs de dependencias -->
+    <absolute-ordering />
+    
     <!-- 1. FILTRO DE CODIFICACIÓN UTF-8 (Primer filtro en ejecutarse) -->
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
@@ -16,7 +19,17 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!-- 2. FILTRO DE AUTENTICACIÓN Y SEGURIDAD (Segundo filtro en ejecutarse) -->
+    <!-- 2. FILTRO DE CABECERAS DE SEGURIDAD OWASP (Anti-Clickjacking, Anti-MIME sniffing) -->
+    <filter>
+        <filter-name>SecurityHeadersFilter</filter-name>
+        <filter-class>co.edu.uts.duts.filter.SecurityHeadersFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SecurityHeadersFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- 3. FILTRO DE AUTENTICACIÓN Y SEGURIDAD (Tercer filtro en ejecutarse) -->
     <filter>
         <filter-name>AuthFilter</filter-name>
         <filter-class>co.edu.uts.duts.filter.AuthFilter</filter-class>
@@ -25,6 +38,21 @@
         <filter-name>AuthFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <!-- LISTENER DEL CICLO DE VIDA DE LA APLICACIÓN -->
+    <listener>
+        <listener-class>co.edu.uts.duts.listener.AppLifecycleListener</listener-class>
+    </listener>
+
+    <!-- CONFIGURACIÓN DE SESIONES SEGURAS (OWASP Session Management) -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>
+            <name>JSESSIONID_DUTS</name>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
