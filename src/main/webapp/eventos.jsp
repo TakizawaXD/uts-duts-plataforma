@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -2043,29 +2044,81 @@
                     <c:when test="${not empty eventos}">
                         <div class="events-grid-styled">
                             <c:forEach items="${eventos}" var="ev">
-                                <div class="event-card-modern">
-                                    <c:set var="evImg" value="${not empty ev.imagenUrl ? ev.imagenUrl : 'evento_tecnologia.jpg'}"/>
-                                    <div class="event-hero-banner" style="background-image: url('${pageContext.request.contextPath}/assets/images/${evImg}');">
+                                <c:set var="rawImg" value="${ev.imagenUrl}"/>
+                                <c:choose>
+                                    <c:when test="${not empty rawImg and (fn:startsWith(rawImg, 'http://') or fn:startsWith(rawImg, 'https://'))}">
+                                        <c:set var="cardImgUrl" value="${rawImg}"/>
+                                    </c:when>
+                                    <c:when test="${not empty rawImg}">
+                                        <c:set var="cardImgUrl" value="${pageContext.request.contextPath}/assets/images/${rawImg}"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="cardImgUrl" value="${pageContext.request.contextPath}/assets/images/evento_tecnologia.jpg"/>
+                                    </c:otherwise>
+                                </c:choose>
+
+                                <div class="event-card-modern js-event-card"
+                                     data-id="${ev.id}"
+                                     data-nombre="<c:out value='${ev.nombre}'/>"
+                                     data-descripcion="<c:out value='${ev.descripcion}'/>"
+                                     data-imagen="${cardImgUrl}"
+                                     data-categoria="<c:out value='${ev.categoria}'/>"
+                                     data-universidad="<c:out value='${ev.universidad}'/>"
+                                     data-modalidad="<c:out value='${not empty ev.modalidad ? ev.modalidad : \"Presencial\"}'/>"
+                                     data-horario="<c:out value='${not empty ev.horaInicio ? ev.horaInicio : \"08:00 AM\"} - ${not empty ev.horaFin ? ev.horaFin : \"12:00 PM\"}'/>"
+                                     data-fecha="<fmt:formatDate value='${ev.fecha}' pattern='EEEE, dd \'de\' MMMM yyyy'/>"
+                                     data-lugar="<c:out value='${ev.lugar}'/>"
+                                     data-direccion="<c:out value='${ev.direccion}'/>"
+                                     data-requisitos="<c:out value='${not empty ev.requisitos ? ev.requisitos : \"Carné institucional vigente o documento de identidad.\"}'/>"
+                                     data-cupos="<c:out value='${ev.cupos}'/>"
+                                     data-puntos="<fmt:formatNumber value='${ev.recompensaDuts}' minFractionDigits='0'/>"
+                                     data-inscrito="${ev.inscrito}">
+
+                                    <div class="event-hero-banner" style="background-image: url('${cardImgUrl}'), url('${pageContext.request.contextPath}/assets/images/evento-rally.jpg');">
                                         <div class="banner-top-row">
                                             <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
                                                 <span class="uni-badge-card uni-badge-${ev.universidad.toLowerCase()}"><c:out value="${ev.universidad}"/></span>
                                                 <span class="event-category-pill"><c:out value="${ev.categoria}"/></span>
                                             </div>
-                                            <span class="reward-badge-floating">
-                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                                                +<fmt:formatNumber value="${ev.recompensaDuts}" minFractionDigits="0"/> DUTS
-                                            </span>
+                                            <div style="display: flex; gap: 6px; align-items: center;">
+                                                <span class="click-info-badge" title="Haz clic en la tarjeta para ver toda la información">
+                                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                                    Ver info
+                                                </span>
+                                                <span class="reward-badge-floating">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                                    +<fmt:formatNumber value="${ev.recompensaDuts}" minFractionDigits="0"/> DUTS
+                                                </span>
+                                            </div>
                                         </div>
                                         <div class="banner-bottom-row">
                                             <span class="spots-badge-overlay">
                                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                                                 <c:out value="${ev.cupos}"/> cupos disponibles
                                             </span>
+                                            <c:if test="${not empty ev.modalidad}">
+                                                <span class="modal-mode-badge" style="font-size: 10.5px; padding: 2px 8px;">
+                                                    <c:out value="${ev.modalidad}"/>
+                                                </span>
+                                            </c:if>
                                         </div>
                                     </div>
 
                                     <div class="event-body-styled">
                                         <div>
+                                            <!-- HORARIO Y FECHA DESTACADOS -->
+                                            <div class="event-datetime-pill">
+                                                <div style="display: inline-flex; align-items: center; gap: 4px; color: #b45309;">
+                                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                                    <span><c:out value="${not empty ev.horaInicio ? ev.horaInicio : '08:00 AM'}"/> - <c:out value="${not empty ev.horaFin ? ev.horaFin : '12:00 PM'}"/></span>
+                                                </div>
+                                                <span style="color: #cbd5e1;">•</span>
+                                                <div style="display: inline-flex; align-items: center; gap: 4px; color: #475569;">
+                                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                                    <span><fmt:formatDate value="${ev.fecha}" pattern="dd MMM yyyy"/></span>
+                                                </div>
+                                            </div>
+
                                             <h3 class="event-title-styled" title="${ev.nombre}"><c:out value="${ev.nombre}"/></h3>
                                             <p class="event-desc-styled"><c:out value="${ev.descripcion}"/></p>
 
@@ -2292,6 +2345,80 @@
         </main>
     </div>
 
+    <!-- MODAL DE INFORMACIÓN DETALLADA DEL EVENTO -->
+    <div id="modalEventBackdrop" class="modal-event-backdrop" role="dialog" aria-modal="true" aria-hidden="true" style="display: none;">
+        <div class="modal-event-dialog">
+            <button type="button" class="modal-close-btn" id="btnModalClose" title="Cerrar modal">&times;</button>
+            
+            <div id="modalEventBanner" class="modal-event-banner">
+                <div class="modal-banner-overlay">
+                    <div class="modal-badges-row">
+                        <span id="modalUniBadge" class="uni-badge-card uni-badge-uts">UTS</span>
+                        <span id="modalCatBadge" class="event-category-pill">TECNOLOGÍA</span>
+                        <span id="modalModeBadge" class="modal-mode-badge">Presencial</span>
+                    </div>
+                    <div class="modal-banner-bottom">
+                        <span id="modalSpotsBadge" class="spots-badge-overlay">50 cupos disponibles</span>
+                        <span id="modalRewardBadge" class="reward-badge-floating">+2.500 DUTS</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-event-body">
+                <div class="modal-org-sub">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                    <span id="modalOrgText">UNIDADES TECNOLÓGICAS DE SANTANDER</span>
+                </div>
+                <h2 id="modalEventTitle" class="modal-event-title">Título del Evento</h2>
+                <p id="modalEventDesc" class="modal-event-desc">Descripción detallada del evento...</p>
+
+                <div class="modal-info-grid">
+                    <!-- Horario y Fecha -->
+                    <div class="modal-info-card highlight-time">
+                        <div class="modal-info-icon time-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        </div>
+                        <div class="modal-info-content">
+                            <div class="modal-info-label">Horario Institucional</div>
+                            <div id="modalEventTime" class="modal-info-main">08:00 AM - 12:00 PM</div>
+                            <div id="modalEventDate" class="modal-info-sub">Fecha del evento</div>
+                        </div>
+                    </div>
+
+                    <!-- Ubicación y Mapa -->
+                    <div class="modal-info-card highlight-loc">
+                        <div class="modal-info-icon loc-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        </div>
+                        <div class="modal-info-content">
+                            <div class="modal-info-label">Ubicación y Lugar</div>
+                            <div id="modalEventLocation" class="modal-info-main">Auditorio Mayor</div>
+                            <div id="modalEventAddress" class="modal-info-sub">Calle Real de Estudiantes</div>
+                            <a id="modalMapsLink" href="#" target="_blank" rel="noopener noreferrer" class="btn-open-maps">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+                                Abrir en Google Maps
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Requisitos y Recompensa -->
+                <div class="modal-meta-box">
+                    <div class="modal-meta-row">
+                        <strong>Requisitos de participación:</strong>
+                        <span id="modalEventReqs">Carné institucional vigente o documento de identidad institucional.</span>
+                    </div>
+                    <div class="modal-meta-row">
+                        <strong>Recompensa de Mérito Académico:</strong> Recibirás <span id="modalEventRewardText" style="font-weight: 800; color: #15803d;">+2.500 DUTS</span> acreditados a tu saldo tras registrar tu asistencia.
+                    </div>
+                </div>
+
+                <!-- Acciones interactivas del modal -->
+                <div id="modalActionsArea" class="modal-actions-footer"></div>
+            </div>
+        </div>
+    </div>
+
     <nav class="mobile-bottom-nav" aria-label="Navegación principal de la aplicación">
         <a href="${pageContext.request.contextPath}/dashboard" class="mobile-nav-item" title="Inicio">
             <div class="mobile-nav-icon-wrap">
@@ -2346,6 +2473,136 @@
         if (btnToggleSidebar) btnToggleSidebar.addEventListener('click', openDrawer);
         if (btnCloseSidebar) btnCloseSidebar.addEventListener('click', closeDrawer);
         if (mobileDrawerOverlay) mobileDrawerOverlay.addEventListener('click', closeDrawer);
+
+        // ==========================================
+        // CONTROLADOR MODAL DE DETALLE DEL EVENTO
+        // ==========================================
+        const modalBackdrop = document.getElementById('modalEventBackdrop');
+        const btnModalClose = document.getElementById('btnModalClose');
+        const modalEventBanner = document.getElementById('modalEventBanner');
+        const modalUniBadge = document.getElementById('modalUniBadge');
+        const modalCatBadge = document.getElementById('modalCatBadge');
+        const modalModeBadge = document.getElementById('modalModeBadge');
+        const modalSpotsBadge = document.getElementById('modalSpotsBadge');
+        const modalRewardBadge = document.getElementById('modalRewardBadge');
+        const modalOrgText = document.getElementById('modalOrgText');
+        const modalEventTitle = document.getElementById('modalEventTitle');
+        const modalEventDesc = document.getElementById('modalEventDesc');
+        const modalEventTime = document.getElementById('modalEventTime');
+        const modalEventDate = document.getElementById('modalEventDate');
+        const modalEventLocation = document.getElementById('modalEventLocation');
+        const modalEventAddress = document.getElementById('modalEventAddress');
+        const modalMapsLink = document.getElementById('modalMapsLink');
+        const modalEventReqs = document.getElementById('modalEventReqs');
+        const modalEventRewardText = document.getElementById('modalEventRewardText');
+        const modalActionsArea = document.getElementById('modalActionsArea');
+        const csrfTokenValue = '${csrfToken}';
+
+        function openEventModal(card) {
+            if (!modalBackdrop) return;
+            const d = card.dataset;
+            modalEventTitle.textContent = d.nombre || 'Evento Institucional';
+            modalEventDesc.textContent = d.descripcion || 'Sin descripción adicional.';
+            modalUniBadge.textContent = d.universidad || 'UTS';
+            const uniSlug = (d.universidad || 'uts').toLowerCase().replace(/[^a-z0-9]/g, '');
+            modalUniBadge.className = 'uni-badge-card uni-badge-' + uniSlug;
+            modalCatBadge.textContent = d.categoria || 'GENERAL';
+            modalModeBadge.textContent = d.modalidad || 'Presencial';
+            modalSpotsBadge.textContent = (d.cupos || '0') + ' cupos disponibles';
+            modalRewardBadge.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> +' + (d.puntos || '0') + ' DUTS';
+            modalOrgText.textContent = (d.universidad || 'UTS') + ' • RED UNIVERSITARIA SANTANDER';
+            modalEventTime.textContent = d.horario || '08:00 AM - 12:00 PM';
+            modalEventDate.textContent = d.fecha || '';
+            modalEventLocation.textContent = d.lugar || 'Campus Principal UTS';
+            modalEventAddress.textContent = d.direccion || 'Bucaramanga, Santander';
+            modalEventReqs.textContent = d.requisitos || 'Carné institucional vigente o documento de identidad.';
+            modalEventRewardText.textContent = '+' + (d.puntos || '0') + ' DUTS';
+
+            // Enlace dinámico a Google Maps
+            const queryMaps = encodeURIComponent((d.lugar || '') + ', ' + (d.direccion || '') + ', Bucaramanga');
+            modalMapsLink.href = 'https://www.google.com/maps/search/?api=1&query=' + queryMaps;
+
+            // Imagen con fallback local si la URL externa tarda o no responde
+            const imgUrl = d.imagen || '${pageContext.request.contextPath}/assets/images/evento_tecnologia.jpg';
+            modalEventBanner.style.backgroundImage = "url('" + imgUrl + "'), url('${pageContext.request.contextPath}/assets/images/evento-rally.jpg')";
+
+            // Inyección contextual de botones según el estado de inscripción
+            const isInscrito = (d.inscrito === 'true');
+            if (isInscrito) {
+                modalActionsArea.innerHTML = `
+                    <form action="${pageContext.request.contextPath}/eventos" method="POST" style="flex: 1;">
+                        <input type="hidden" name="action" value="reclamar">
+                        <input type="hidden" name="eventoId" value="` + d.id + `">
+                        <input type="hidden" name="csrfToken" value="` + csrfTokenValue + `">
+                        <button type="submit" class="btn-claim-duts" style="width: 100%; justify-content: center; padding: 12px 18px; font-size: 14px;">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            Reclamar +` + d.puntos + ` DUTS
+                        </button>
+                    </form>
+                    <form action="${pageContext.request.contextPath}/eventos" method="POST">
+                        <input type="hidden" name="action" value="cancelar_inscripcion">
+                        <input type="hidden" name="eventoId" value="` + d.id + `">
+                        <input type="hidden" name="csrfToken" value="` + csrfTokenValue + `">
+                        <button type="submit" class="btn-cancel-enroll" style="padding: 12px 18px; font-size: 14px;">Cancelar Inscripción</button>
+                    </form>
+                `;
+            } else {
+                modalActionsArea.innerHTML = `
+                    <form action="${pageContext.request.contextPath}/eventos" method="POST" style="flex: 1;">
+                        <input type="hidden" name="action" value="inscribir">
+                        <input type="hidden" name="eventoId" value="` + d.id + `">
+                        <input type="hidden" name="csrfToken" value="` + csrfTokenValue + `">
+                        <button type="submit" class="btn-modal-enroll" style="width: 100%;">
+                            <span>Inscribirme y Ganar +` + d.puntos + ` DUTS</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </button>
+                    </form>
+                    <button type="button" class="btn-modal-close" onclick="closeEventModal()">Cerrar</button>
+                `;
+            }
+
+            modalBackdrop.style.display = 'flex';
+            requestAnimationFrame(() => {
+                modalBackdrop.classList.add('active');
+                modalBackdrop.setAttribute('aria-hidden', 'false');
+            });
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeEventModal() {
+            if (!modalBackdrop) return;
+            modalBackdrop.classList.remove('active');
+            modalBackdrop.setAttribute('aria-hidden', 'true');
+            setTimeout(() => {
+                modalBackdrop.style.display = 'none';
+                document.body.style.overflow = '';
+            }, 250);
+        }
+
+        // Delegación de eventos de clic en las tarjetas de eventos
+        document.querySelectorAll('.js-event-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Si el clic ocurrió sobre un formulario, botón o enlace de acción directo, no abrir el modal
+                if (e.target.closest('form') || e.target.closest('button') || e.target.closest('a')) {
+                    return;
+                }
+                openEventModal(this);
+            });
+        });
+
+        if (btnModalClose) btnModalClose.addEventListener('click', closeEventModal);
+        if (modalBackdrop) {
+            modalBackdrop.addEventListener('click', function(e) {
+                if (e.target === modalBackdrop) {
+                    closeEventModal();
+                }
+            });
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modalBackdrop && modalBackdrop.classList.contains('active')) {
+                closeEventModal();
+            }
+        });
 
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {

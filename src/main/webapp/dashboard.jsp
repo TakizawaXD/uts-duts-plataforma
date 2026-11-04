@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -1628,12 +1629,30 @@
                             <c:when test="${not empty eventos}">
                                 <div class="events-grid">
                                     <c:forEach items="${eventos}" var="ev">
+                                        <c:set var="rawDashImg" value="${ev.imagenUrl}"/>
+                                        <c:choose>
+                                            <c:when test="${not empty rawDashImg and (fn:startsWith(rawDashImg, 'http://') or fn:startsWith(rawDashImg, 'https://'))}">
+                                                <c:set var="dashImgUrl" value="${rawDashImg}"/>
+                                            </c:when>
+                                            <c:when test="${not empty rawDashImg}">
+                                                <c:set var="dashImgUrl" value="${pageContext.request.contextPath}/assets/images/${rawDashImg}"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:set var="dashImgUrl" value="${pageContext.request.contextPath}/assets/images/evento_tecnologia.jpg"/>
+                                            </c:otherwise>
+                                        </c:choose>
                                         <div class="event-card">
-                                            <div class="event-img" style="background-image: url('${pageContext.request.contextPath}/assets/images/${ev.imagenUrl}');">
+                                            <div class="event-img" style="background-image: url('${dashImgUrl}'), url('${pageContext.request.contextPath}/assets/images/evento-rally.jpg');">
                                                 <span class="event-category"><c:out value="${ev.categoria}"/></span>
                                             </div>
                                             <div class="event-content">
                                                 <div>
+                                                    <div style="font-size: 11px; color: #b45309; font-weight: 700; display: flex; align-items: center; gap: 4px; margin-bottom: 4px;">
+                                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                                        <span><c:out value="${not empty ev.horaInicio ? ev.horaInicio : '08:00 AM'}"/> - <c:out value="${not empty ev.horaFin ? ev.horaFin : '12:00 PM'}"/></span>
+                                                        <span style="color: #cbd5e1;">•</span>
+                                                        <span style="color: #64748b;"><fmt:formatDate value="${ev.fecha}" pattern="dd MMM yyyy"/></span>
+                                                    </div>
                                                     <h4 class="event-title"><c:out value="${ev.nombre}"/></h4>
                                                     <p class="event-desc"><c:out value="${ev.descripcion}"/></p>
                                                     <div style="margin-top: 6px; font-size: 11px; color: #64748b; display: flex; flex-direction: column; gap: 2px;">
