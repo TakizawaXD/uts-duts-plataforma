@@ -67,7 +67,7 @@ public class AuthFilter implements Filter {
         // 5. Páginas y acciones de autenticación
         boolean isAuthPage = path.equals("/login") || path.equals("/registro") 
                             || path.equals("/login.jsp") || path.equals("/registro.jsp")
-                            || path.equals("/logout");
+                            || path.equals("/logout") || path.equals("/index") || path.equals("/index.jsp");
         
         // 6. Verificación de sesión de usuario
         HttpSession session = req.getSession(false);
@@ -79,10 +79,10 @@ public class AuthFilter implements Filter {
             req.setAttribute("csrfToken", csrfToken);
         }
         
-        if (isLoggedIn || isAuthPage || isStaticResource || isApiEndpoint || isErrorPage || path.equals("/")) {
+        if (isLoggedIn || isAuthPage || isStaticResource || isApiEndpoint || isErrorPage || path.equals("/") || path.isEmpty()) {
             chain.doFilter(request, response);
         } else {
-            res.sendRedirect(req.getContextPath() + "/login");
+            res.sendRedirect(req.getContextPath() + "/index");
         }
     }
 

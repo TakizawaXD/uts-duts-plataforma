@@ -56,7 +56,7 @@ public abstract class BaseServlet extends HttpServlet {
      */
     protected boolean asegurarAutenticacion(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         if (!esUsuarioAutenticado(req)) {
-            redirect(req, resp, "/login");
+            redirect(req, resp, "/index");
             return false;
         }
         return true;

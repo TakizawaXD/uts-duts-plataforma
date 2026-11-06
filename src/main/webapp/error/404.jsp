@@ -257,7 +257,7 @@
 <body>
 
     <header class="error-header">
-        <a href="${not empty sessionScope.usuario ? pageContext.request.contextPath.concat('/dashboard') : pageContext.request.contextPath.concat('/login')}" class="error-brand">
+        <a href="${not empty sessionScope.usuario ? pageContext.request.contextPath.concat('/dashboard') : pageContext.request.contextPath.concat('/index')}" class="error-brand">
             <img src="${pageContext.request.contextPath}/assets/images/logouts.png" alt="UTS Logo">
             <div class="error-brand-text">
                 <span class="brand-title">DUTS</span>
@@ -294,7 +294,7 @@
                         </a>
                     </c:when>
                     <c:otherwise>
-                        <a href="${pageContext.request.contextPath}/login" class="btn-primary-home">
+                        <a href="${pageContext.request.contextPath}/index" class="btn-primary-home">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
                             <span>Iniciar Sesión en DUTS</span>
                         </a>

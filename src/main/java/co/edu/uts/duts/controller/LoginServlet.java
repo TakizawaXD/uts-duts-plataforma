@@ -19,7 +19,7 @@ import java.io.IOException;
  * Integra protección activa contra ataques de fuerza bruta (Rate Limiting),
  * regeneración de sesión anti-fijación y autenticación con BCrypt.
  */
-@WebServlet("/login")
+@WebServlet(urlPatterns = {"/index", "/login"})
 public class LoginServlet extends BaseServlet {
 
     private static final Logger log = LoggerFactory.getLogger(LoginServlet.class);
@@ -29,6 +29,10 @@ public class LoginServlet extends BaseServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (esUsuarioAutenticado(req)) {
             redirect(req, resp, "/dashboard");
+            return;
+        }
+        if ("/login".equals(req.getServletPath())) {
+            redirect(req, resp, "/index");
             return;
         }
         forward(req, resp, "/login.jsp");

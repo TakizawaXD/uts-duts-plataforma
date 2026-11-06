@@ -19,6 +19,6 @@ public class LogoutServlet extends BaseServlet {
         if (session != null) {
             session.invalidate();
         }
-        redirect(req, resp, "/login");
+        redirect(req, resp, "/index");
     }
 }

@@ -1564,7 +1564,7 @@
 
     <header class="uts-encabezado-oficial">
         <div class="uts-encabezado-oficial__interior">
-            <a href="${pageContext.request.contextPath}/login" class="uts-logo-marca" title="Universitaria Tecnológica de Santander - Inicio">
+            <a href="${pageContext.request.contextPath}/index" class="uts-logo-marca" title="Universitaria Tecnológica de Santander - Inicio">
                 <img src="${pageContext.request.contextPath}/assets/images/logo-uts.svg" alt="Universitaria Tecnológica de Santander • ¡Lo hacemos posible!" class="uts-logo-img" onerror="this.src='${pageContext.request.contextPath}/assets/images/logouts.png';">
             </a>
 
@@ -1760,7 +1760,7 @@
 
                 <div class="uts-divider-or">o mediante usuario y contraseña</div>
 
-                <form action="${pageContext.request.contextPath}/login" method="POST" autocomplete="on">
+                <form action="${pageContext.request.contextPath}/index" method="POST" autocomplete="on">
                     <div class="uts-form-group">
                         <label for="usuario" class="uts-form-label">
                             <span>Usuario o Código Estudiantil</span>

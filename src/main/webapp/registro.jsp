@@ -89,7 +89,7 @@
     <div class="bg-container">
         <div class="main-wrapper">
             
-                <a href="${pageContext.request.contextPath}/login" title="Ir a Inicio" style="display: inline-block;">
+                <a href="${pageContext.request.contextPath}/index" title="Ir a Inicio" style="display: inline-block;">
                     <img src="${pageContext.request.contextPath}/assets/images/logouts.png" alt="Logo UTS" class="logo">
                 </a>
                 <h2>¡Lo hacemos posible!</h2>
@@ -187,7 +187,7 @@
                     </div>
                 </form>
 
-                <a href="${pageContext.request.contextPath}/login" class="guest-link">¿Ya tienes cuenta? Ingresa aquí</a>
+                <a href="${pageContext.request.contextPath}/index" class="guest-link">¿Ya tienes cuenta? Ingresa aquí</a>
                 <div class="help-text">Ayuda: duts@correo.uts.edu.co</div>
             </div>
 
