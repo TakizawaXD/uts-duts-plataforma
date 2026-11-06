@@ -40,10 +40,10 @@ public class AppLifecycleListener implements ServletContextListener {
             log.warn("[AVISO] La base de datos aún no responde o está inicializando.");
         }
 
-        // Atributos globales del contexto
-        sce.getServletContext().setAttribute("appNombre", "Plataforma DUTS");
-        sce.getServletContext().setAttribute("appVersion", "2.4.0");
-        sce.getServletContext().setAttribute("institucion", "Unidades Tecnológicas de Santander - UTS");
+        // Atributos globales del contexto dinámicos desde .env
+        sce.getServletContext().setAttribute("appNombre", co.edu.uts.duts.util.EnvConfig.get("APP_NAME", "Plataforma DUTS"));
+        sce.getServletContext().setAttribute("appVersion", co.edu.uts.duts.util.EnvConfig.get("APP_VERSION", "2.4.0"));
+        sce.getServletContext().setAttribute("institucion", co.edu.uts.duts.util.EnvConfig.get("INSTITUCION_NOMBRE", "Unidades Tecnológicas de Santander - UTS"));
     }
 
     @Override

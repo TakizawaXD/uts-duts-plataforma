@@ -1,5 +1,6 @@
 package co.edu.uts.duts.security;
-
+ 
+import co.edu.uts.duts.util.EnvConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,9 +15,17 @@ public final class LoginRateLimiter {
 
     private static final Logger log = LoggerFactory.getLogger(LoginRateLimiter.class);
 
-    private static final int MAX_INTENTOS = 5;
-    private static final long VENTANA_TIEMPO_MS = 3 * 60 * 1000L; // 3 minutos
-    private static final long DURACION_BLOQUEO_MS = 3 * 60 * 1000L; // 3 minutos
+    private static int getMaxIntentos() {
+        return EnvConfig.getInt("SECURITY_MAX_LOGIN_ATTEMPTS", 5);
+    }
+
+    private static long getVentanaTiempoMs() {
+        return EnvConfig.getInt("SECURITY_WINDOW_MINUTES", 3) * 60 * 1000L;
+    }
+
+    private static long getDuracionBloqueoMs() {
+        return EnvConfig.getInt("SECURITY_LOCKOUT_MINUTES", 3) * 60 * 1000L;
+    }
 
     private static final Map<String, IntentoRegistro> intentosMap = new ConcurrentHashMap<>();
 
@@ -80,13 +89,13 @@ public final class LoginRateLimiter {
         long ahora = System.currentTimeMillis();
 
         intentosMap.compute(claveIdentificador, (k, reg) -> {
-            if (reg == null || (ahora - reg.primerIntentoMs > VENTANA_TIEMPO_MS && reg.bloqueadoHastaMs <= ahora)) {
+            if (reg == null || (ahora - reg.primerIntentoMs > getVentanaTiempoMs() && reg.bloqueadoHastaMs <= ahora)) {
                 return new IntentoRegistro(ahora);
             }
 
             reg.contador++;
-            if (reg.contador >= MAX_INTENTOS) {
-                reg.bloqueadoHastaMs = ahora + DURACION_BLOQUEO_MS;
+            if (reg.contador >= getMaxIntentos()) {
+                reg.bloqueadoHastaMs = ahora + getDuracionBloqueoMs();
                 log.warn("BLOQUEO DE SEGURIDAD: Identificador '{}' bloqueado por {} intentos fallidos.", claveIdentificador, reg.contador);
             }
             return reg;
