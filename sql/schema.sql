@@ -112,7 +112,7 @@ CREATE INDEX idx_transferencias_fecha ON transferencias(fecha DESC);
 
 INSERT INTO usuarios (id, codigo_estudiantil, nombre_completo, correo, username, password_hash, programa_academico, semestre, rol_id, foto_perfil) VALUES
 (1, 'ADM-001', 'Administrador General UTS', 'admin@correo.uts.edu.co', 'admin', '$2a$12$lRBNzzeBThH7NiVWAaBWR..k1qF1UGEpOxZ8ZHBMBEtLYtSzP33Ae', 'Dirección de TI y Sistemas', 10, 2, 'default-avatar.svg'),
-(2, '1098765432', 'Andrés Felipe Montalvo', 'afmontalvo@correo.uts.edu.co', 'estudiante', '$2a$12$8TXc6VtB/MeL6LsTB4wtTeep/tRKNeFGRismqhuTe8FyuP60i1NsC', 'Ingeniería de Sistemas', 6, 1, 'default-avatar.svg'),
+(2, '1098765432', 'Estudiante Uteísta', 'estudiante@correo.uts.edu.co', 'estudiante', '$2a$12$8TXc6VtB/MeL6LsTB4wtTeep/tRKNeFGRismqhuTe8FyuP60i1NsC', 'Ingeniería de Sistemas', 6, 1, 'default-avatar.svg'),
 (3, '1098888777', 'María Paula Gómez', 'mp.gomez@correo.uts.edu.co', 'mariapaula', '$2a$12$8TXc6VtB/MeL6LsTB4wtTeep/tRKNeFGRismqhuTe8FyuP60i1NsC', 'Tecnología en Desarrollo de Software', 4, 1, 'default-avatar.svg');
 
 -- Cuentas de los usuarios iniciales
