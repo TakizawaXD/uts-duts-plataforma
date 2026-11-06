@@ -46,13 +46,24 @@ public class RegistroServlet extends BaseServlet {
         }
 
         if (!clave.equals(confirmarClave)) {
-            req.setAttribute("error", "Las contraseñas no coinciden.");
+            req.setAttribute("error", "Las contraseñas no son iguales.");
             forward(req, resp, "/registro.jsp");
             return;
         }
 
         if (clave.length() < 8) {
             req.setAttribute("error", "La contraseña debe tener mínimo 8 caracteres.");
+            forward(req, resp, "/registro.jsp");
+            return;
+        }
+
+        boolean tieneMayuscula = clave.matches(".*[A-Z].*");
+        boolean tieneMinuscula = clave.matches(".*[a-z].*");
+        boolean tieneNumero = clave.matches(".*[0-9].*");
+        boolean tieneEspecial = clave.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?~`].*");
+
+        if (!tieneMayuscula || !tieneMinuscula || !tieneNumero || !tieneEspecial) {
+            req.setAttribute("error", "La contraseña debe cumplir con todos los requisitos de seguridad: al menos 8 caracteres, una mayúscula (A-Z), una minúscula (a-z), un número (0-9) y un caracter especial (@, $, !, %, *, #, etc.).");
             forward(req, resp, "/registro.jsp");
             return;
         }

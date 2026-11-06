@@ -300,6 +300,195 @@
             box-shadow: 0 0 0 3px rgba(39, 82, 45, 0.12);
         }
 
+        /* Contenedor relativo para inputs de contraseña con botón Ver */
+        .password-field-wrap {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .password-field-wrap input {
+            padding-right: 44px !important;
+        }
+
+        .btn-toggle-eye {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--uts-gris);
+            border-radius: 4px;
+            transition: color 0.15s, background-color 0.15s;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            z-index: 2;
+        }
+
+        .btn-toggle-eye:hover {
+            color: var(--uts-verde-escudo);
+            background-color: rgba(39, 82, 45, 0.08);
+        }
+
+        .btn-toggle-eye:focus {
+            outline: 2px solid var(--uts-verde-limon);
+        }
+
+        /* Feedback de Coincidencia de Contraseñas en Tiempo Real */
+        .match-status-msg {
+            font-size: 12.5px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            animation: fadeInMatch 0.2s ease;
+            width: 100%;
+        }
+
+        @keyframes fadeInMatch {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .match-status-msg.error {
+            background-color: #fef2f2;
+            color: #b91c1c;
+            border: 1.5px solid #fecaca;
+        }
+
+        .match-status-msg.success {
+            background-color: #f0fdf4;
+            color: #15803d;
+            border: 1.5px solid #bbf7d0;
+        }
+
+        .input-match-error {
+            border-color: #dc2626 !important;
+            background-color: #fffafa !important;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15) !important;
+        }
+
+        .input-match-success {
+            border-color: #16a34a !important;
+            background-color: #fafffb !important;
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15) !important;
+        }
+
+        /* Panel de Seguridad y Requisitos Exigentes en Tiempo Real */
+        .password-security-panel {
+            width: 100%;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--uts-radio-base);
+            padding: 12px 14px;
+            margin-top: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .security-meter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #475569;
+        }
+
+        .security-meter-label {
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            font-family: var(--uts-fuente-titulos);
+        }
+
+        .security-meter-value {
+            font-weight: 800;
+            transition: color 0.25s ease;
+        }
+
+        /* Barra de Medidor de Fuerza de 4 segmentos */
+        .security-meter-bar {
+            display: flex;
+            gap: 5px;
+            height: 6px;
+            width: 100%;
+        }
+
+        .meter-segment {
+            flex: 1;
+            height: 100%;
+            background-color: #e2e8f0;
+            border-radius: 99px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Lista de Requisitos Exigentes en Tiempo Real */
+        .password-requirements-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 10px;
+        }
+
+        @media (max-width: 600px) {
+            .password-requirements-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .req-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11.5px;
+            color: #64748b;
+            font-weight: 600;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .req-item.met {
+            color: #166534;
+            font-weight: 700;
+        }
+
+        .req-item.unmet {
+            color: #64748b;
+        }
+
+        .req-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            font-size: 9.5px;
+            font-weight: 900;
+            background-color: #cbd5e1;
+            color: #ffffff;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .req-item.met .req-icon {
+            background-color: #16a34a;
+            color: #ffffff;
+            transform: scale(1.08);
+        }
+
         .btn-submit {
             background-color: var(--uts-verde-escudo);
             color: #ffffff;
@@ -635,16 +824,74 @@
                     
                     <div class="form-group half">
                         <label for="clave">Contraseña</label>
-                        <input type="password" id="clave" name="clave" required minlength="8" placeholder="Mínimo 8 caracteres" autocomplete="new-password">
+                        <div class="password-field-wrap">
+                            <input type="password" id="clave" name="clave" required minlength="8" placeholder="Crea tu contraseña" autocomplete="new-password">
+                            <button type="button" class="btn-toggle-eye" id="btnToggleClave" aria-label="Mostrar contraseña" title="Mostrar contraseña">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="form-group half">
                         <label for="confirmar_clave">Confirmar Contraseña</label>
-                        <input type="password" id="confirmar_clave" name="confirmar_clave" required minlength="8" placeholder="Repite tu contraseña" autocomplete="new-password">
+                        <div class="password-field-wrap">
+                            <input type="password" id="confirmar_clave" name="confirmar_clave" required minlength="8" placeholder="Repite tu contraseña" autocomplete="new-password">
+                            <button type="button" class="btn-toggle-eye" id="btnToggleConfirmarClave" aria-label="Mostrar contraseña" title="Mostrar contraseña">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- MENSAJE DE COINCIDENCIA EN TIEMPO REAL -->
+                    <div class="form-group" id="matchFeedbackWrap" style="display: none; margin-top: -4px;">
+                        <div id="matchFeedback" class="match-status-msg">
+                            <span id="matchIcon"></span>
+                            <span id="matchText"></span>
+                        </div>
+                    </div>
+
+                    <!-- PANEL DE SEGURIDAD EXIGENTE Y REQUISITOS EN TIEMPO REAL -->
+                    <div class="form-group">
+                        <div class="password-security-panel">
+                            <div class="security-meter-header">
+                                <span class="security-meter-label">Seguridad de la Contraseña</span>
+                                <span class="security-meter-value" id="strengthLabel" style="color: #64748b;">Esperando contraseña...</span>
+                            </div>
+
+                            <div class="security-meter-bar">
+                                <div class="meter-segment" id="seg1"></div>
+                                <div class="meter-segment" id="seg2"></div>
+                                <div class="meter-segment" id="seg3"></div>
+                                <div class="meter-segment" id="seg4"></div>
+                            </div>
+
+                            <ul class="password-requirements-list">
+                                <li class="req-item" id="reqLength">
+                                    <span class="req-icon">✕</span>
+                                    <span>Mínimo 8 caracteres</span>
+                                </li>
+                                <li class="req-item" id="reqUpper">
+                                    <span class="req-icon">✕</span>
+                                    <span>Al menos una mayúscula (A-Z)</span>
+                                </li>
+                                <li class="req-item" id="reqLower">
+                                    <span class="req-icon">✕</span>
+                                    <span>Al menos una minúscula (a-z)</span>
+                                </li>
+                                <li class="req-item" id="reqNumber">
+                                    <span class="req-icon">✕</span>
+                                    <span>Al menos un número (0-9)</span>
+                                </li>
+                                <li class="req-item" id="reqSpecial">
+                                    <span class="req-icon">✕</span>
+                                    <span>Al menos un símbolo (@, $, !, %, *, #, etc.)</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     
                     <div class="form-group">
-                        <button type="submit" class="btn-submit">
+                        <button type="submit" class="btn-submit" id="btnSubmit">
                             <span>Completar Registro</span>
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                         </button>
@@ -662,5 +909,192 @@
 
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputClave = document.getElementById('clave');
+            const inputConfirmar = document.getElementById('confirmar_clave');
+            const btnToggleClave = document.getElementById('btnToggleClave');
+            const btnToggleConfirmar = document.getElementById('btnToggleConfirmarClave');
+            
+            const matchWrap = document.getElementById('matchFeedbackWrap');
+            const matchFeedback = document.getElementById('matchFeedback');
+            const matchIcon = document.getElementById('matchIcon');
+            const matchText = document.getElementById('matchText');
+            
+            const strengthLabel = document.getElementById('strengthLabel');
+            const seg1 = document.getElementById('seg1');
+            const seg2 = document.getElementById('seg2');
+            const seg3 = document.getElementById('seg3');
+            const seg4 = document.getElementById('seg4');
+            
+            const reqLength = document.getElementById('reqLength');
+            const reqUpper = document.getElementById('reqUpper');
+            const reqLower = document.getElementById('reqLower');
+            const reqNumber = document.getElementById('reqNumber');
+            const reqSpecial = document.getElementById('reqSpecial');
+            
+            const form = document.querySelector('.auth-form');
+
+            const iconEyeOpen = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+            const iconEyeClosed = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
+
+            // 1. Mostrar / Ocultar Contraseña ("que se pueda ver")
+            function setupToggle(btn, input) {
+                if (!btn || !input) return;
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const isPassword = input.type === 'password';
+                    input.type = isPassword ? 'text' : 'password';
+                    btn.innerHTML = isPassword ? iconEyeClosed : iconEyeOpen;
+                    const estado = isPassword ? 'Ocultar contraseña' : 'Ver contraseña';
+                    btn.setAttribute('aria-label', estado);
+                    btn.title = estado;
+                    input.focus();
+                });
+            }
+            setupToggle(btnToggleClave, inputClave);
+            setupToggle(btnToggleConfirmar, inputConfirmar);
+
+            // 2. Actualización de requisitos individuales en tiempo real
+            function updateReq(element, isMet) {
+                if (!element) return;
+                const icon = element.querySelector('.req-icon');
+                if (isMet) {
+                    element.classList.add('met');
+                    element.classList.remove('unmet');
+                    if (icon) icon.textContent = '✓';
+                } else {
+                    element.classList.remove('met');
+                    element.classList.add('unmet');
+                    if (icon) icon.textContent = '✕';
+                }
+            }
+
+            // 3. Renderizado en tiempo real de seguridad de contraseña
+            function validatePasswordSecurity() {
+                const val = inputClave.value || '';
+                
+                const hasLength = val.length >= 8;
+                const hasUpper = /[A-Z]/.test(val);
+                const hasLower = /[a-z]/.test(val);
+                const hasNumber = /[0-9]/.test(val);
+                const hasSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/.test(val);
+
+                updateReq(reqLength, hasLength);
+                updateReq(reqUpper, hasUpper);
+                updateReq(reqLower, hasLower);
+                updateReq(reqNumber, hasNumber);
+                updateReq(reqSpecial, hasSpecial);
+
+                let score = 0;
+                if (hasLength) score++;
+                if (hasUpper) score++;
+                if (hasLower) score++;
+                if (hasNumber) score++;
+                if (hasSpecial) score++;
+
+                // Reiniciar segmentos
+                [seg1, seg2, seg3, seg4].forEach(s => {
+                    if (s) s.style.backgroundColor = '#e2e8f0';
+                });
+
+                if (val.length === 0) {
+                    strengthLabel.textContent = 'Esperando contraseña...';
+                    strengthLabel.style.color = '#64748b';
+                } else if (score <= 2) {
+                    strengthLabel.textContent = 'Débil (insegura)';
+                    strengthLabel.style.color = '#ef4444';
+                    if (seg1) seg1.style.backgroundColor = '#ef4444';
+                } else if (score === 3) {
+                    strengthLabel.textContent = 'Media (moderada)';
+                    strengthLabel.style.color = '#f97316';
+                    if (seg1) seg1.style.backgroundColor = '#f97316';
+                    if (seg2) seg2.style.backgroundColor = '#f97316';
+                } else if (score === 4) {
+                    strengthLabel.textContent = 'Fuerte (buena)';
+                    strengthLabel.style.color = '#84cc16';
+                    if (seg1) seg1.style.backgroundColor = '#84cc16';
+                    if (seg2) seg2.style.backgroundColor = '#84cc16';
+                    if (seg3) seg3.style.backgroundColor = '#84cc16';
+                } else if (score === 5) {
+                    strengthLabel.textContent = 'Muy Fuerte (excelente)';
+                    strengthLabel.style.color = '#16a34a';
+                    if (seg1) seg1.style.backgroundColor = '#16a34a';
+                    if (seg2) seg2.style.backgroundColor = '#16a34a';
+                    if (seg3) seg3.style.backgroundColor = '#16a34a';
+                    if (seg4) seg4.style.backgroundColor = '#16a34a';
+                }
+
+                validateMatch();
+            }
+
+            // 4. Validación de coincidencia en tiempo real ("si no coinciden diga que no son iguales")
+            function validateMatch() {
+                const clave = inputClave.value || '';
+                const confirmar = inputConfirmar.value || '';
+
+                if (!confirmar) {
+                    matchWrap.style.display = 'none';
+                    inputConfirmar.classList.remove('input-match-error', 'input-match-success');
+                    return;
+                }
+
+                matchWrap.style.display = 'block';
+
+                if (clave === confirmar) {
+                    matchFeedback.className = 'match-status-msg success';
+                    matchIcon.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                    matchText.textContent = 'Las contraseñas coinciden correctamente';
+                    inputConfirmar.classList.remove('input-match-error');
+                    inputConfirmar.classList.add('input-match-success');
+                } else {
+                    matchFeedback.className = 'match-status-msg error';
+                    matchIcon.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>';
+                    matchText.textContent = 'Las contraseñas no son iguales';
+                    inputConfirmar.classList.remove('input-match-success');
+                    inputConfirmar.classList.add('input-match-error');
+                }
+            }
+
+            // Escuchar eventos en tiempo real
+            inputClave.addEventListener('input', validatePasswordSecurity);
+            inputClave.addEventListener('keyup', validatePasswordSecurity);
+            inputConfirmar.addEventListener('input', validateMatch);
+            inputConfirmar.addEventListener('keyup', validateMatch);
+
+            // 5. Verificación al enviar el formulario
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    const clave = inputClave.value || '';
+                    const confirmar = inputConfirmar.value || '';
+
+                    const hasLength = clave.length >= 8;
+                    const hasUpper = /[A-Z]/.test(clave);
+                    const hasLower = /[a-z]/.test(clave);
+                    const hasNumber = /[0-9]/.test(clave);
+                    const hasSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/.test(clave);
+
+                    if (!hasLength || !hasUpper || !hasLower || !hasNumber || !hasSpecial) {
+                        e.preventDefault();
+                        alert('La contraseña no cumple con los requisitos de seguridad institucionales exigidos:\n\n• Mínimo 8 caracteres\n• Al menos una mayúscula (A-Z)\n• Al menos una minúscula (a-z)\n• Al menos un número (0-9)\n• Al menos un caracter especial (@, $, !, %, *, #, etc.)');
+                        inputClave.focus();
+                        return false;
+                    }
+
+                    if (clave !== confirmar) {
+                        e.preventDefault();
+                        matchWrap.style.display = 'block';
+                        matchFeedback.className = 'match-status-msg error';
+                        matchIcon.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>';
+                        matchText.textContent = 'Las contraseñas no son iguales';
+                        inputConfirmar.classList.add('input-match-error');
+                        inputConfirmar.focus();
+                        return false;
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
