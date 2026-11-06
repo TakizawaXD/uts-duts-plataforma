@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-    <title>Universitaria Tecnológica de Santander – UTS • Plataforma DUTS Institucional</title>
+    <title>DUTS UTS • Plataforma Financiera</title>
     <meta name="description" content="Portal oficial del Ecosistema Financiero DUTS y Méritos Académicos de las Unidades Tecnológicas de Santander UTS. Acreditada en Alta Calidad.">
     
     <meta name="theme-color" content="#0f2e1b">

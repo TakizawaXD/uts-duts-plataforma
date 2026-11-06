@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-    <title>Eventos y Recompensas DUTS - Unidades Tecnológicas de Santander</title>
+    <title>Eventos - DUTS UTS</title>
     
     <meta name="theme-color" content="#1b3d21">
     <meta name="apple-mobile-web-app-capable" content="yes">
