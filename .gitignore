@@ -8,3 +8,6 @@ target/
 maven.zip
 apache-maven-3.9.6/
 
+# Archivos de entorno y credenciales sensibles
+.env
+*.local

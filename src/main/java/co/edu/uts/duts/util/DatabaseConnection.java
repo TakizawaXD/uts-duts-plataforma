@@ -25,27 +25,23 @@ public final class DatabaseConnection {
     }
 
     private static String getUrl() {
-        String envUrl = System.getenv("DB_URL");
+        String envUrl = EnvConfig.get("DB_URL");
         if (envUrl != null && !envUrl.trim().isEmpty()) {
             return envUrl.trim();
         }
-        return "jdbc:mysql://localhost:3306/duts?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8&allowPublicKeyRetrieval=true";
+        String host = EnvConfig.get("DB_HOST", "localhost");
+        String port = EnvConfig.get("DB_PORT", "3306");
+        String name = EnvConfig.get("DB_NAME", "duts");
+        String ssl = EnvConfig.get("DB_SSL", "false");
+        return "jdbc:mysql://" + host + ":" + port + "/" + name + "?useSSL=" + ssl + "&serverTimezone=UTC&characterEncoding=UTF-8&allowPublicKeyRetrieval=true";
     }
 
     private static String getUser() {
-        String envUser = System.getenv("DB_USER");
-        if (envUser != null && !envUser.trim().isEmpty()) {
-            return envUser.trim();
-        }
-        return "root";
+        return EnvConfig.get("DB_USER", "root");
     }
 
     private static String getPassword() {
-        String envPass = System.getenv("DB_PASSWORD");
-        if (envPass != null) {
-            return envPass;
-        }
-        return "";
+        return EnvConfig.get("DB_PASSWORD", "");
     }
 
     private static HikariDataSource getDataSource() {
