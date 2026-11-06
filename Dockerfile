@@ -28,5 +28,6 @@ COPY --from=builder /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
 # Exponer puerto por defecto
 EXPOSE 8080
 
-# Iniciar servidor Tomcat adaptando dinámicamente el puerto si el entorno cloud inyecta $PORT (Render, Railway, Heroku)
-CMD ["sh", "-c", "sed -i \"s/port=\\\"8080\\\"/port=\\\"${PORT:-8080}\\\"/g\" /usr/local/tomcat/conf/server.xml && catalina.sh run"]
+# Deshabilitar puerto TCP de apagado (8005) para evitar conflictos con balanceadores cloud
+# y adaptar dinámicamente el conector HTTP al puerto asignado por Render ($PORT)
+CMD ["sh", "-c", "sed -i 's/port=\"8005\"/port=\"-1\"/g' /usr/local/tomcat/conf/server.xml && sed -i \"s/port=\\\"8080\\\"/port=\\\"${PORT:-8080}\\\"/g\" /usr/local/tomcat/conf/server.xml && catalina.sh run"]
