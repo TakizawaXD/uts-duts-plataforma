@@ -67,7 +67,8 @@ public class AuthFilter implements Filter {
         // 5. Páginas y acciones de autenticación
         boolean isAuthPage = path.equals("/login") || path.equals("/registro") 
                             || path.equals("/login.jsp") || path.equals("/registro.jsp")
-                            || path.equals("/logout") || path.equals("/index") || path.equals("/index.jsp");
+                            || path.equals("/logout") || path.equals("/index") || path.equals("/index.jsp")
+                            || path.equals("/recuperar-clave");
         
         // 6. Verificación de sesión de usuario
         HttpSession session = req.getSession(false);

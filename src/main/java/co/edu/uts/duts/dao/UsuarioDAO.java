@@ -218,6 +218,34 @@ public class UsuarioDAO {
         return null;
     }
 
+    /**
+     * Restablece la contraseña de un usuario si su identificador (código o username)
+     * y su correo institucional registrado coinciden en el sistema.
+     * Genera un nuevo hash BCrypt y actualiza la base de datos de forma segura.
+     */
+    public boolean restablecerPassword(String usernameOrCodigo, String correo, String nuevaPasswordPlana) {
+        if (usernameOrCodigo == null || correo == null || nuevaPasswordPlana == null || nuevaPasswordPlana.length() < 6) {
+            return false;
+        }
+        String sql = "UPDATE usuarios SET password_hash = ? WHERE (LOWER(username) = LOWER(?) OR LOWER(codigo_estudiantil) = LOWER(?)) AND LOWER(correo) = LOWER(?)";
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            String nuevoHash = BCrypt.hashpw(nuevaPasswordPlana, BCrypt.gensalt(12));
+            ps.setString(1, nuevoHash);
+            ps.setString(2, usernameOrCodigo.trim());
+            ps.setString(3, usernameOrCodigo.trim());
+            ps.setString(4, correo.trim());
+            int filas = ps.executeUpdate();
+            if (filas > 0) {
+                log.info("Contraseña restablecida exitosamente para identificador '{}' y correo '{}'", usernameOrCodigo, correo);
+                return true;
+            }
+        } catch (SQLException e) {
+            log.error("Error al restablecer contraseña para '{}': {}", usernameOrCodigo, e.getMessage(), e);
+        }
+        return false;
+    }
+
     private Usuario mapearUsuario(ResultSet rs) throws SQLException {
         Usuario u = new Usuario();
         u.setId(rs.getInt("id"));

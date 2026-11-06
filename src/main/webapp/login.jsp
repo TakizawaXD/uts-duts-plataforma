@@ -787,10 +787,157 @@
             color: var(--uts-verde-escudo);
             font-weight: 600;
             text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            font-family: inherit;
         }
 
         .uts-link-olvido:hover {
             text-decoration: underline;
+        }
+
+        /* Modal Institucional de Recuperación */
+        .uts-modal-recuperar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .uts-modal-recuperar__backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 46, 27, 0.65);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .uts-modal-recuperar__dialog {
+            position: relative;
+            background: #ffffff;
+            border-radius: var(--uts-radio-card);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+            width: 100%;
+            max-width: 480px;
+            padding: 28px 24px;
+            z-index: 2;
+            animation: utsModalEntrada 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            border-top: 4px solid var(--uts-verde-escudo);
+        }
+
+        @keyframes utsModalEntrada {
+            from { opacity: 0; transform: scale(0.95) translateY(12px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .uts-modal-recuperar__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            gap: 12px;
+        }
+
+        .uts-modal-badge {
+            display: inline-block;
+            background: rgba(39, 82, 45, 0.1);
+            color: var(--uts-verde-escudo);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: var(--uts-radio-pill);
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .uts-modal-title {
+            font-family: var(--uts-fuente-titulos);
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--uts-verde-oscuro);
+            line-height: 1.2;
+        }
+
+        .uts-modal-subtitle {
+            font-size: 12.5px;
+            color: var(--uts-gris);
+            margin-top: 4px;
+        }
+
+        .uts-modal-close {
+            background: none;
+            border: none;
+            font-size: 26px;
+            color: var(--uts-gris-claro);
+            cursor: pointer;
+            line-height: 1;
+            padding: 4px;
+            border-radius: var(--uts-radio-base);
+            transition: color 0.15s, background-color 0.15s;
+        }
+
+        .uts-modal-close:hover {
+            color: var(--uts-tinta);
+            background: rgba(0,0,0,0.05);
+        }
+
+        .uts-modal-alerta {
+            padding: 12px 14px;
+            border-radius: var(--uts-radio-base);
+            font-size: 13px;
+            margin-bottom: 18px;
+            line-height: 1.4;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .uts-modal-alerta--error {
+            background-color: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .uts-modal-alerta--exito {
+            background-color: #f0fdf4;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .uts-modal-recuperar__actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+            margin-top: 20px;
+            padding-top: 14px;
+            border-top: 1px solid var(--uts-borde);
+        }
+
+        .uts-modal-btn-cancel {
+            background: transparent;
+            border: 1px solid var(--uts-borde);
+            color: var(--uts-gris);
+            font-size: 13.5px;
+            font-weight: 600;
+            padding: 10px 18px;
+            border-radius: var(--uts-radio-base);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .uts-modal-btn-cancel:hover {
+            background: var(--uts-papel);
+            color: var(--uts-tinta);
         }
 
         .uts-btn-submit {
@@ -1778,7 +1925,7 @@
                     <div class="uts-form-group">
                         <label for="clave" class="uts-form-label">
                             <span>Contraseña Institucional</span>
-                            <a href="#" class="uts-link-olvido" onclick="alert('Por favor contacte a mesa de ayuda duts@correo.uts.edu.co para restablecer su clave.'); return false;">¿Olvidó su clave?</a>
+                            <button type="button" class="uts-link-olvido" onclick="abrirModalRecuperar();">¿Olvidó su clave?</button>
                         </label>
                         <div class="uts-input-wrap">
                             <span class="uts-input-icon">
@@ -2173,6 +2320,187 @@
             showSlide(0);
             startTimer();
         })();
+
+        // Funciones del Modal Institucional de Recuperación
+        function abrirModalRecuperar() {
+            const modal = document.getElementById('modalRecuperar');
+            const alertBox = document.getElementById('recuperarAlerta');
+            if (modal) {
+                modal.style.display = 'flex';
+                if (alertBox) alertBox.style.display = 'none';
+                // Copiar usuario del formulario si ya había escrito algo
+                const usuarioActual = document.getElementById('usuario');
+                const usuarioRecuperar = document.getElementById('recuperarUsuario');
+                if (usuarioActual && usuarioRecuperar && usuarioActual.value) {
+                    usuarioRecuperar.value = usuarioActual.value.trim();
+                }
+                setTimeout(() => {
+                    const primerInput = usuarioRecuperar && usuarioRecuperar.value ? 
+                        document.getElementById('recuperarCorreo') : usuarioRecuperar;
+                    if (primerInput) primerInput.focus();
+                }, 100);
+            }
+        }
+
+        function cerrarModalRecuperar() {
+            const modal = document.getElementById('modalRecuperar');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                cerrarModalRecuperar();
+            }
+        });
+
+        async function enviarRecuperacion(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btnSubmitRecuperar');
+            const alertBox = document.getElementById('recuperarAlerta');
+            const usuario = document.getElementById('recuperarUsuario').value.trim();
+            const correo = document.getElementById('recuperarCorreo').value.trim();
+            const nuevaClave = document.getElementById('recuperarNuevaClave').value;
+            const confirmarClave = document.getElementById('recuperarConfirmarClave').value;
+
+            if (nuevaClave !== confirmarClave) {
+                alertBox.className = 'uts-modal-alerta uts-modal-alerta--error';
+                alertBox.innerText = 'Las contraseñas no coinciden. Por favor verifícalas.';
+                alertBox.style.display = 'flex';
+                return;
+            }
+
+            if (nuevaClave.length < 8) {
+                alertBox.className = 'uts-modal-alerta uts-modal-alerta--error';
+                alertBox.innerText = 'La contraseña debe tener como mínimo 8 caracteres.';
+                alertBox.style.display = 'flex';
+                return;
+            }
+
+            const textoOriginal = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span>Verificando con UTS...</span>';
+            alertBox.style.display = 'none';
+
+            try {
+                const params = new URLSearchParams();
+                params.append('usuario', usuario);
+                params.append('correo', correo);
+                params.append('nuevaClave', nuevaClave);
+                params.append('confirmarClave', confirmarClave);
+
+                const response = await fetch('${pageContext.request.contextPath}/recuperar-clave', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+                    body: params.toString()
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.status === 'success') {
+                    alertBox.className = 'uts-modal-alerta uts-modal-alerta--exito';
+                    alertBox.innerText = data.message;
+                    alertBox.style.display = 'flex';
+
+                    // Actualizar el campo de login principal
+                    const inputLoginUsuario = document.getElementById('usuario');
+                    const inputLoginClave = document.getElementById('clave');
+                    if (inputLoginUsuario) inputLoginUsuario.value = usuario;
+                    if (inputLoginClave) inputLoginClave.value = '';
+
+                    setTimeout(() => {
+                        cerrarModalRecuperar();
+                        if (inputLoginClave) inputLoginClave.focus();
+                    }, 2200);
+                } else {
+                    alertBox.className = 'uts-modal-alerta uts-modal-alerta--error';
+                    alertBox.innerText = data.message || 'No se pudo restablecer la contraseña. Verifica tus datos.';
+                    alertBox.style.display = 'flex';
+                }
+            } catch (err) {
+                alertBox.className = 'uts-modal-alerta uts-modal-alerta--error';
+                alertBox.innerText = 'Error de conexión con el servidor. Intenta de nuevo.';
+                alertBox.style.display = 'flex';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = textoOriginal;
+            }
+        }
     </script>
+
+    <!-- MODAL INSTITUCIONAL: RECUPERACIÓN DE CONTRASEÑA -->
+    <div id="modalRecuperar" class="uts-modal-recuperar" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+        <div class="uts-modal-recuperar__backdrop" onclick="cerrarModalRecuperar();"></div>
+        <div class="uts-modal-recuperar__dialog">
+            <div class="uts-modal-recuperar__header">
+                <div class="uts-modal-recuperar__title-box">
+                    <span class="uts-modal-badge">Seguridad Institucional UTS</span>
+                    <h2 id="modalTitulo" class="uts-modal-title">Restablecer Contraseña</h2>
+                    <p class="uts-modal-subtitle">Ecosistema Financiero DUTS • Unidades Tecnológicas de Santander</p>
+                </div>
+                <button type="button" class="uts-modal-close" onclick="cerrarModalRecuperar();" aria-label="Cerrar">&times;</button>
+            </div>
+
+            <div id="recuperarAlerta" class="uts-modal-alerta" style="display:none;"></div>
+
+            <form id="formRecuperar" onsubmit="enviarRecuperacion(event);" class="uts-modal-form">
+                <div class="uts-form-group">
+                    <label for="recuperarUsuario" class="uts-form-label">
+                        <span>Usuario o Código Estudiantil</span>
+                    </label>
+                    <div class="uts-input-wrap">
+                        <span class="uts-input-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        </span>
+                        <input type="text" id="recuperarUsuario" name="usuario" class="uts-input-field" required placeholder="Ej: estudiante o 1098765432">
+                    </div>
+                </div>
+
+                <div class="uts-form-group">
+                    <label for="recuperarCorreo" class="uts-form-label">
+                        <span>Correo Institucional Registrado</span>
+                    </label>
+                    <div class="uts-input-wrap">
+                        <span class="uts-input-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        </span>
+                        <input type="email" id="recuperarCorreo" name="correo" class="uts-input-field" required placeholder="tu.correo@correo.uts.edu.co">
+                    </div>
+                </div>
+
+                <div class="uts-form-group">
+                    <label for="recuperarNuevaClave" class="uts-form-label">
+                        <span>Nueva Contraseña</span>
+                    </label>
+                    <div class="uts-input-wrap">
+                        <span class="uts-input-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        </span>
+                        <input type="password" id="recuperarNuevaClave" name="nuevaClave" class="uts-input-field" required minlength="8" placeholder="Mínimo 8 caracteres">
+                    </div>
+                </div>
+
+                <div class="uts-form-group">
+                    <label for="recuperarConfirmarClave" class="uts-form-label">
+                        <span>Confirmar Nueva Contraseña</span>
+                    </label>
+                    <div class="uts-input-wrap">
+                        <span class="uts-input-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        </span>
+                        <input type="password" id="recuperarConfirmarClave" name="confirmarClave" class="uts-input-field" required minlength="8" placeholder="Repite tu nueva contraseña">
+                    </div>
+                </div>
+
+                <div class="uts-modal-recuperar__actions">
+                    <button type="button" class="uts-modal-btn-cancel" onclick="cerrarModalRecuperar();">Cancelar</button>
+                    <button type="submit" id="btnSubmitRecuperar" class="uts-btn-submit" style="margin-top:0; margin-bottom:0; width:auto; padding: 11px 22px;">
+                        <span>Restablecer Contraseña</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
