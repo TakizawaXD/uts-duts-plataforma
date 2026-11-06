@@ -116,7 +116,7 @@ public final class LoginRateLimiter {
         if (intentosMap.size() > 500) {
             intentosMap.entrySet().removeIf(entry -> {
                 IntentoRegistro r = entry.getValue();
-                return (ahora - r.primerIntentoMs > VENTANA_TIEMPO_MS * 2) && (r.bloqueadoHastaMs < ahora);
+                return (ahora - r.primerIntentoMs > getVentanaTiempoMs() * 2) && (r.bloqueadoHastaMs < ahora);
             });
         }
     }

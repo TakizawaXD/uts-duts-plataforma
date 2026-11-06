@@ -56,12 +56,13 @@ public final class DatabaseConnection {
                         config.setPassword(getPassword());
                         config.setPoolName("HikariPool-UTS-DUTS");
 
-                        // Tamaño y ciclo de vida del pool
+                        // Tamaño y ciclo de vida del pool optimizados para TiDB Cloud / Base de datos remota
                         config.setMaximumPoolSize(10);
                         config.setMinimumIdle(2);
                         config.setIdleTimeout(60000);         // 1 minuto
                         config.setConnectionTimeout(30000);   // 30 segundos de timeout (tolerancia para nube remota)
-                        config.setMaxLifetime(1800000);       // 30 minutos
+                        config.setMaxLifetime(300000);        // 5 minutos (renovación preventiva para evitar cierres por firewall/cloud)
+                        config.setKeepaliveTime(30000);       // 30 segundos de ping keepalive para mantener conexión caliente
 
                         // Optimizaciones recomendadas por MySQL y HikariCP
                         config.addDataSourceProperty("cachePrepStmts", "true");
