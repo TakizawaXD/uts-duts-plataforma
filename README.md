@@ -1,7 +1,7 @@
 <div align="center">
   <img src="assets/images/banner.png" alt="UTS DUTS Banner Portada" width="100%">
   
-  # UTS DUTS — Plataforma Financiera Institucional
+  # UTS DUTS — Ecosistema de Méritos y Vida Universitaria
   ### Sistema de Recompensas y Méritos para las Unidades Tecnológicas de Santander
   
   [![Java 21](https://img.shields.io/badge/Java-21%20LTS-orange.svg?logo=openjdk&logoColor=white)](https://www.oracle.com/java/)

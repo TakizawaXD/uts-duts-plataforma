@@ -1279,7 +1279,7 @@
             <a href="${pageContext.request.contextPath}/dashboard" class="logo-container">
                 <img src="${pageContext.request.contextPath}/assets/images/logouts.png" alt="DUTS UTS">
                 <span class="logo-text">DUTS</span>
-                <span class="logo-subtext">Plataforma Financiera Institucional</span>
+                <span class="logo-subtext">Ecosistema de Méritos UTS</span>
             </a>
         </div>
         <div class="top-navbar-right">

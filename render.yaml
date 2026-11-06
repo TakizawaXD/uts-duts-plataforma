@@ -21,6 +21,6 @@ services:
       - key: DB_SSL
         value: "true"
       - key: APP_NAME
-        value: Plataforma Financiera DUTS
+        value: Ecosistema de Meritos y Vida Universitaria DUTS UTS
       - key: INSTITUCION_NOMBRE
         value: Unidades Tecnológicas de Santander

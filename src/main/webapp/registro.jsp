@@ -537,13 +537,13 @@
                 <div>
                     <span class="badge-institucional">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        Ecosistema Financiero DUTS
+                        Ecosistema de Méritos DUTS
                     </span>
                 </div>
                 
-                <h1>Únete a la<br>Simulación <span>Educativa</span></h1>
+                <h1>Comunidad Uteísta<br><span>Méritos &amp; Reconocimiento</span></h1>
                 
-                <p class="descripcion">Regístrate y comienza a administrar tus movimientos, transferencias instantáneas y recompensas institucionales de inmediato.</p>
+                <p class="descripcion">Crea tu cuenta institucional y comienza a gestionar tus méritos DUTS, transferencias seguras entre compañeros y tu avance hacia la meta de grado de 70.000 DUTS.</p>
                 
                 <div class="feature-tags">
                     <div class="feature-tag">

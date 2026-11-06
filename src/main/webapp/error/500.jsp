@@ -284,7 +284,7 @@
                     <span class="diag-code">FOLIO-ERR-${pageContext.session != null ? pageContext.session.id.substring(0, 8) : 'ANON'}</span>
                 </div>
                 <div class="diag-notice">
-                    <strong>Tus puntos DUTS y saldo están seguros.</strong> Las operaciones financieras universitarias se procesan con transacciones atómicas respaldadas en el libro mayor institucional.
+                    <strong>Tus puntos DUTS y saldo están seguros.</strong> Las operaciones y méritos universitarios se procesan con transacciones atómicas respaldadas en el libro mayor institucional.
                 </div>
             </div>
         </div>

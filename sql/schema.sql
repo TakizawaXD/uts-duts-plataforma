@@ -1,6 +1,6 @@
 -- ==========================================================
 -- SISTEMA UTS DUTS: SCRIPT DE BASE DE DATOS COMPLETO
--- Plataforma Financiera y de Méritos Institucionales UTS
+-- Ecosistema de Méritos y Vida Universitaria UTS
 -- Motor: MySQL 8.0 (InnoDB) - Soporta UTF8MB4
 -- ==========================================================
 

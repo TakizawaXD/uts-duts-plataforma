@@ -1,7 +1,7 @@
 {
-  "name": "DUTS UTS - Billetera Digital Institucional",
+  "name": "DUTS UTS - Ecosistema de Méritos y Vida Universitaria",
   "short_name": "DUTS UTS",
-  "description": "Plataforma Financiera Institucional y Billetera Digital DUTS de las Unidades Tecnológicas de Santander",
+  "description": "Ecosistema de Méritos Estudiantiles, Vida Universitaria y Billetera Digital DUTS de las Unidades Tecnológicas de Santander",
   "start_url": "./dashboard",
   "scope": "./",
   "display": "standalone",

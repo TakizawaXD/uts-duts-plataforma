@@ -128,7 +128,7 @@ public class PdfExportService {
         cTran.addElement(new Paragraph("DETALLES DE LA TRANSACCIÓN", new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, COLOR_UTS_VERDE)));
         cTran.addElement(new Paragraph("Tipo de Operación: " + tipoOperacion, new Font(Font.FontFamily.HELVETICA, 9, Font.BOLD, "INGRESO".equalsIgnoreCase(m.getTipo()) ? COLOR_INGRESO : COLOR_EGRESO)));
         cTran.addElement(new Paragraph("Estado: APROBADA Y REGISTRADA EN BD", new Font(Font.FontFamily.HELVETICA, 9, Font.BOLD, COLOR_INGRESO)));
-        cTran.addElement(new Paragraph("Canal: Plataforma Financiera Universitaria DUTS", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL, COLOR_TEXTO_MUTED)));
+        cTran.addElement(new Paragraph("Canal: Ecosistema de Méritos y Vida Universitaria DUTS UTS", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL, COLOR_TEXTO_MUTED)));
         cTran.addElement(new Paragraph("Sede Operativa: Bucaramanga (Calle de los Estudiantes)", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL, COLOR_TEXTO_MUTED)));
         cTran.addElement(new Paragraph("Moneda: DUTS (Puntos de Mérito Institucional)", new Font(Font.FontFamily.HELVETICA, 9, Font.NORMAL, COLOR_TEXTO_MUTED)));
         tInfo.addCell(cTran);

@@ -1230,7 +1230,7 @@
             <a href="${pageContext.request.contextPath}/dashboard" class="logo-container" title="Ir a Inicio">
                 <img src="${pageContext.request.contextPath}/assets/images/logouts.png" alt="DUTS UTS">
                 <span class="logo-text">DUTS</span>
-                <span class="logo-subtext">Plataforma Financiera Institucional</span>
+                <span class="logo-subtext">Ecosistema de Méritos UTS</span>
             </a>
         </div>
         <div class="top-navbar-right">
@@ -1696,7 +1696,7 @@
 
                 <div class="section-card">
                     <div class="section-header">
-                        <span class="section-title">Últimos Movimientos Financieros</span>
+                        <span class="section-title">Últimos Movimientos y Méritos</span>
                         <a href="${pageContext.request.contextPath}/movimientos" class="btn-secondary" style="font-size: 12px; padding: 5px 12px;">Ver historial completo</a>
                     </div>
                     <div class="section-body" style="padding: 0;">
@@ -1746,7 +1746,7 @@
                                 </div>
                             </c:when>
                             <c:otherwise>
-                                <div class="empty-state">No tienes movimientos financieros registrados.</div>
+                                <div class="empty-state">No tienes movimientos ni méritos registrados.</div>
                             </c:otherwise>
                         </c:choose>
                     </div>

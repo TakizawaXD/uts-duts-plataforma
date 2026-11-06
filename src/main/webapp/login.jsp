@@ -5,8 +5,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-    <title>DUTS UTS • Plataforma Financiera</title>
-    <meta name="description" content="Portal oficial del Ecosistema Financiero DUTS y Méritos Académicos de las Unidades Tecnológicas de Santander UTS. Acreditada en Alta Calidad.">
+    <title>DUTS UTS • Ecosistema de Méritos y Vida Universitaria</title>
+    <meta name="description" content="Portal oficial del Ecosistema de Méritos Estudiantiles, Vida Universitaria y Billetera Digital DUTS de las Unidades Tecnológicas de Santander UTS. Acreditada en Alta Calidad.">
+    
+    <!-- Metadatos de Previsualización en Redes y Compartidos (Open Graph / WhatsApp / Twitter) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Unidades Tecnológicas de Santander - UTS">
+    <meta property="og:title" content="DUTS UTS • Ecosistema de Méritos y Vida Universitaria">
+    <meta property="og:description" content="Ecosistema oficial de méritos estudiantiles, vida universitaria y recompensas de las Unidades Tecnológicas de Santander. Acumula los 70.000 DUTS requeridos para tu grado profesional.">
+    <meta property="og:image" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.serverPort == 80 || pageContext.request.serverPort == 443 ? '' : ':'.concat(pageContext.request.serverPort)}${pageContext.request.contextPath}/assets/images/banner-duts-presentacion.jpg">
+    <meta property="og:image:secure_url" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.serverPort == 80 || pageContext.request.serverPort == 443 ? '' : ':'.concat(pageContext.request.serverPort)}${pageContext.request.contextPath}/assets/images/banner-duts-presentacion.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="720">
+    <meta property="og:image:alt" content="Banner Oficial DUTS UTS - Ecosistema de Méritos y Vida Universitaria">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DUTS UTS • Ecosistema de Méritos y Vida Universitaria">
+    <meta name="twitter:description" content="Ecosistema oficial de méritos estudiantiles, vida universitaria y recompensas de las Unidades Tecnológicas de Santander. Acumula los 70.000 DUTS requeridos para tu grado profesional.">
+    <meta name="twitter:image" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.serverPort == 80 || pageContext.request.serverPort == 443 ? '' : ':'.concat(pageContext.request.serverPort)}${pageContext.request.contextPath}/assets/images/banner-duts-presentacion.jpg">
     
     <meta name="theme-color" content="#0f2e1b">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -416,10 +433,10 @@
             position: absolute;
             inset: 0;
             background: linear-gradient(90deg, 
-                rgba(12, 36, 21, 0.96) 0%, 
-                rgba(12, 36, 21, 0.90) 45%, 
-                rgba(12, 36, 21, 0.55) 75%, 
-                rgba(12, 36, 21, 0.25) 100%);
+                rgba(12, 36, 21, 0.88) 0%, 
+                rgba(12, 36, 21, 0.74) 48%, 
+                rgba(12, 36, 21, 0.42) 80%, 
+                rgba(12, 36, 21, 0.22) 100%);
             z-index: 1;
             pointer-events: none;
         }
@@ -493,11 +510,146 @@
         }
 
         .uts-hero-bajada {
-            font-size: 16.5px;
-            line-height: 1.55;
-            color: #e2e8f0;
-            max-width: 640px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            font-size: 15.5px;
+            line-height: 1.6;
+            color: #f1f5f9;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        .uts-hero-bajada strong {
+            color: var(--uts-verde-limon);
+            font-weight: 700;
+        }
+
+        .uts-duts-descripcion-destacada {
+            background: rgba(15, 46, 27, 0.55);
+            border-left: 3.5px solid var(--uts-verde-limon);
+            padding: 12px 16px;
+            border-radius: 0 10px 10px 0;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+        }
+
+        .uts-hero-banner-card {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #06180c;
+            border: 1.5px solid rgba(158, 204, 59, 0.45);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), 0 0 24px rgba(158, 204, 59, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            margin: 4px 0 6px;
+        }
+
+        .uts-hero-banner-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--uts-verde-limon);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55), 0 0 32px rgba(158, 204, 59, 0.25);
+        }
+
+        .uts-hero-banner-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background-color: #041007;
+        }
+
+        .uts-hero-banner-media {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .uts-hero-banner-card:hover .uts-hero-banner-media {
+            transform: scale(1.02);
+        }
+
+        .uts-hero-banner-tag {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(15, 46, 27, 0.88);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #ffffff;
+            border: 1px solid rgba(158, 204, 59, 0.4);
+            padding: 5px 12px;
+            border-radius: var(--uts-radio-pill);
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+        }
+
+        .uts-hero-banner-tag svg {
+            color: var(--uts-verde-limon);
+        }
+
+        .uts-hero-banner-zoom-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(15, 46, 27, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 5px 12px;
+            border-radius: var(--uts-radio-pill);
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+        }
+
+        .uts-hero-banner-zoom-btn:hover {
+            background: var(--uts-verde-escudo);
+            border-color: var(--uts-verde-limon);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .uts-hero-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .uts-hero-pill-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 5px 12px;
+            border-radius: var(--uts-radio-pill);
+            font-size: 12px;
+            color: #f1f5f9;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        .uts-hero-pill-item strong {
+            color: var(--uts-verde-limon);
+        }
+
+        .uts-pill-dot {
+            color: var(--uts-verde-limon);
+            font-size: 8px;
         }
 
         .uts-hero-acciones {
@@ -1663,17 +1815,30 @@
                 padding: 3px 10px;
             }
             .uts-hero-titulo {
-                font-size: 20px;
-                line-height: 1.25;
+                font-size: 22px;
+                line-height: 1.2;
             }
             .uts-hero-bajada {
-                font-size: 12.5px;
-                line-height: 1.4;
-                display: -webkit-box;
-                -webkit-line-clamp: 3;
-                line-clamp: 3;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
+                font-size: 13.5px;
+                line-height: 1.5;
+                display: block;
+                overflow: visible;
+                color: #f1f5f9;
+            }
+            .uts-duts-descripcion-destacada {
+                padding: 10px 12px;
+                background: rgba(15, 46, 27, 0.7);
+            }
+            .uts-hero-banner-card {
+                margin: 4px 0 8px;
+                border-radius: 10px;
+            }
+            .uts-hero-banner-wrapper {
+                aspect-ratio: 16 / 9;
+            }
+            .uts-hero-pill-item {
+                font-size: 11px;
+                padding: 4px 9px;
             }
             .uts-hero-acciones {
                 display: flex;
@@ -2020,26 +2185,67 @@
             <div class="uts-hero-info">
                 <div class="uts-insignia-acreditacion" id="slideBadge">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                    <span>Acreditados en Alta Calidad</span>
+                    <span>★ Acreditados en Alta Calidad • Ecosistema DUTS UTS</span>
                 </div>
 
                 <h1 class="uts-hero-titulo" id="slideTitle">
-                    Somos Universitaria <br>
-                    <span class="uts-limon">Tecnológica de Santander</span> UTS
+                    Ecosistema DUTS <br>
+                    <span class="uts-limon">Méritos y Vida Universitaria</span>
                 </h1>
 
-                <p class="uts-hero-bajada" id="slideDescription">
-                    Crecimos con la región durante más de 62 años. Hoy integramos el sistema oficial DUTS: la plataforma de méritos institucional para acumular puntos participando en semilleros, conferencias y eventos hasta cumplir la meta obligatoria de 70.000 DUTS para tu grado.
-                </p>
+                <!-- PREVISUALIZACIÓN DEL BANNER OFICIAL DUTS -->
+                <div class="uts-hero-banner-card">
+                    <div class="uts-hero-banner-wrapper">
+                        <img src="${pageContext.request.contextPath}/assets/images/banner-duts-presentacion.jpg" 
+                             alt="Banner Oficial de Presentación DUTS - Ecosistema de Méritos y Vida Universitaria UTS" 
+                             class="uts-hero-banner-media"
+                             id="utsHeroBannerMedia"
+                             loading="eager">
+                        <div class="uts-hero-banner-tag">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            <span>Previsualización Oficial DUTS UTS</span>
+                        </div>
+                        <a href="${pageContext.request.contextPath}/assets/images/banner-duts-presentacion.jpg" 
+                           target="_blank" 
+                           rel="noopener" 
+                           class="uts-hero-banner-zoom-btn"
+                           title="Abrir imagen completa en alta resolución">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                            <span>Ver Banner</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- DESCRIPCIÓN COMPLETA DEL ECOSISTEMA DUTS -->
+                <div class="uts-duts-descripcion-destacada">
+                    <p class="uts-hero-bajada" id="slideDescription">
+                        <strong>¿Qué es DUTS?</strong> Es el ecosistema digital oficial de méritos académicos, participación estudiantil y recompensas de las <strong>Unidades Tecnológicas de Santander</strong>. Acumula puntos al participar activamente en semilleros de investigación, monitorías, eventos deportivos, culturales y retos de innovación. Realiza transferencias seguras e inmediatas entre compañeros uteístas y cumple la meta institucional de <strong>70.000 DUTS</strong> requerida para habilitar tu grado profesional.
+                    </p>
+                </div>
+
+                <div class="uts-hero-pills">
+                    <div class="uts-hero-pill-item">
+                        <span class="uts-pill-dot">●</span>
+                        <span>Meta de Grado: <strong>70.000 DUTS</strong></span>
+                    </div>
+                    <div class="uts-hero-pill-item">
+                        <span class="uts-pill-dot">●</span>
+                        <span>Transferencias Entre Uteístas</span>
+                    </div>
+                    <div class="uts-hero-pill-item">
+                        <span class="uts-pill-dot">●</span>
+                        <span>Semilleros &amp; Investigación</span>
+                    </div>
+                </div>
 
                 <div class="uts-hero-acciones">
-                    <a href="#ecosistema" class="uts-btn-hero-principal" id="slideBtnAction">
-                        <span>Cumplir Requisito (70k DUTS)</span>
+                    <a href="#login-card" class="uts-btn-hero-principal" id="slideBtnAction" onclick="document.getElementById('usuario').focus();">
+                        <span>Ingresar a mi Billetera DUTS</span>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </a>
 
-                    <a href="https://www.uts.edu.co/acreditacion-en-alta-calidad/" target="_blank" rel="noopener" class="uts-btn-hero-fantasma">
-                        <span>Ver Acreditación UTS</span>
+                    <a href="${pageContext.request.contextPath}/registro" class="uts-btn-hero-fantasma">
+                        <span>Crear Cuenta (+500 DUTS)</span>
                     </a>
                 </div>
 
@@ -2228,7 +2434,7 @@
         <div class="uts-seccion-ecosistema__interior">
             <div class="uts-cabecera-bloque">
                 <span class="uts-rotulo-pilar">Innovación Académica Institucional</span>
-                <h2 class="uts-titulo-bloque">Ecosistema Financiero &amp; Vida Universitaria UTS</h2>
+                <h2 class="uts-titulo-bloque">Ecosistema de Méritos &amp; Vida Universitaria UTS</h2>
                 <p class="uts-bajada-bloque">
                     Una plataforma pionera desarrollada por las Unidades Tecnológicas de Santander para incentivar la participación estudiantil, certificar méritos académicos y gestionar tu billetera digital institucional.
                 </p>
@@ -2239,7 +2445,7 @@
                 <div class="uts-banner-showcase-card">
                     <div class="uts-banner-showcase-media">
                         <img src="${pageContext.request.contextPath}/assets/images/banner-duts-presentacion.jpg" 
-                             alt="Ecosistema Financiero Digital y Billetera de Méritos DUTS UTS" 
+                             alt="Ecosistema de Méritos y Vida Universitaria DUTS UTS" 
                              class="uts-banner-showcase-img"
                              loading="lazy">
                         <div class="uts-banner-tag-floating">
@@ -2249,9 +2455,9 @@
                     </div>
                     <div class="uts-banner-showcase-content">
                         <span class="uts-banner-mini-badge">Previsualización del Ecosistema</span>
-                        <h3 class="uts-banner-showcase-title">¿Qué es la Plataforma DUTS?</h3>
+                        <h3 class="uts-banner-showcase-title">¿Cómo Funciona el Ecosistema DUTS UTS?</h3>
                         <p class="uts-banner-showcase-text">
-                            <strong>DUTS</strong> es el sistema financiero digital y billetera de méritos académicos de las <strong>Unidades Tecnológicas de Santander</strong>. Permite a los estudiantes acumular puntos participando en semilleros, conferencias, eventos deportivos y retos de innovación hasta alcanzar la meta obligatoria de <strong>70.000 DUTS</strong> para obtener el grado profesional.
+                            <strong>DUTS</strong> es el ecosistema institucional de méritos académicos, vida estudiantil y reconocimiento de las <strong>Unidades Tecnológicas de Santander</strong>. Permite a los estudiantes acumular puntos participando en semilleros, conferencias, eventos deportivos y retos de innovación hasta alcanzar la meta obligatoria de <strong>70.000 DUTS</strong> para obtener el grado profesional.
                         </p>
                         <div class="uts-banner-features-mini">
                             <div class="uts-banner-feature-item">
@@ -2430,15 +2636,15 @@
                 {
                     bg: '${pageContext.request.contextPath}/assets/images/banner-duts-presentacion.jpg',
                     badge: '★ Ecosistema Oficial DUTS UTS',
-                    title: 'Plataforma DUTS <br><span class="uts-limon">Ecosistema Financiero Digital</span>',
-                    desc: 'Billetera oficial de méritos académicos de las Unidades Tecnológicas de Santander. Acumula los 70.000 DUTS requeridos para tu grado profesional participando en semilleros, foros y actividades certificadas.',
-                    btnText: 'Cumplir Requisito (70k DUTS)'
+                    title: 'Ecosistema DUTS <br><span class="uts-limon">Méritos y Vida Universitaria</span>',
+                    desc: '<strong>¿Qué es DUTS?</strong> Es el ecosistema digital oficial de méritos académicos, participación estudiantil y recompensas de las <strong>Unidades Tecnológicas de Santander</strong>. Acumula puntos en semilleros, conferencias, eventos deportivos y retos de innovación. Realiza transferencias seguras entre uteístas y cumple la meta de <strong>70.000 DUTS</strong> requerida para habilitar tu grado profesional.',
+                    btnText: 'Ingresar a mi Billetera DUTS'
                 },
                 {
                     bg: '${pageContext.request.contextPath}/assets/images/banner-inscripciones.jpg',
                     badge: '★ Convocatorias 2026-II Abiertas',
                     title: 'Inscripciones Abiertas <br><span class="uts-limon">Periodo 2026 - 2027</span>',
-                    desc: 'Inscríbete a los programas de pregrado con Política de Gratuidad. Participa en los semilleros del Centro de Investigaciones y recibe transferencias directas de méritos DUTS en tu billetera digital.',
+                    desc: 'Inscríbete a los programas de pregrado con Política de Gratuidad. Participa en los semilleros del Centro de Investigaciones y recibe abonos de méritos DUTS en tu billetera digital.',
                     btnText: 'Conocer Convocatorias'
                 },
                 {
@@ -2674,7 +2880,7 @@
                 <div class="uts-modal-recuperar__title-box">
                     <span class="uts-modal-badge">Seguridad Institucional UTS</span>
                     <h2 id="modalTitulo" class="uts-modal-title">Restablecer Contraseña</h2>
-                    <p class="uts-modal-subtitle">Ecosistema Financiero DUTS • Unidades Tecnológicas de Santander</p>
+                    <p class="uts-modal-subtitle">Ecosistema de Méritos DUTS • Unidades Tecnológicas de Santander</p>
                 </div>
                 <button type="button" class="uts-modal-close" onclick="cerrarModalRecuperar();" aria-label="Cerrar">&times;</button>
             </div>
