@@ -25,8 +25,8 @@ RUN rm -rf /usr/local/tomcat/webapps/*
 # Copiar el archivo WAR como ROOT para que responda en la raíz /
 COPY --from=builder /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
 
-# Puerto estándar de despliegue cloud
+# Exponer puerto por defecto
 EXPOSE 8080
 
-# Iniciar servidor Tomcat
-CMD ["catalina.sh", "run"]
+# Iniciar servidor Tomcat adaptando dinámicamente el puerto si el entorno cloud inyecta $PORT (Render, Railway, Heroku)
+CMD ["sh", "-c", "sed -i \"s/port=\\\"8080\\\"/port=\\\"${PORT:-8080}\\\"/g\" /usr/local/tomcat/conf/server.xml && catalina.sh run"]

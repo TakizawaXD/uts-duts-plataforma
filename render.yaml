@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: uts-duts-plataforma
+    runtime: docker
+    plan: free
+    region: oregon # Misma región de AWS (us-west-2) de TiDB Cloud para latencia ultrabaja
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DB_HOST
+        value: gateway01.us-west-2.prod.aws.tidbcloud.com
+      - key: DB_PORT
+        value: "4000"
+      - key: DB_NAME
+        value: duts
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_SSL
+        value: "true"
+      - key: APP_NAME
+        value: Plataforma Financiera DUTS
+      - key: INSTITUCION_NOMBRE
+        value: Unidades Tecnológicas de Santander
