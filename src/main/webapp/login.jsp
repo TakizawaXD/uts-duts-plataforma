@@ -1170,6 +1170,197 @@
             line-height: 1.5;
         }
 
+        /* Banner Oficial de Presentación DUTS */
+        .uts-banner-showcase-container {
+            margin-bottom: 36px;
+        }
+
+        .uts-banner-showcase-card {
+            background: #ffffff;
+            border-radius: var(--uts-radio-card);
+            border: 1.5px solid var(--uts-borde);
+            box-shadow: var(--uts-sombra-tarjeta);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            transition: all 0.3s ease;
+        }
+
+        .uts-banner-showcase-card:hover {
+            box-shadow: 0 24px 50px -12px rgba(15, 46, 27, 0.28);
+            border-color: rgba(39, 82, 45, 0.3);
+        }
+
+        .uts-banner-showcase-media {
+            position: relative;
+            background: #06180c;
+            overflow: hidden;
+            min-height: 340px;
+        }
+
+        .uts-banner-showcase-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .uts-banner-showcase-card:hover .uts-banner-showcase-img {
+            transform: scale(1.025);
+        }
+
+        .uts-banner-tag-floating {
+            position: absolute;
+            bottom: 14px;
+            left: 14px;
+            background: rgba(15, 46, 27, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #ffffff;
+            border: 1px solid rgba(158, 204, 59, 0.4);
+            padding: 6px 12px;
+            border-radius: var(--uts-radio-pill);
+            font-size: 11.5px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .uts-banner-tag-floating svg {
+            color: var(--uts-verde-limon);
+        }
+
+        .uts-banner-showcase-content {
+            padding: 36px 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .uts-banner-mini-badge {
+            display: inline-block;
+            background: rgba(39, 82, 45, 0.1);
+            color: var(--uts-verde-escudo);
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: var(--uts-radio-pill);
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            align-self: flex-start;
+        }
+
+        .uts-banner-showcase-title {
+            font-family: var(--uts-fuente-titulos);
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--uts-verde-oscuro);
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .uts-banner-showcase-text {
+            font-size: 14.5px;
+            color: var(--uts-gris);
+            line-height: 1.55;
+            margin-bottom: 18px;
+        }
+
+        .uts-banner-features-mini {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .uts-banner-feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13.5px;
+            color: #334155;
+            line-height: 1.4;
+        }
+
+        .uts-feature-bullet {
+            color: var(--uts-verde-escudo);
+            font-weight: 900;
+            font-size: 14px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .uts-banner-showcase-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .uts-btn-banner-login {
+            background-color: var(--uts-verde-escudo);
+            color: #ffffff;
+            font-family: var(--uts-fuente-titulos);
+            font-size: 13.5px;
+            font-weight: 800;
+            padding: 10px 18px;
+            border-radius: var(--uts-radio-base);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(39, 82, 45, 0.2);
+            text-decoration: none;
+        }
+
+        .uts-btn-banner-login:hover {
+            background-color: var(--uts-verde-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(39, 82, 45, 0.3);
+            color: #ffffff;
+        }
+
+        .uts-btn-banner-registro {
+            background-color: transparent;
+            color: var(--uts-verde-escudo);
+            border: 1.5px solid var(--uts-verde-escudo);
+            font-family: var(--uts-fuente-titulos);
+            font-size: 13.5px;
+            font-weight: 700;
+            padding: 10px 18px;
+            border-radius: var(--uts-radio-base);
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .uts-btn-banner-registro:hover {
+            background-color: rgba(39, 82, 45, 0.08);
+            border-color: var(--uts-verde-hover);
+        }
+
+        @media (max-width: 900px) {
+            .uts-banner-showcase-card {
+                grid-template-columns: 1fr;
+            }
+
+            .uts-banner-showcase-media {
+                min-height: 240px;
+                max-height: 320px;
+            }
+
+            .uts-banner-showcase-content {
+                padding: 24px 20px;
+            }
+
+            .uts-banner-showcase-title {
+                font-size: 22px;
+            }
+        }
+
         .uts-grid-beneficios {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -1817,7 +2008,7 @@
         </div>
     </nav>
 
-    <section class="uts-hero-principal" id="utsHeroBanner" style="background-image: url('${pageContext.request.contextPath}/assets/images/banner-portada-01.jpg');">
+    <section class="uts-hero-principal" id="utsHeroBanner" style="background-image: url('${pageContext.request.contextPath}/assets/images/banner-duts-presentacion.jpg');">
         <div class="uts-hero-velo"></div>
 
         <img src="${pageContext.request.contextPath}/assets/images/sello-acreditacion.svg" 
@@ -2043,6 +2234,52 @@
                 </p>
             </div>
 
+            <!-- BANNER OFICIAL DE PRESENTACIÓN DUTS -->
+            <div class="uts-banner-showcase-container">
+                <div class="uts-banner-showcase-card">
+                    <div class="uts-banner-showcase-media">
+                        <img src="${pageContext.request.contextPath}/assets/images/banner-duts-presentacion.jpg" 
+                             alt="Ecosistema Financiero Digital y Billetera de Méritos DUTS UTS" 
+                             class="uts-banner-showcase-img"
+                             loading="lazy">
+                        <div class="uts-banner-tag-floating">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            <span>Ecosistema Oficial DUTS • Meta 70.000 DUTS</span>
+                        </div>
+                    </div>
+                    <div class="uts-banner-showcase-content">
+                        <span class="uts-banner-mini-badge">Previsualización del Ecosistema</span>
+                        <h3 class="uts-banner-showcase-title">¿Qué es la Plataforma DUTS?</h3>
+                        <p class="uts-banner-showcase-text">
+                            <strong>DUTS</strong> es el sistema financiero digital y billetera de méritos académicos de las <strong>Unidades Tecnológicas de Santander</strong>. Permite a los estudiantes acumular puntos participando en semilleros, conferencias, eventos deportivos y retos de innovación hasta alcanzar la meta obligatoria de <strong>70.000 DUTS</strong> para obtener el grado profesional.
+                        </p>
+                        <div class="uts-banner-features-mini">
+                            <div class="uts-banner-feature-item">
+                                <span class="uts-feature-bullet">✓</span>
+                                <span>Billetera móvil con saldo y transferencias inmediatas entre estudiantes</span>
+                            </div>
+                            <div class="uts-banner-feature-item">
+                                <span class="uts-feature-bullet">✓</span>
+                                <span>Certificación automática de méritos extracurriculares e investigación</span>
+                            </div>
+                            <div class="uts-banner-feature-item">
+                                <span class="uts-feature-bullet">✓</span>
+                                <span>Comprobantes oficiales de movimientos en PDF con validación criptográfica</span>
+                            </div>
+                        </div>
+                        <div class="uts-banner-showcase-actions">
+                            <a href="#login-card" class="uts-btn-banner-login" onclick="document.getElementById('usuario').focus();">
+                                <span>Ingresar a mi Billetera DUTS</span>
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </a>
+                            <a href="${pageContext.request.contextPath}/registro" class="uts-btn-banner-registro">
+                                <span>Crear Cuenta (+500 DUTS)</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="uts-grid-beneficios">
                 <div class="uts-card-beneficio">
                     <div>
@@ -2191,10 +2428,10 @@
         (function() {
             const slidesData = [
                 {
-                    bg: '${pageContext.request.contextPath}/assets/images/banner-portada-01.jpg',
-                    badge: '★ Acreditados en Alta Calidad',
-                    title: 'Somos Universitaria <br><span class="uts-limon">Tecnológica de Santander</span> UTS',
-                    desc: 'Crecimos con la región durante más de 62 años. Hoy integramos el sistema oficial DUTS: la plataforma de méritos institucional para acumular puntos participando en semilleros, conferencias y eventos hasta cumplir la meta obligatoria de 70.000 DUTS para tu grado.',
+                    bg: '${pageContext.request.contextPath}/assets/images/banner-duts-presentacion.jpg',
+                    badge: '★ Ecosistema Oficial DUTS UTS',
+                    title: 'Plataforma DUTS <br><span class="uts-limon">Ecosistema Financiero Digital</span>',
+                    desc: 'Billetera oficial de méritos académicos de las Unidades Tecnológicas de Santander. Acumula los 70.000 DUTS requeridos para tu grado profesional participando en semilleros, foros y actividades certificadas.',
                     btnText: 'Cumplir Requisito (70k DUTS)'
                 },
                 {
