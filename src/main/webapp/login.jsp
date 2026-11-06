@@ -1,5 +1,34 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%
+    String xfProto = request.getHeader("X-Forwarded-Proto");
+    String xfHost = request.getHeader("X-Forwarded-Host");
+    String host = request.getHeader("Host");
+    if (host == null || host.isEmpty()) {
+        host = request.getServerName();
+    }
+    String scheme = (xfProto != null && !xfProto.isEmpty()) ? xfProto : request.getScheme();
+    String serverName = (xfHost != null && !xfHost.isEmpty()) ? xfHost : host;
+
+    if (serverName.contains("onrender.com")) {
+        scheme = "https";
+        if (serverName.contains(":")) {
+            serverName = serverName.split(":")[0];
+        }
+    } else if (serverName.contains(":")) {
+        if (serverName.endsWith(":80") || serverName.endsWith(":443")) {
+            serverName = serverName.split(":")[0];
+        }
+    } else if (request.getServerPort() != 80 && request.getServerPort() != 443 && !serverName.contains(":")) {
+        serverName = serverName + ":" + request.getServerPort();
+    }
+    
+    String cPath = request.getContextPath();
+    String appBaseUrl = scheme + "://" + serverName + cPath;
+    String ogImageUrl = appBaseUrl + "/public/banner.png";
+    request.setAttribute("ogAppBaseUrl", appBaseUrl);
+    request.setAttribute("ogImageUrl", ogImageUrl);
+%>
 <!DOCTYPE html>
 <html lang="es-CO">
 <head>
@@ -8,22 +37,26 @@
     <title>DUTS UTS • Ecosistema de Méritos y Vida Universitaria</title>
     <meta name="description" content="Portal oficial del Ecosistema de Méritos Estudiantiles, Vida Universitaria y Billetera Digital DUTS de las Unidades Tecnológicas de Santander UTS. Acreditada en Alta Calidad.">
     
-    <!-- Metadatos de Previsualización en Redes y Compartidos (Open Graph / WhatsApp / Twitter) -->
+    <!-- Metadatos de Previsualización en Redes y Compartidos (Open Graph / WhatsApp / Facebook / Twitter) -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Unidades Tecnológicas de Santander - UTS">
+    <meta property="og:url" content="${ogAppBaseUrl}/index">
     <meta property="og:title" content="DUTS UTS • Ecosistema de Méritos y Vida Universitaria">
     <meta property="og:description" content="Ecosistema oficial de méritos estudiantiles, vida universitaria y recompensas de las Unidades Tecnológicas de Santander. Acumula los 70.000 DUTS requeridos para tu grado profesional.">
-    <meta property="og:image" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.serverPort == 80 || pageContext.request.serverPort == 443 ? '' : ':'.concat(pageContext.request.serverPort)}${pageContext.request.contextPath}/assets/images/banner-duts-presentacion.jpg">
-    <meta property="og:image:secure_url" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.serverPort == 80 || pageContext.request.serverPort == 443 ? '' : ':'.concat(pageContext.request.serverPort)}${pageContext.request.contextPath}/assets/images/banner-duts-presentacion.jpg">
-    <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:width" content="1280">
-    <meta property="og:image:height" content="720">
+    <meta property="og:image" content="${ogImageUrl}">
+    <meta property="og:image:url" content="${ogImageUrl}">
+    <meta property="og:image:secure_url" content="${ogImageUrl}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="726">
+    <meta property="og:image:height" content="402">
     <meta property="og:image:alt" content="Banner Oficial DUTS UTS - Ecosistema de Méritos y Vida Universitaria">
+    <link rel="image_src" href="${ogImageUrl}">
     
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="DUTS UTS • Ecosistema de Méritos y Vida Universitaria">
     <meta name="twitter:description" content="Ecosistema oficial de méritos estudiantiles, vida universitaria y recompensas de las Unidades Tecnológicas de Santander. Acumula los 70.000 DUTS requeridos para tu grado profesional.">
-    <meta name="twitter:image" content="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.serverPort == 80 || pageContext.request.serverPort == 443 ? '' : ':'.concat(pageContext.request.serverPort)}${pageContext.request.contextPath}/assets/images/banner-duts-presentacion.jpg">
+    <meta name="twitter:image" content="${ogImageUrl}">
+    <meta name="twitter:image:alt" content="Banner Oficial DUTS UTS - Ecosistema de Méritos y Vida Universitaria">
     
     <meta name="theme-color" content="#0f2e1b">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -2173,7 +2206,7 @@
         </div>
     </nav>
 
-    <section class="uts-hero-principal" id="utsHeroBanner" style="background-image: url('${pageContext.request.contextPath}/assets/images/banner-duts-presentacion.jpg');">
+    <section class="uts-hero-principal" id="utsHeroBanner" style="background-image: url('${pageContext.request.contextPath}/public/banner.png');">
         <div class="uts-hero-velo"></div>
 
         <img src="${pageContext.request.contextPath}/assets/images/sello-acreditacion.svg" 
@@ -2196,7 +2229,7 @@
                 <!-- PREVISUALIZACIÓN DEL BANNER OFICIAL DUTS -->
                 <div class="uts-hero-banner-card">
                     <div class="uts-hero-banner-wrapper">
-                        <img src="${pageContext.request.contextPath}/assets/images/banner-duts-presentacion.jpg" 
+                        <img src="${pageContext.request.contextPath}/public/banner.png" 
                              alt="Banner Oficial de Presentación DUTS - Ecosistema de Méritos y Vida Universitaria UTS" 
                              class="uts-hero-banner-media"
                              id="utsHeroBannerMedia"
@@ -2205,7 +2238,7 @@
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                             <span>Previsualización Oficial DUTS UTS</span>
                         </div>
-                        <a href="${pageContext.request.contextPath}/assets/images/banner-duts-presentacion.jpg" 
+                        <a href="${pageContext.request.contextPath}/public/banner.png" 
                            target="_blank" 
                            rel="noopener" 
                            class="uts-hero-banner-zoom-btn"
@@ -2444,7 +2477,7 @@
             <div class="uts-banner-showcase-container">
                 <div class="uts-banner-showcase-card">
                     <div class="uts-banner-showcase-media">
-                        <img src="${pageContext.request.contextPath}/assets/images/banner-duts-presentacion.jpg" 
+                        <img src="${pageContext.request.contextPath}/public/banner.png" 
                              alt="Ecosistema de Méritos y Vida Universitaria DUTS UTS" 
                              class="uts-banner-showcase-img"
                              loading="lazy">
@@ -2634,7 +2667,7 @@
         (function() {
             const slidesData = [
                 {
-                    bg: '${pageContext.request.contextPath}/assets/images/banner-duts-presentacion.jpg',
+                    bg: '${pageContext.request.contextPath}/public/banner.png',
                     badge: '★ Ecosistema Oficial DUTS UTS',
                     title: 'Ecosistema DUTS <br><span class="uts-limon">Méritos y Vida Universitaria</span>',
                     desc: '<strong>¿Qué es DUTS?</strong> Es el ecosistema digital oficial de méritos académicos, participación estudiantil y recompensas de las <strong>Unidades Tecnológicas de Santander</strong>. Acumula puntos en semilleros, conferencias, eventos deportivos y retos de innovación. Realiza transferencias seguras entre uteístas y cumple la meta de <strong>70.000 DUTS</strong> requerida para habilitar tu grado profesional.',

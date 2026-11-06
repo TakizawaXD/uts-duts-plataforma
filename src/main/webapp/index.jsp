@@ -3,7 +3,7 @@
     HttpSession sesion = request.getSession(false);
     if (sesion != null && sesion.getAttribute("usuario") != null) {
         response.sendRedirect(request.getContextPath() + "/dashboard");
-    } else {
-        response.sendRedirect(request.getContextPath() + "/index");
+        return;
     }
+    request.getRequestDispatcher("/login.jsp").forward(request, response);
 %>

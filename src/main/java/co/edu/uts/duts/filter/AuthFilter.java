@@ -53,7 +53,7 @@ public class AuthFilter implements Filter {
         }
         
         // 2. Recursos estáticos y utilitarios públicos
-        boolean isStaticResource = path.startsWith("/assets/") || path.equals("/favicon.ico") || path.equals("/favicon.svg")
+        boolean isStaticResource = path.startsWith("/assets/") || path.startsWith("/public/") || path.equals("/favicon.ico") || path.equals("/favicon.svg")
                                 || path.equals("/manifest.json") || path.equals("/sw.js") || path.startsWith("/downloads/")
                                 || path.equals("/descargar-app");
                                 
