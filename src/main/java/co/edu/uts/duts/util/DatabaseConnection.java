@@ -60,7 +60,7 @@ public final class DatabaseConnection {
                         config.setMaximumPoolSize(10);
                         config.setMinimumIdle(2);
                         config.setIdleTimeout(60000);         // 1 minuto
-                        config.setConnectionTimeout(5000);    // 5 segundos de timeout
+                        config.setConnectionTimeout(30000);   // 30 segundos de timeout (tolerancia para nube remota)
                         config.setMaxLifetime(1800000);       // 30 minutos
 
                         // Optimizaciones recomendadas por MySQL y HikariCP
@@ -74,6 +74,8 @@ public final class DatabaseConnection {
                         config.addDataSourceProperty("cacheServerConfiguration", "true");
                         config.addDataSourceProperty("elideSetAutoCommits", "true");
                         config.addDataSourceProperty("maintainTimeStats", "false");
+                        config.addDataSourceProperty("connectTimeout", "30000");
+                        config.addDataSourceProperty("socketTimeout", "60000");
 
                         dataSource = new HikariDataSource(config);
                         log.info("Pool de conexiones HikariCP inicializado exitosamente hacia: {}", getUrl());
