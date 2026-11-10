@@ -103,7 +103,7 @@ El ecosistema transaccional DUTS garantiza un flujo paso a paso claro y auditabl
 
 ## Estructura del Proyecto y Módulos
 
-El proyecto sigue rigurosamente el estándar Maven Standard Directory Layout (`src/main/java` y `src/main/webapp`):
+El proyecto separa el código en dos carpetas: `backend/` (lógica Java y base de datos) y `frontend/` (vistas JSP y recursos estáticos). El `pom.xml` raíz las une en un único WAR (`sourceDirectory` → `backend/src/main/java`, `warSourceDirectory` → `frontend/webapp`):
 
 <div align="center">
   <img src="assets/images/project-structure.svg" alt="Estructura del Proyecto y Módulos" width="100%">
@@ -114,8 +114,6 @@ uts-duts-plataforma/
 ├── Dockerfile                                # Configuración multicapa para despliegue en la nube
 ├── pom.xml                                   # Configuración de dependencias Maven y Tomcat
 ├── README.md                                 # Documentación técnica visual
-├── sql/
-│   └── schema.sql                            # Script de base de datos MySQL y datos semilla
 ├── assets/
 │   └── images/                               # Recursos gráficos vectoriales (SVG) y capturas
 │       ├── banner.png                        # Portada de cabecera
@@ -132,26 +130,31 @@ uts-duts-plataforma/
 │           ├── error-404.png
 │           ├── error-403.png
 │           └── error-500.png
-└── src/
-    └── main/
-        ├── java/co/edu/uts/duts/
-        │   ├── api/                          # Endpoints REST (ApiEventosServlet.java)
-        │   ├── controller/                   # Servlets controladores (Dashboard, Eventos, etc.)
-        │   ├── dao/                          # Objetos de Acceso a Datos y transacciones ACID
-        │   ├── filter/                       # CharacterEncodingFilter y AuthFilter
-        │   ├── model/                        # Entidades del dominio (Usuario, Evento, etc.)
-        │   └── util/                         # Conexión JDBC (DatabaseConnection.java)
-        └── webapp/
-            ├── WEB-INF/web.xml               # Descriptor de despliegue y mapeo de errores
-            ├── error/                        # Páginas de error institucionales (403, 404, 500)
-            ├── assets/                       # CSS vanilla, logos y favicons oficiales
-            ├── dashboard.jsp                 # Panel principal con saldos y metas
-            ├── eventos.jsp                   # Catálogo y administración de eventos
-            ├── transferencias.jsp            # Módulo de transferencias P2P
-            ├── movimientos.jsp               # Extractos y libro mayor
-            ├── perfil.jsp                    # Gestión de perfil y avatar multipart
-            ├── login.jsp / registro.jsp      # Portales de autenticación institucional
-            └── manifest.json / sw.js         # Configuración Progressive Web App (PWA)
+├── backend/                                  # BACKEND (Java + base de datos)
+│   ├── sql/
+│   │   └── schema.sql                        # Script de base de datos MySQL y datos semilla
+│   └── src/main/java/co/edu/uts/duts/
+│       ├── api/                              # Endpoints REST (ApiEventosServlet.java)
+│       ├── controller/                       # Servlets controladores (Dashboard, Eventos, etc.)
+│       ├── dao/                              # Objetos de Acceso a Datos y transacciones ACID
+│       ├── filter/                           # CharacterEncodingFilter, AuthFilter, SecurityHeaders
+│       ├── listener/                         # Ciclo de vida de la aplicación
+│       ├── model/                            # Entidades del dominio (Usuario, Evento, etc.)
+│       ├── security/                         # CSRF, rate limiting y utilidades de seguridad
+│       ├── service/                          # Lógica de negocio (transferencias, PDF, eventos)
+│       └── util/                             # Conexión JDBC y configuración de entorno
+└── frontend/                                 # FRONTEND (vistas y recursos estáticos)
+    └── webapp/
+        ├── WEB-INF/web.xml                   # Descriptor de despliegue y mapeo de errores
+        ├── error/                            # Páginas de error institucionales (403, 404, 500)
+        ├── assets/                           # CSS vanilla, logos y favicons oficiales
+        ├── dashboard.jsp                     # Panel principal con saldos y metas
+        ├── eventos.jsp                       # Catálogo y administración de eventos
+        ├── transferencias.jsp                # Módulo de transferencias P2P
+        ├── movimientos.jsp                   # Extractos y libro mayor
+        ├── perfil.jsp                        # Gestión de perfil y avatar multipart
+        ├── login.jsp / registro.jsp          # Portales de autenticación institucional
+        └── manifest.json / sw.js             # Configuración Progressive Web App (PWA)
 ```
 
 ---

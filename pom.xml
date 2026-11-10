@@ -72,11 +72,17 @@
     </dependencies>
 
     <build>
+        <!-- Backend: codigo Java (servlets, DAO, servicios) -->
+        <sourceDirectory>backend/src/main/java</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
+                <configuration>
+                    <!-- Frontend: JSP, CSS, imagenes, PWA y WEB-INF -->
+                    <warSourceDirectory>frontend/webapp</warSourceDirectory>
+                </configuration>
             </plugin>
             <!-- Plugin para ejecutar Tomcat embebido -->
             <plugin>
@@ -86,6 +92,7 @@
                 <configuration>
                     <path>/</path>
                     <port>8081</port>
+                    <warSourceDirectory>${basedir}/frontend/webapp</warSourceDirectory>
                 </configuration>
             </plugin>
         </plugins>

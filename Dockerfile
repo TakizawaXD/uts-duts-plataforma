@@ -11,7 +11,8 @@ COPY pom.xml .
 RUN mvn dependency:go-offline -B || true
 
 # Copiar código fuente y compilar empaquetado WAR
-COPY src ./src
+COPY backend ./backend
+COPY frontend ./frontend
 RUN mvn clean package -DskipTests
 
 # ==========================================
