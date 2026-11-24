@@ -24,3 +24,15 @@ services:
         value: Ecosistema de Meritos y Vida Universitaria DUTS UTS
       - key: INSTITUCION_NOMBRE
         value: Unidades Tecnológicas de Santander
+      - key: APP_URL
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: SMTP_FROM
+        sync: false

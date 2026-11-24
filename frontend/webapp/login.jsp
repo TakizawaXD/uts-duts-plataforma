@@ -2837,34 +2837,17 @@
             const alertBox = document.getElementById('recuperarAlerta');
             const usuario = document.getElementById('recuperarUsuario').value.trim();
             const correo = document.getElementById('recuperarCorreo').value.trim();
-            const nuevaClave = document.getElementById('recuperarNuevaClave').value;
-            const confirmarClave = document.getElementById('recuperarConfirmarClave').value;
-
-            if (nuevaClave !== confirmarClave) {
-                alertBox.className = 'uts-modal-alerta uts-modal-alerta--error';
-                alertBox.innerText = 'Las contraseñas no coinciden. Por favor verifícalas.';
-                alertBox.style.display = 'flex';
-                return;
-            }
-
-            if (nuevaClave.length < 8) {
-                alertBox.className = 'uts-modal-alerta uts-modal-alerta--error';
-                alertBox.innerText = 'La contraseña debe tener como mínimo 8 caracteres.';
-                alertBox.style.display = 'flex';
-                return;
-            }
 
             const textoOriginal = btn.innerHTML;
             btn.disabled = true;
-            btn.innerHTML = '<span>Verificando con UTS...</span>';
+            btn.innerHTML = '<span>Enviando...</span>';
             alertBox.style.display = 'none';
 
             try {
                 const params = new URLSearchParams();
+                params.append('action', 'solicitar');
                 params.append('usuario', usuario);
                 params.append('correo', correo);
-                params.append('nuevaClave', nuevaClave);
-                params.append('confirmarClave', confirmarClave);
 
                 const response = await fetch('${pageContext.request.contextPath}/recuperar-clave', {
                     method: 'POST',
@@ -2876,24 +2859,11 @@
 
                 if (response.ok && data.status === 'success') {
                     alertBox.className = 'uts-modal-alerta uts-modal-alerta--exito';
-                    alertBox.innerText = data.message;
-                    alertBox.style.display = 'flex';
-
-                    // Actualizar el campo de login principal
-                    const inputLoginUsuario = document.getElementById('usuario');
-                    const inputLoginClave = document.getElementById('clave');
-                    if (inputLoginUsuario) inputLoginUsuario.value = usuario;
-                    if (inputLoginClave) inputLoginClave.value = '';
-
-                    setTimeout(() => {
-                        cerrarModalRecuperar();
-                        if (inputLoginClave) inputLoginClave.focus();
-                    }, 2200);
                 } else {
                     alertBox.className = 'uts-modal-alerta uts-modal-alerta--error';
-                    alertBox.innerText = data.message || 'No se pudo restablecer la contraseña. Verifica tus datos.';
-                    alertBox.style.display = 'flex';
                 }
+                alertBox.innerText = data.message || 'No se pudo procesar la solicitud. Intenta de nuevo.';
+                alertBox.style.display = 'flex';
             } catch (err) {
                 alertBox.className = 'uts-modal-alerta uts-modal-alerta--error';
                 alertBox.innerText = 'Error de conexión con el servidor. Intenta de nuevo.';
@@ -2945,34 +2915,10 @@
                     </div>
                 </div>
 
-                <div class="uts-form-group">
-                    <label for="recuperarNuevaClave" class="uts-form-label">
-                        <span>Nueva Contraseña</span>
-                    </label>
-                    <div class="uts-input-wrap">
-                        <span class="uts-input-icon">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                        </span>
-                        <input type="password" id="recuperarNuevaClave" name="nuevaClave" class="uts-input-field" required minlength="8" placeholder="Mínimo 8 caracteres">
-                    </div>
-                </div>
-
-                <div class="uts-form-group">
-                    <label for="recuperarConfirmarClave" class="uts-form-label">
-                        <span>Confirmar Nueva Contraseña</span>
-                    </label>
-                    <div class="uts-input-wrap">
-                        <span class="uts-input-icon">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                        </span>
-                        <input type="password" id="recuperarConfirmarClave" name="confirmarClave" class="uts-input-field" required minlength="8" placeholder="Repite tu nueva contraseña">
-                    </div>
-                </div>
-
                 <div class="uts-modal-recuperar__actions">
                     <button type="button" class="uts-modal-btn-cancel" onclick="cerrarModalRecuperar();">Cancelar</button>
                     <button type="submit" id="btnSubmitRecuperar" class="uts-btn-submit" style="margin-top:0; margin-bottom:0; width:auto; padding: 11px 22px;">
-                        <span>Restablecer Contraseña</span>
+                        <span>Enviar enlace de recuperación</span>
                     </button>
                 </div>
             </form>
