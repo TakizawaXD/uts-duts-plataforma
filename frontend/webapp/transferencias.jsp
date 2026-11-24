@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -1302,7 +1303,7 @@
                         <span class="user-live-indicator" title="Sesión activa"></span>
                     </div>
                     <div class="sidebar-user-meta">
-                        <div class="sidebar-user-name" title="${sessionScope.usuario.nombreCompleto}">
+                        <div class="sidebar-user-name" title="${fn:escapeXml(sessionScope.usuario.nombreCompleto)}">
                             <c:out value="${sessionScope.usuario.nombreCompleto}"/>
                         </div>
                         <div class="sidebar-user-tag">
@@ -1517,7 +1518,7 @@
                                 </summary>
                                 <div class="user-picker-body">
                                     <form action="${pageContext.request.contextPath}/transferencias" method="GET" class="user-search-form">
-                                        <input type="text" name="buscar" value="${not empty queryBusqueda ? queryBusqueda : ''}" placeholder="Filtrar por nombre, código estudiantil o carrera..." class="user-search-input">
+                                        <input type="text" name="buscar" value="${fn:escapeXml(not empty queryBusqueda ? queryBusqueda : '')}" placeholder="Filtrar por nombre, código estudiantil o carrera..." class="user-search-input">
                                         <button type="submit" class="btn-search-user">Buscar en BD</button>
                                         <c:if test="${not empty queryBusqueda}">
                                             <a href="${pageContext.request.contextPath}/transferencias" class="btn-clear-user">Ver todos</a>
@@ -1535,7 +1536,7 @@
                                                                     <img src="${pageContext.request.contextPath}/assets/images/${dest.fotoPerfil}" alt="Avatar">
                                                                 </c:when>
                                                                 <c:otherwise>
-                                                                    <span class="user-avatar-initials">${dest.nombreCompleto.substring(0, 1)}</span>
+                                                                    <span class="user-avatar-initials">${fn:escapeXml(dest.nombreCompleto.substring(0, 1))}</span>
                                                                 </c:otherwise>
                                                             </c:choose>
                                                         </div>
@@ -1549,7 +1550,7 @@
                                                                 </c:if>
                                                             </span>
                                                         </div>
-                                                        <a href="${pageContext.request.contextPath}/transferencias?destinatario=${dest.codigoEstudiantil}#destinatario" class="btn-pick-recipient">
+                                                        <a href="${pageContext.request.contextPath}/transferencias?destinatario=${fn:escapeXml(dest.codigoEstudiantil)}#destinatario" class="btn-pick-recipient">
                                                             Seleccionar
                                                         </a>
                                                     </div>
@@ -1557,7 +1558,7 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <div class="no-users-found">
-                                                    No se encontraron estudiantes registrados con "${queryBusqueda}".
+                                                    No se encontraron estudiantes registrados con "${fn:escapeXml(queryBusqueda)}".
                                                 </div>
                                             </c:otherwise>
                                         </c:choose>
@@ -1580,14 +1581,14 @@
                                             </span>
                                             <input type="text" id="destinatario" name="destinatario" list="listaUsuariosBD" class="input-styled" 
                                                    placeholder="Código o usuario (ej: 1007451037)" 
-                                                   value="${not empty param.destinatario ? param.destinatario : ''}" 
+                                                   value="${fn:escapeXml(not empty param.destinatario ? param.destinatario : '')}" 
                                                    autocomplete="off" required>
                                         </div>
 
                                         <datalist id="listaUsuariosBD">
                                             <c:forEach items="${usuariosDisponibles}" var="dest">
-                                                <option value="${dest.codigoEstudiantil}">${dest.nombreCompleto} (@${dest.username}) - ${dest.programaAcademico != null ? dest.programaAcademico : 'Estudiante UTS'}</option>
-                                                <option value="${dest.username}">${dest.nombreCompleto} (Cód: ${dest.codigoEstudiantil})</option>
+                                                <option value="${fn:escapeXml(dest.codigoEstudiantil)}">${fn:escapeXml(dest.nombreCompleto)} (@${fn:escapeXml(dest.username)}) - ${fn:escapeXml(dest.programaAcademico != null ? dest.programaAcademico : 'Estudiante UTS')}</option>
+                                                <option value="${fn:escapeXml(dest.username)}">${fn:escapeXml(dest.nombreCompleto)} (Cód: ${fn:escapeXml(dest.codigoEstudiantil)})</option>
                                             </c:forEach>
                                         </datalist>
 
@@ -1600,7 +1601,7 @@
                                                                 <img src="${pageContext.request.contextPath}/assets/images/${destinatarioSeleccionado.fotoPerfil}" alt="Avatar">
                                                             </c:when>
                                                             <c:otherwise>
-                                                                <span class="user-avatar-initials">${destinatarioSeleccionado.nombreCompleto.substring(0, 1)}</span>
+                                                                <span class="user-avatar-initials">${fn:escapeXml(destinatarioSeleccionado.nombreCompleto.substring(0, 1))}</span>
                                                             </c:otherwise>
                                                         </c:choose>
                                                     </div>

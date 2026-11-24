@@ -74,6 +74,11 @@ public class DashboardServlet extends BaseServlet {
         String action = req.getParameter("action");
 
         if ("recargar_estimulo".equals(action)) {
+            // Emitir DUTS sin respaldo es una operacion exclusiva de administradores.
+            if (!esUsuarioAdmin(req)) {
+                resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Operacion restringida a administradores.");
+                return;
+            }
             TransferenciaDAO.ResultadoTransferencia res = transferenciaService.recargarSaldoSimulado(u.getId(), 5000.0);
             if (res.isExitoso()) {
                 setFlashSuccess(req, res.getMensaje());

@@ -1254,7 +1254,7 @@
                         <span class="user-live-indicator" title="Sesión activa"></span>
                     </div>
                     <div class="sidebar-user-meta">
-                        <div class="sidebar-user-name" title="${sessionScope.usuario.nombreCompleto}">
+                        <div class="sidebar-user-name" title="${fn:escapeXml(sessionScope.usuario.nombreCompleto)}">
                             <c:out value="${sessionScope.usuario.nombreCompleto}"/>
                         </div>
                         <div class="sidebar-user-tag">
@@ -1447,11 +1447,13 @@
                         <div class="balance-actions">
                             <a href="${pageContext.request.contextPath}/transferencias" class="btn-atena">Enviar DUTS</a>
                             
+                            <c:if test="${sessionScope.usuario.rolId == 2}">
                             <form action="${pageContext.request.contextPath}/dashboard" method="POST" class="form-inline">
                                 <input type="hidden" name="action" value="recargar_estimulo">
                                 <input type="hidden" name="csrfToken" value="${csrfToken}">
                                 <button type="submit" class="btn-secondary" title="Acreditar 5,000 DUTS de prueba a tu saldo">+ Recargar Estímulo (5,000)</button>
                             </form>
+                            </c:if>
                         </div>
                     </div>
 
@@ -1642,7 +1644,7 @@
                                             </c:otherwise>
                                         </c:choose>
                                         <div class="event-card">
-                                            <div class="event-img" style="background-image: url('${dashImgUrl}'), url('${pageContext.request.contextPath}/assets/images/evento-rally.jpg');">
+                                            <div class="event-img" style="background-image: url('${fn:escapeXml(dashImgUrl)}'), url('${pageContext.request.contextPath}/assets/images/evento-rally.jpg');">
                                                 <span class="event-category"><c:out value="${ev.categoria}"/></span>
                                             </div>
                                             <div class="event-content">

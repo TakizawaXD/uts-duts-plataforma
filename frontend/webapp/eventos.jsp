@@ -1817,7 +1817,7 @@
                         <span class="user-live-indicator" title="Sesión activa"></span>
                     </div>
                     <div class="sidebar-user-meta">
-                        <div class="sidebar-user-name" title="${sessionScope.usuario.nombreCompleto}">
+                        <div class="sidebar-user-name" title="${fn:escapeXml(sessionScope.usuario.nombreCompleto)}">
                             <c:out value="${sessionScope.usuario.nombreCompleto}"/>
                         </div>
                         <div class="sidebar-user-tag">
@@ -2044,37 +2044,37 @@
                         Universidad:
                     </span>
                     <div class="uni-tabs">
-                        <a href="${pageContext.request.contextPath}/eventos?universidad=TODAS&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill ${filtroUniversidad == 'TODAS' ? 'active' : ''}" title="Ver eventos de todas las universidades">
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=TODAS&categoria=${fn:escapeXml(filtroCategoria)}&buscar=${fn:escapeXml(filtroBuscar)}" class="uni-tab-pill ${filtroUniversidad == 'TODAS' ? 'active' : ''}" title="Ver eventos de todas las universidades">
                             <span class="uni-pill-logo-wrap icon-wrap-all">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                             </span>
                             <span>Todas</span>
                         </a>
-                        <a href="${pageContext.request.contextPath}/eventos?universidad=UTS&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-uts ${filtroUniversidad == 'UTS' ? 'active' : ''}" title="Unidades Tecnológicas de Santander">
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=UTS&categoria=${fn:escapeXml(filtroCategoria)}&buscar=${fn:escapeXml(filtroBuscar)}" class="uni-tab-pill pill-uts ${filtroUniversidad == 'UTS' ? 'active' : ''}" title="Unidades Tecnológicas de Santander">
                             <span class="uni-pill-logo-wrap">
                                 <img src="${pageContext.request.contextPath}/assets/images/logouts.png" alt="Logo UTS" loading="lazy">
                             </span>
                             <span><strong>UTS</strong> Unidades Tecnológicas</span>
                         </a>
-                        <a href="${pageContext.request.contextPath}/eventos?universidad=UIS&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-uis ${filtroUniversidad == 'UIS' ? 'active' : ''}" title="Universidad Industrial de Santander">
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=UIS&categoria=${fn:escapeXml(filtroCategoria)}&buscar=${fn:escapeXml(filtroBuscar)}" class="uni-tab-pill pill-uis ${filtroUniversidad == 'UIS' ? 'active' : ''}" title="Universidad Industrial de Santander">
                             <span class="uni-pill-logo-wrap">
                                 <img src="${pageContext.request.contextPath}/assets/images/logo-uis.svg" alt="Logo UIS" loading="lazy">
                             </span>
                             <span><strong>UIS</strong> Industrial Santander</span>
                         </a>
-                        <a href="${pageContext.request.contextPath}/eventos?universidad=UNAB&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-unab ${filtroUniversidad == 'UNAB' ? 'active' : ''}" title="Universidad Autónoma de Bucaramanga">
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=UNAB&categoria=${fn:escapeXml(filtroCategoria)}&buscar=${fn:escapeXml(filtroBuscar)}" class="uni-tab-pill pill-unab ${filtroUniversidad == 'UNAB' ? 'active' : ''}" title="Universidad Autónoma de Bucaramanga">
                             <span class="uni-pill-logo-wrap">
                                 <img src="${pageContext.request.contextPath}/assets/images/logo-unab.png" alt="Logo UNAB" loading="lazy">
                             </span>
                             <span><strong>UNAB</strong> Autónoma</span>
                         </a>
-                        <a href="${pageContext.request.contextPath}/eventos?universidad=UDES&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-udes ${filtroUniversidad == 'UDES' ? 'active' : ''}" title="Universidad de Santander">
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=UDES&categoria=${fn:escapeXml(filtroCategoria)}&buscar=${fn:escapeXml(filtroBuscar)}" class="uni-tab-pill pill-udes ${filtroUniversidad == 'UDES' ? 'active' : ''}" title="Universidad de Santander">
                             <span class="uni-pill-logo-wrap">
                                 <img src="${pageContext.request.contextPath}/assets/images/logo-udes.svg" alt="Logo UDES" loading="lazy">
                             </span>
                             <span><strong>UDES</strong> Santander</span>
                         </a>
-                        <a href="${pageContext.request.contextPath}/eventos?universidad=ASCUN&categoria=${filtroCategoria}&buscar=${filtroBuscar}" class="uni-tab-pill pill-ascun ${filtroUniversidad == 'ASCUN' ? 'active' : ''}" title="Asociación Colombiana de Universidades - Nodo Santander">
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=ASCUN&categoria=${fn:escapeXml(filtroCategoria)}&buscar=${fn:escapeXml(filtroBuscar)}" class="uni-tab-pill pill-ascun ${filtroUniversidad == 'ASCUN' ? 'active' : ''}" title="Asociación Colombiana de Universidades - Nodo Santander">
                             <span class="uni-pill-logo-wrap">
                                 <img src="${pageContext.request.contextPath}/assets/images/logo-ascun.png" alt="Logo ASCUN" loading="lazy">
                             </span>
@@ -2085,22 +2085,22 @@
 
                 <div class="catalog-toolbar">
                     <div class="category-tabs">
-                        <a href="${pageContext.request.contextPath}/eventos?universidad=${filtroUniversidad}&categoria=TODOS&buscar=${filtroBuscar}" class="category-tab-btn ${filtroCategoria == 'TODOS' ? 'active' : ''}">Todos</a>
-                        <a href="${pageContext.request.contextPath}/eventos?universidad=${filtroUniversidad}&categoria=Tecnología&buscar=${filtroBuscar}" class="category-tab-btn ${filtroCategoria == 'Tecnología' ? 'active' : ''}">Tecnología</a>
-                        <a href="${pageContext.request.contextPath}/eventos?universidad=${filtroUniversidad}&categoria=Conferencias&buscar=${filtroBuscar}" class="category-tab-btn ${filtroCategoria == 'Conferencias' ? 'active' : ''}">Conferencias</a>
-                        <a href="${pageContext.request.contextPath}/eventos?universidad=${filtroUniversidad}&categoria=Emprendimiento&buscar=${filtroBuscar}" class="category-tab-btn ${filtroCategoria == 'Emprendimiento' ? 'active' : ''}">Emprendimiento</a>
-                        <a href="${pageContext.request.contextPath}/eventos?universidad=${filtroUniversidad}&categoria=Deportivos&buscar=${filtroBuscar}" class="category-tab-btn ${filtroCategoria == 'Deportivos' ? 'active' : ''}">Deportivos</a>
-                        <a href="${pageContext.request.contextPath}/eventos?universidad=${filtroUniversidad}&categoria=Talleres&buscar=${filtroBuscar}" class="category-tab-btn ${filtroCategoria == 'Talleres' ? 'active' : ''}">Talleres</a>
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=${fn:escapeXml(filtroUniversidad)}&categoria=TODOS&buscar=${fn:escapeXml(filtroBuscar)}" class="category-tab-btn ${filtroCategoria == 'TODOS' ? 'active' : ''}">Todos</a>
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=${fn:escapeXml(filtroUniversidad)}&categoria=Tecnología&buscar=${fn:escapeXml(filtroBuscar)}" class="category-tab-btn ${filtroCategoria == 'Tecnología' ? 'active' : ''}">Tecnología</a>
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=${fn:escapeXml(filtroUniversidad)}&categoria=Conferencias&buscar=${fn:escapeXml(filtroBuscar)}" class="category-tab-btn ${filtroCategoria == 'Conferencias' ? 'active' : ''}">Conferencias</a>
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=${fn:escapeXml(filtroUniversidad)}&categoria=Emprendimiento&buscar=${fn:escapeXml(filtroBuscar)}" class="category-tab-btn ${filtroCategoria == 'Emprendimiento' ? 'active' : ''}">Emprendimiento</a>
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=${fn:escapeXml(filtroUniversidad)}&categoria=Deportivos&buscar=${fn:escapeXml(filtroBuscar)}" class="category-tab-btn ${filtroCategoria == 'Deportivos' ? 'active' : ''}">Deportivos</a>
+                        <a href="${pageContext.request.contextPath}/eventos?universidad=${fn:escapeXml(filtroUniversidad)}&categoria=Talleres&buscar=${fn:escapeXml(filtroBuscar)}" class="category-tab-btn ${filtroCategoria == 'Talleres' ? 'active' : ''}">Talleres</a>
                     </div>
 
                     <form action="${pageContext.request.contextPath}/eventos" method="GET" class="search-catalog-form">
-                        <input type="hidden" name="universidad" value="${filtroUniversidad}">
-                        <input type="hidden" name="categoria" value="${filtroCategoria}">
+                        <input type="hidden" name="universidad" value="${fn:escapeXml(filtroUniversidad)}">
+                        <input type="hidden" name="categoria" value="${fn:escapeXml(filtroCategoria)}">
                         <div class="search-catalog-wrap">
                             <span class="search-catalog-icon">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                             </span>
-                            <input type="text" name="buscar" value="${filtroBuscar}" placeholder="Buscar evento, lugar o dirección..." class="search-catalog-input">
+                            <input type="text" name="buscar" value="${fn:escapeXml(filtroBuscar)}" placeholder="Buscar evento, lugar o dirección..." class="search-catalog-input">
                         </div>
                         <button type="submit" class="btn-search-catalog">Buscar</button>
                         <c:if test="${not empty filtroBuscar or filtroCategoria != 'TODOS' or filtroUniversidad != 'TODAS'}">
@@ -2130,7 +2130,7 @@
                                      data-id="${ev.id}"
                                      data-nombre="<c:out value='${ev.nombre}'/>"
                                      data-descripcion="<c:out value='${ev.descripcion}'/>"
-                                     data-imagen="${cardImgUrl}"
+                                     data-imagen="${fn:escapeXml(cardImgUrl)}"
                                      data-categoria="<c:out value='${ev.categoria}'/>"
                                      data-universidad="<c:out value='${ev.universidad}'/>"
                                      data-modalidad="<c:out value='${not empty ev.modalidad ? ev.modalidad : \"Presencial\"}'/>"
@@ -2143,10 +2143,10 @@
                                      data-puntos="<fmt:formatNumber value='${ev.recompensaDuts}' minFractionDigits='0'/>"
                                      data-inscrito="${ev.inscrito}">
 
-                                    <div class="event-hero-banner" style="background-image: url('${cardImgUrl}'), url('${pageContext.request.contextPath}/assets/images/evento-rally.jpg');">
+                                    <div class="event-hero-banner" style="background-image: url('${fn:escapeXml(cardImgUrl)}'), url('${pageContext.request.contextPath}/assets/images/evento-rally.jpg');">
                                         <div class="banner-top-row">
                                             <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
-                                                <span class="uni-badge-card uni-badge-${ev.universidad.toLowerCase()}">
+                                                <span class="uni-badge-card uni-badge-${fn:escapeXml(ev.universidad.toLowerCase())}">
                                                     <c:choose>
                                                         <c:when test="${ev.universidad == 'UTS'}"><img src="${pageContext.request.contextPath}/assets/images/logouts.png" class="uni-badge-img" alt="UTS"></c:when>
                                                         <c:when test="${ev.universidad == 'UIS'}"><img src="${pageContext.request.contextPath}/assets/images/logo-uis.svg" class="uni-badge-img" alt="UIS"></c:when>
@@ -2285,7 +2285,7 @@
                             <div class="admin-form-grid">
                                 <div class="admin-input-group">
                                     <label for="nombre">Nombre del Evento *</label>
-                                    <input type="text" id="nombre" name="nombre" class="admin-input-field" value="${eventoEditar != null ? eventoEditar.nombre : ''}" required>
+                                    <input type="text" id="nombre" name="nombre" class="admin-input-field" value="${fn:escapeXml(eventoEditar != null ? eventoEditar.nombre : '')}" required>
                                 </div>
                                 <div class="admin-input-group">
                                     <label for="universidad">Institución Universitaria *</label>
@@ -2309,11 +2309,11 @@
                                 </div>
                                 <div class="admin-input-group">
                                     <label for="lugar">Lugar / Sede *</label>
-                                    <input type="text" id="lugar" name="lugar" class="admin-input-field" value="${eventoEditar != null ? eventoEditar.lugar : ''}" required>
+                                    <input type="text" id="lugar" name="lugar" class="admin-input-field" value="${fn:escapeXml(eventoEditar != null ? eventoEditar.lugar : '')}" required>
                                 </div>
                                 <div class="admin-input-group">
                                     <label for="direccion">Dirección Bucaramanga *</label>
-                                    <input type="text" id="direccion" name="direccion" class="admin-input-field" value="${eventoEditar != null ? eventoEditar.direccion : ''}" required>
+                                    <input type="text" id="direccion" name="direccion" class="admin-input-field" value="${fn:escapeXml(eventoEditar != null ? eventoEditar.direccion : '')}" required>
                                 </div>
                                 <div class="admin-input-group">
                                     <label for="recompensaDuts">Recompensa (DUTS) *</label>
@@ -2346,7 +2346,7 @@
 
                             <div class="admin-input-group" style="margin-bottom: 18px;">
                                 <label for="descripcion">Descripción Completa del Evento *</label>
-                                <textarea id="descripcion" name="descripcion" class="admin-input-field" rows="3" required>${eventoEditar != null ? eventoEditar.descripcion : ''}</textarea>
+                                <textarea id="descripcion" name="descripcion" class="admin-input-field" rows="3" required>${fn:escapeXml(eventoEditar != null ? eventoEditar.descripcion : '')}</textarea>
                             </div>
 
                             <div style="display: flex; gap: 10px;">
@@ -2383,7 +2383,7 @@
                                         <c:forEach items="${todosEventosAdmin != null ? todosEventosAdmin : eventos}" var="e">
                                             <tr>
                                                 <td>#<c:out value="${e.id}"/></td>
-                                                <td><span class="uni-badge-card uni-badge-${e.universidad.toLowerCase()}"><c:out value="${e.universidad}"/></span></td>
+                                                <td><span class="uni-badge-card uni-badge-${fn:escapeXml(e.universidad.toLowerCase())}"><c:out value="${e.universidad}"/></span></td>
                                                 <td><strong><c:out value="${e.nombre}"/></strong></td>
                                                 <td><c:out value="${e.categoria}"/></td>
                                                 <td><c:out value="${e.lugar}"/></td>
@@ -2591,7 +2591,12 @@
             else if (uniName === 'ASCUN') logoSrc = '${pageContext.request.contextPath}/assets/images/logo-ascun.png';
 
             modalUniBadge.className = 'uni-badge-card uni-badge-' + uniSlug;
-            modalUniBadge.innerHTML = '<img src="' + logoSrc + '" class="uni-badge-img" alt="' + uniName + '"> ' + uniName;
+            // Construccion con DOM (no innerHTML) para que el texto del evento nunca se interprete como HTML.
+            const uniImg = document.createElement('img');
+            uniImg.src = logoSrc;
+            uniImg.className = 'uni-badge-img';
+            uniImg.alt = uniName;
+            modalUniBadge.replaceChildren(uniImg, document.createTextNode(' ' + uniName));
             modalCatBadge.textContent = d.categoria || 'GENERAL';
             modalModeBadge.textContent = d.modalidad || 'Presencial';
             modalSpotsBadge.textContent = (d.cupos || '0') + ' cupos disponibles';

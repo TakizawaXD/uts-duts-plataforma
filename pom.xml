@@ -52,6 +52,12 @@
             <artifactId>itextpdf</artifactId>
             <version>5.5.13.3</version>
         </dependency>
+        <!-- JavaMail (SMTP) para enlaces de recuperacion de contrasena -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
+        </dependency>
         <!-- HikariCP High-Performance Connection Pool -->
         <dependency>
             <groupId>com.zaxxer</groupId>

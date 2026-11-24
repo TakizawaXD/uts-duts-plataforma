@@ -8,6 +8,7 @@ CREATE DATABASE IF NOT EXISTS duts CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode
 USE duts;
 
 -- 1. TABLA: usuarios
+DROP TABLE IF EXISTS password_reset_tokens;
 DROP TABLE IF EXISTS inscripciones_eventos;
 DROP TABLE IF EXISTS transferencias;
 DROP TABLE IF EXISTS movimientos_duts;
@@ -91,6 +92,18 @@ CREATE TABLE inscripciones_eventos (
     CONSTRAINT fk_inscrip_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
     CONSTRAINT fk_inscrip_evento FOREIGN KEY (evento_id) REFERENCES eventos(id) ON DELETE CASCADE,
     CONSTRAINT uq_usuario_evento UNIQUE (usuario_id, evento_id)
+) ENGINE=InnoDB;
+
+-- 7. TABLA: password_reset_tokens (Enlaces de un solo uso para recuperar la clave)
+CREATE TABLE password_reset_tokens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    token_hash CHAR(64) NOT NULL UNIQUE,
+    expira_en DATETIME NOT NULL,
+    usado TINYINT(1) NOT NULL DEFAULT 0,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_reset_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+    INDEX idx_reset_usuario (usuario_id, usado)
 ) ENGINE=InnoDB;
 
 -- ==========================================================

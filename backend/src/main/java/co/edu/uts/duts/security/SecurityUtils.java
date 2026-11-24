@@ -99,4 +99,22 @@ public final class SecurityUtils {
         String limpio = nombreOriginal.replace("..", "").replace("/", "").replace("\\", "").replace("\0", "").trim();
         return limpio.isEmpty() ? "archivo" : limpio;
     }
+
+    /**
+     * Valida la politica de contrasenas de la plataforma.
+     * Devuelve null si la clave es aceptable, o el mensaje de error a mostrar.
+     */
+    public static String validarFortalezaClave(String clave) {
+        if (clave == null || clave.length() < 8) {
+            return "La contraseña debe tener mínimo 8 caracteres.";
+        }
+        boolean tieneMayuscula = clave.matches(".*[A-Z].*");
+        boolean tieneMinuscula = clave.matches(".*[a-z].*");
+        boolean tieneNumero = clave.matches(".*[0-9].*");
+        boolean tieneEspecial = clave.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?~`].*");
+        if (!tieneMayuscula || !tieneMinuscula || !tieneNumero || !tieneEspecial) {
+            return "La contraseña debe cumplir con todos los requisitos de seguridad: al menos 8 caracteres, una mayúscula (A-Z), una minúscula (a-z), un número (0-9) y un caracter especial (@, $, !, %, *, #, etc.).";
+        }
+        return null;
+    }
 }

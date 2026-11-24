@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -957,7 +958,7 @@
                         <span class="user-live-indicator" title="Sesión activa"></span>
                     </div>
                     <div class="sidebar-user-meta">
-                        <div class="sidebar-user-name" title="${sessionScope.usuario.nombreCompleto}">
+                        <div class="sidebar-user-name" title="${fn:escapeXml(sessionScope.usuario.nombreCompleto)}">
                             <c:out value="${sessionScope.usuario.nombreCompleto}"/>
                         </div>
                         <div class="sidebar-user-tag">
@@ -1151,12 +1152,12 @@
 
                                             <div class="edit-form-group">
                                                 <label for="nombreCompleto">Nombre Completo *</label>
-                                                <input type="text" id="nombreCompleto" name="nombreCompleto" value="${usuarioPerfil.nombreCompleto}" required>
+                                                <input type="text" id="nombreCompleto" name="nombreCompleto" value="${fn:escapeXml(usuarioPerfil.nombreCompleto)}" required>
                                             </div>
 
                                             <div class="edit-form-group">
                                                 <label for="correo">Correo Institucional *</label>
-                                                <input type="email" id="correo" name="correo" value="${usuarioPerfil.correo}" required>
+                                                <input type="email" id="correo" name="correo" value="${fn:escapeXml(usuarioPerfil.correo)}" required>
                                             </div>
 
                                             <div class="edit-form-group">
@@ -1203,7 +1204,7 @@
                                         <div class="info-group">
                                             <div class="info-label">Dirección de Correo Institucional</div>
                                             <div class="info-value">
-                                                <a href="mailto:${usuarioPerfil.correo}"><c:out value="${usuarioPerfil.correo}"/></a>
+                                                <a href="mailto:${fn:escapeXml(usuarioPerfil.correo)}"><c:out value="${usuarioPerfil.correo}"/></a>
                                             </div>
                                         </div>
 

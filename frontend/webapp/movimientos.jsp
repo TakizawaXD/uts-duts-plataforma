@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -1064,7 +1065,7 @@
                         <span class="user-live-indicator" title="Sesión activa"></span>
                     </div>
                     <div class="sidebar-user-meta">
-                        <div class="sidebar-user-name" title="${sessionScope.usuario.nombreCompleto}">
+                        <div class="sidebar-user-name" title="${fn:escapeXml(sessionScope.usuario.nombreCompleto)}">
                             <c:out value="${sessionScope.usuario.nombreCompleto}"/>
                         </div>
                         <div class="sidebar-user-tag">
@@ -1260,18 +1261,18 @@
                 <div class="statement-card">
                     <div class="table-toolbar">
                         <div class="filter-tabs">
-                            <a href="${pageContext.request.contextPath}/movimientos?tipo=TODOS&buscar=${filtroBuscar}" class="tab-btn ${filtroTipo == 'TODOS' ? 'active' : ''}">Todos (${totalMovimientos})</a>
-                            <a href="${pageContext.request.contextPath}/movimientos?tipo=INGRESO&buscar=${filtroBuscar}" class="tab-btn ${filtroTipo == 'INGRESO' ? 'active' : ''}">Recibidos</a>
-                            <a href="${pageContext.request.contextPath}/movimientos?tipo=EGRESO&buscar=${filtroBuscar}" class="tab-btn ${filtroTipo == 'EGRESO' ? 'active' : ''}">Enviados</a>
+                            <a href="${pageContext.request.contextPath}/movimientos?tipo=TODOS&buscar=${fn:escapeXml(filtroBuscar)}" class="tab-btn ${filtroTipo == 'TODOS' ? 'active' : ''}">Todos (${totalMovimientos})</a>
+                            <a href="${pageContext.request.contextPath}/movimientos?tipo=INGRESO&buscar=${fn:escapeXml(filtroBuscar)}" class="tab-btn ${filtroTipo == 'INGRESO' ? 'active' : ''}">Recibidos</a>
+                            <a href="${pageContext.request.contextPath}/movimientos?tipo=EGRESO&buscar=${fn:escapeXml(filtroBuscar)}" class="tab-btn ${filtroTipo == 'EGRESO' ? 'active' : ''}">Enviados</a>
                         </div>
 
                         <form action="${pageContext.request.contextPath}/movimientos" method="GET" class="search-filter-form">
-                            <input type="hidden" name="tipo" value="${filtroTipo}">
+                            <input type="hidden" name="tipo" value="${fn:escapeXml(filtroTipo)}">
                             <div class="search-input-wrap">
                                 <span class="search-icon">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                                 </span>
-                                <input type="text" name="buscar" value="${filtroBuscar}" placeholder="Filtrar por concepto o código de referencia..." class="search-field">
+                                <input type="text" name="buscar" value="${fn:escapeXml(filtroBuscar)}" placeholder="Filtrar por concepto o código de referencia..." class="search-field">
                             </div>
                             <button type="submit" class="btn-filter-submit">Filtrar</button>
                             <c:if test="${not empty filtroBuscar or filtroTipo != 'TODOS'}">
